@@ -1,0 +1,203 @@
+﻿@model PagedList.IPagedList<Models.EF.Vendor>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Shared/_Layout.cshtml";
+}
+@section Header {
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/iCheck/all.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/select2/dist/css/select2.min.css">
+}
+<div class="box box-header">
+    <div class="content-header clearfix">
+        <h1 class="pull-left">Danh sách nhà cung cấp</h1>
+        <div class="pull-right">
+            <a class="btn bg-blue" href="/Admin/Vendor/Create"> <i class="fa fa-plus-square"></i> Add new </a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success">
+                    <i class="fa fa-download"> Export</i>
+                </button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="fa fa-file-excel"><a href="/Admin/Vendor/ExportToXML" class="fa fa-file-excel">Export to XML</a></li>
+                    <li class="fa fa-file-pdf"><a href="/Admin/Vendor/ExportToPdf" class="fa fa-file-pdf">Export to PDF</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("Index", "Vendor", FormMethod.Get))
+{
+    <div class="panel panel-default panel-search">
+        <div class="form-horizontal">
+            <div class="panel-body">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tìm kiếm</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <div class="label-wrapper">
+                                        <label class="control-label" for="SearchName">Name</label>
+                                        <div title="" data-toggle="tooltip" class="ico-help">
+                                            <i class="fa fa-question-circle"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="SearchName" name="SearchName" value="@ViewBag.SearchName" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <div class="label-wrapper">
+                                        <label class="control-label" for="SearchEmail">Email</label>
+                                        <div title="" data-toggle="tooltip" class="ico-help">
+                                            <i class="fa fa-question-circle"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="SearchEmail" name="SearchEmail" value="@ViewBag.SearchEmail" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-6">
+                                <button type="submit" id="search-manufactures" class="btn btn-primary btn-search"><i class="fa fa-search"></i> Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Danh sách nhà cung cấp</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th role="columnheader" data-field="Id" style="text-align:center" class="k-header col-lg-1">
+                                    <input id="mastercheckbox" type="checkbox">
+                                </th>
+                                <th class="col-lg-7">
+                                    Name
+                                </th>
+                                <th class="text-center col-lg-1">
+                                    Email
+                                </th>
+                                <th class="text-center col-lg-1">
+                                    Active
+                                </th>
+                                <th class="text-center col-lg-1">Edit</th>
+                                <th class="text-center col-lg-1">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr id="row_@item.Id">
+                                <td style="vertical-align: inherit ;text-align:center">
+                                    <input type="checkbox" value="@item.Id" class="checkboxGroups">
+                                </td>
+                                <td style="vertical-align:inherit">
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td style="vertical-align :inherit ; text-align:center">
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td style="vertical-align :inherit ; text-align:center">
+                                    @if (item.Active)
+                                    {
+                                        <i class="fa fa-check true-icon" style="color:#007fcc ;font-size:20px;"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-close false-icon" style="color:#d22d2d ;font-size:20px;"></i>
+
+                                    }
+                                </td>
+                                <td style="vertical-align: inherit" class=" text-center">
+                                    <a class="btn btn-primary" href="/Admin/Vendor/Edit/@item.Id"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit</a>
+                                </td>
+                                <td style="vertical-align: inherit" class=" text-center">
+                                    <a class="btn btn-danger" href="/Admin/Vendor/Delete/@item.Id"><i class="fa fa-remove"></i>&nbsp;&nbsp;Delete</a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, pageNumber => Url.Action("Index", new { pageNumber, @SearchName = @ViewBag.SearchName, @SearchEmail = @ViewBag.SearchEmail }))
+                </div>
+                <!-- /.box-body -->
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+</section>
+
+@section Footer {
+    <script src="/Assets/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/Assets/Admin/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/Assets/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="/Assets/Admin/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- date-range-picker -->
+    <script src="/Assets/Admin/bower_components/moment/min/moment.min.js"></script>
+    <script src="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/Assets/Admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="/Assets/Admin/plugins/iCheck/icheck.min.js"></script>
+    <!-- FastClick -->
+    <script src="/Assets/Admin/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/Assets/Admin/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/Assets/Admin/dist/js/demo.js"></script>
+    <!-- Page script -->
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+        })
+    </script>
+}

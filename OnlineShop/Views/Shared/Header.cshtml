@@ -1,0 +1,134 @@
+﻿<div class="header">
+    <div class="header-upper">
+        <div class="header-selectors-wrapper">
+            <div class="currency-selector desktop">
+                <select id="customerCurrency" name="customerCurrency" onchange="setLocation(this.value);">
+                    <option selected="selected" value="/changecurrency/1?returnurl=%2F">US Dollar</option>
+                    <option value="/changecurrency/6?returnurl=%2F">Euro</option>
+                </select>
+            </div>
+            <div class="currency-selector mobile mobile-selector">
+                <div class="current-currency-selector selector-title">US Dollar</div>
+                <div class="currency-selector-options mobile-collapse">
+                    <div class="selector-options-item">
+                        <input type="radio" name="currency-selector" id="currency-0" value="/changecurrency/1?returnurl=%2F" onclick="setLocation(this.value);" checked="checked" />
+                        <label for="currency-0">US Dollar</label>
+                    </div>
+                    <div class="selector-options-item">
+                        <input type="radio" name="currency-selector" id="currency-1" value="/changecurrency/6?returnurl=%2F" onclick="setLocation(this.value);" />
+                        <label for="currency-1">Euro</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-lower">
+        <div class="header-logo">
+            <a href="/" class="logo"> <img alt="Your store name" title="Your store name" src="https://localhost:44359/Content/images/thumbs/0000185_logo.png" /></a>
+        </div>
+        <div class="search-box store-search-box">
+            <div class="close-side-menu"> <span class="close-side-menu-text">Search store</span> <span class="close-side-menu-btn">Close</span> </div>
+            <form method="get" id="small-search-box-form" action="/search">
+                <input type="text" class="search-box-text" id="small-searchterms" autocomplete="off" name="q" placeholder="Search store" />
+                <input type="hidden" class="instantSearchResourceElement" data-highlightFirstFoundElement="true" data-minKeywordLength="3" data-instantSearchUrl="/instantSearchFor" data-searchPageUrl="/search" data-searchInProductDescriptions="true" data-numberOfVisibleProducts="5" />
+                <input type="submit" class="button-1 search-box-button" value="Search" />
+            </form>
+        </div>
+        <div class="header-links-wrapper">
+            <div class="header-links">
+                <ul>
+                    <li>
+                        <a href="/customer/info" class="ico-account opener">My account</a>
+                        <div class="profile-menu-box">
+                            <div class="close-side-menu"> <span class="close-side-menu-text">John</span> <span class="close-side-menu-btn">Close</span> </div> <a href="/customer/info" class="ico-account">My account</a> <a href="/logout" class="ico-logout">Log out</a>
+                        </div>
+                    </li>
+                    <li><a href="/compareproducts" class="ico-compare">Compare products list</a></li>
+                    <li>
+                        <a href="/wishlist" class="ico-wishlist"> <span class="wishlist-label">Wishlist</span> <span class="wishlist-qty">(0)</span> </a>
+                    </li>
+                </ul>
+                <div class="mobile-flyout-wrapper">
+                    <div class="close-side-menu"> <span class="close-side-menu-text">Shopping cart</span> <span class="close-side-menu-btn">Close</span> </div>
+                    <div id="flyout-cart" class="flyout-cart" data-removeItemFromCartUrl="/EmporiumTheme/RemoveItemFromCart" data-flyoutCartUrl="/EmporiumTheme/FlyoutShoppingCart">
+                        <div id="topcartlink">
+                            <a href="/cart" class="ico-cart"> <span class="cart-qty">0</span> <span class="cart-label">$0.00            </span> </a>
+                        </div>
+                        <div class="mini-shopping-cart">
+                            <div class="flyout-cart-scroll-area">
+                                <p>You have no items in your shopping cart.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-menu-parent">
+        <div class="header-menu categories-in-side-panel">
+            <div class="category-navigation-list-wrapper">
+                <span class="category-navigation-title">All Categories</span>
+                <ul class="category-navigation-list sticky-flyout"></ul>
+            </div>
+            <div class="close-menu"> <span class="close-menu-text">Menu</span> <span class="close-menu-btn">Close</span> </div>
+            <input type="hidden" value="false" id="isRtlEnabled" />
+            <ul class="top-menu">
+                <li class="all-categories">
+                    <a href="#">All Categories</a>
+                    <div class="plus-button"></div>
+                    <div class="sublist-wrap">
+                        <ul class="sublist">
+                            <li class="back-button"> <span>Back</span> </li>
+                            <li class="root-category-items">
+                                <a class="with-subcategories" href="/computers">Computers</a>
+                                <div class="plus-button"></div>
+                                <div class="sublist-wrap">
+                                    <ul class="sublist">
+                                        <li class="back-button"> <span>Back</span> </li>
+                                        <li> <a href="/desktops">Desktops</a> </li>
+                                        <li> <a href="/notebooks">Notebooks</a> </li>
+                                        <li> <a href="/software">Software</a> </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="root-category-items">
+                                <a class="with-subcategories" href="/electronics">Electronics</a>
+                                <div class="plus-button"></div>
+                                <div class="sublist-wrap">
+                                    <ul class="sublist">
+                                        <li class="back-button"> <span>Back</span> </li>
+                                        <li> <a href="/camera-photo">Camera &amp; photo</a> </li>
+                                        <li> <a href="/cell-phones">Cell phones</a> </li>
+                                        <li> <a href="/others">Others</a> </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="root-category-items">
+                                <a class="with-subcategories" href="/apparel">Apparel</a>
+                                <div class="plus-button"></div>
+                                <div class="sublist-wrap">
+                                    <ul class="sublist">
+                                        <li class="back-button"> <span>Back</span> </li>
+                                        <li> <a href="/shoes">Shoes</a> </li>
+                                        <li> <a href="/clothing">Clothing</a> </li>
+                                        <li> <a href="/accessories">Accessories</a> </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="root-category-items"> <a href="/digital-downloads">Digital downloads</a> </li>
+                            <li class="root-category-items"> <a href="/books">Books</a> </li>
+                            <li class="root-category-items"> <a href="/jewelry">Jewelry</a> </li>
+                            <li class="root-category-items"> <a href="/gift-cards">Gift Cards</a> </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="/">Home page</a></li>
+                <li><a href="/newproducts">New products</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/customer/info">My account</a></li>
+                <li><a href="/contactus">Contact us</a></li>
+            </ul>
+            <div class="mobile-menu-items"></div>
+        </div>
+    </div>
+</div>

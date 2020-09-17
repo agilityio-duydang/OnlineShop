@@ -1,0 +1,178 @@
+﻿@model PagedList.IPagedList<Models.EF.Poll>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Shared/_Layout.cshtml";
+}
+
+@section Header {
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/iCheck/all.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/select2/dist/css/select2.min.css">
+}
+
+<div class="box box-header">
+    <div class="content-header clearfix">
+        <h1 class="pull-left">Poll</h1>
+        <div class="pull-right">
+            <a class="btn bg-blue" href="/Admin/Poll/Create"> <i class="fa fa-plus-square"></i> Add new </a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success">
+                    <i class="fa fa-download"> Export</i>
+                </button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="fa fa-file-excel"><a href="/Admin/Poll/ExportToXML" class="fa fa-file-excel">Export to XML</a></li>
+                    <li class="fa fa-file-pdf"><a href="/Admin/Poll/ExportToPdf" class="fa fa-file-pdf">Export to PDF</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Poll</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Langguage</th>
+                                <th style="text-align:center">Display Order</th>
+                                <th style="text-align:center">Published</th>
+                                <th style="text-align:center">Show On Homepage</th>
+                                <th style="text-align:center">Start Date</th>
+                                <th style="text-align:center">End Date</th>
+                                <th style="text-align:center">Edit</th>
+                                <th style="text-align:center">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.Id">
+                                    <td style="vertical-align: inherit">
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td style="vertical-align: inherit">
+                                        @Html.DisplayFor(modelItem => item.LanguageId)
+                                        @*@Html.ActionLink(item.CustomerId, "Edit", "Customer", new { id = item.CustomerId }, new { id = item.CustomerId })*@
+
+                                    </td>
+                                    <td style="vertical-align: inherit" class="text-center">
+                                        @Html.DisplayFor(modelItem => item.DisplayOrder)
+                                    </td>
+                                    <td style="vertical-align: inherit" class="text-center">
+                                        @if (item.Published)
+                                        {
+                                            <i class="fa fa-check true-icon" style="color:#007fcc ;font-size:20px;"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-close false-icon" style="color:#d22d2d ;font-size:20px;"></i>
+
+                                        }
+                                    </td>
+                                    <td style="vertical-align: inherit" class="text-center">
+                                        @if (item.ShowOnHomePage)
+                                        {
+                                            <i class="fa fa-check true-icon" style="color:#007fcc ;font-size:20px;"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-close false-icon" style="color:#d22d2d ;font-size:20px;"></i>
+
+                                        }
+                                    </td>
+                                    <td style="vertical-align: inherit">
+                                        @Html.DisplayFor(modelItem => item.StartDateUtc)
+                                    </td>
+                                    <td style="vertical-align: inherit">
+                                        @Html.DisplayFor(modelItem => item.EndDateUtc)
+                                    </td>
+                                    <td style="vertical-align: inherit" class=" text-center">
+                                        <a class="btn btn-primary" href="/Admin/Poll/Edit/@item.Id"><i class="fa fa-edit"></i>&nbsp;&nbsp;Edit</a>
+                                    </td>
+                                    <td style="vertical-align: inherit" class=" text-center">
+                                        <a class="btn btn-danger" href="/Admin/Poll/Delete/@item.Id"><i class="fa fa-remove"></i>&nbsp;&nbsp;Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+                <!-- /.box-body -->
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+</section>
+@section Footer {
+    <script src="/Assets/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/Assets/Admin/bower_components/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/Assets/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="/Assets/Admin/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- date-range-picker -->
+    <script src="/Assets/Admin/bower_components/moment/min/moment.min.js"></script>
+    <script src="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/Assets/Admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="/Assets/Admin/plugins/iCheck/icheck.min.js"></script>
+    <!-- FastClick -->
+    <script src="/Assets/Admin/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/Assets/Admin/dist/js/adminlte.min.js"></script>
+
+    <!-- AdminLTE for demo purposes -->
+    <script src="/Assets/Admin/dist/js/demo.js"></script>
+    <!-- Page script -->
+    <script>
+        $(document).ready(function () {
+            $('.sidebar-menu').tree()
+        })
+    </script>
+    <script>
+        $(function () {
+
+            //Date picker
+            $('#SearchCreatedFrom').datepicker({
+                autoclose: true
+            })
+            $('#SearchCreatedTo').datepicker({
+                autoclose: true
+            })
+        })
+    </script>
+}

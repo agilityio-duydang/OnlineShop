@@ -1,0 +1,46 @@
+﻿<html>
+<head>
+    <title>Upload Example</title>
+    <script src="~/Assets/Admin/bower_components/jquery/dist/jquery.slim.min.js"></script>
+    <script src="~/Assets/Admin/bower_components/jquery/dist/jquery.slim.js"></script>
+    <script src="~/Assets/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="~/Assets/Admin/bower_components/jquery/dist/jquery.js"></script>
+    <script src="~/Assets/Admin/bower_components/jquery/dist/core.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Upload").click(function () {
+                var formData = new FormData();
+                var totalFiles = document.getElementById("FileUpload").files.length;
+                for (var i = 0; i < totalFiles; i++) {
+                    var file = document.getElementById("FileUpload").files[i];
+
+                    formData.append("FileUpload", file);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/Picture/AsyncUpload',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            $("#picture198487263image").html("<img src='" + response.imageUrl + "'/>");
+                            $("#picture198487263value input").val(response.pictureId);
+                            $("#picture198487263remove").show();
+                        }
+                    },
+                    error: function (error) {
+                        alert("errror");
+                    }
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <input type="file" id="FileUpload" multiple />
+    <input type="button" id="Upload" value="Upload" />
+</body>
+</html>

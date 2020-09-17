@@ -1,0 +1,46 @@
+﻿@model Models.EF.Product
+
+<table class="table table-bordered table-striped" id="ProductPictureList">
+    <thead>
+        <tr>
+            <td>Picture</td>
+            <td class=" text-center">Display order</td>
+            <td class=" text-center">Alt</td>
+            <td class=" text-center">Title</td>
+            <td style="text-align:center">Edit</td>
+            <td style="text-align:center">Delete</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Product_Picture_Mapping)
+        {
+            <tr>
+                <td style="width:150px ;height:150px">
+                    @if (item.PictureId > 0)
+                    {
+                        <a href='@Url.Action("DisplayPicrure", "Picture", new { Id = item.PictureId })' target="_blank">
+                            <img style="width:150px ;height:150px" src='@Url.Action("DisplayPicture", "Picture", new { Id = item.PictureId })' />
+                        </a>
+                        @*<img src="https://admin-demo.nopcommerce.com/images/thumbs/default-image_100.png">*@
+                    }
+                    @*@Html.DisplayFor(modelItem => item.Picture.PictureBinary)*@
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-2">
+                    @Html.DisplayFor(modelItem => item.DisplayOrder)
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-2">
+                    @Html.DisplayFor(modelItem => item.Picture.AltAttribute)
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-2">
+                    @Html.DisplayFor(modelItem => item.Picture.TitleAttribute)
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-2">
+                    <a class="btn btn-primary" href="/Admin/Picture/Edit/@item.PictureId"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit</a>
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-2">
+                    <a class="btn btn-danger" href="/Admin/Picture/Delete/@item.PictureId"><i class="fa fa-remove"></i>&nbsp;&nbsp;Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

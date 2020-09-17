@@ -1,0 +1,7 @@
+﻿@model string
+
+@{
+    string storeName = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.GetLocalized(x => x.Name);
+}
+
+<img alt="@storeName" title="@storeName" src="@Model" />

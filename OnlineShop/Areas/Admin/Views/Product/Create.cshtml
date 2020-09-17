@@ -1,0 +1,698 @@
+﻿@model Models.EF.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Shared/_Layout.cshtml";
+}
+@section Header {
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/iCheck/all.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/select2/dist/css/select2.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/Assets/Admin//dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/Assets/Admin/dist/css/skins/_all-skins.min.css">
+
+}
+
+@using (Html.BeginForm("Create", "Product", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="box box-header">
+        <div class="content-header clearfix">
+            <h1 class="pull-left">
+                Thêm mới sản phẩm
+                <small>
+                    <i class="fa fa-arrow-circle-left"></i>
+                    <a href="/Admin/Product/Index">Trở lại danh sách</a>
+                </small>
+            </h1>
+            <div class="pull-right">
+                <button type="submit" name="save" class="btn bg-blue">
+                    <i class="fa fa-floppy-o"></i> Save
+                </button>
+                <button type="submit" name="save-continue" class="btn bg-blue">
+                    <i class="fa fa-floppy-o"></i> Save and Continue Edit
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <div class="form-horizontal">
+                <form class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Thông tin</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(model => model.ShortDescription, htmlAttributes : new { @class = "form-control" , @rows = "4"})
+                                @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.FullDescription, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(model => model.FullDescription, 10, 80, htmlAttributes: new { @class = "form-control", @id = "editor1", @name = "editor1" })
+                                @Html.ValidationMessageFor(model => model.FullDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.Sku, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Sku, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Sku, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.Product_Manufacturer_Mapping, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Product_Manufacturer_Mapping, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Product_Manufacturer_Mapping, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(model => model.Published, htmlAttributes: new { @class = "flat-red" })
+                                    @Html.ValidationMessageFor(model => model.Published, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.ProductTags, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.ProductTags, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ProductTags, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.ManufacturerPartNumber, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.ManufacturerPartNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ManufacturerPartNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.ShowOnHomePage, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(model => model.ShowOnHomePage, htmlAttributes: new { @class = "flat-red" })
+                                    @Html.ValidationMessageFor(model => model.ShowOnHomePage, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.ProductTypeId, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.ProductTypeId, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ProductTypeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.VendorId, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.VendorId, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.VendorId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.AllowCustomerReviews, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(model => model.AllowCustomerReviews, htmlAttributes: new { @class = "flat-red" })
+                                    @Html.ValidationMessageFor(model => model.AllowCustomerReviews, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.AvailableStartDateTimeUtc, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.EditorFor(model => model.AvailableStartDateTimeUtc, new { htmlAttributes = new { @class = "form-control pull-right", id = "datepicker" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AvailableStartDateTimeUtc, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.AvailableEndDateTimeUtc, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.EditorFor(model => model.AvailableEndDateTimeUtc, new { htmlAttributes = new { @class = "form-control pull-right", id = "datepicker" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AvailableEndDateTimeUtc, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.MarkAsNew, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(model => model.MarkAsNew, htmlAttributes: new { @class = "flat-red" })
+                                    @Html.ValidationMessageFor(model => model.MarkAsNew, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.AdminComment, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(model => model.AdminComment, htmlAttributes : new { @class = "form-control" ,@rows="4"} )
+                                @Html.ValidationMessageFor(model => model.AdminComment, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="form-horizontal">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-usd panel-icon panel-icon"></i>
+                        <h3 class="box-title">Price</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.IsShipEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(model => model.IsShipEnabled, htmlAttributes: new { @class = "flat-red" })
+                                    @Html.ValidationMessageFor(model => model.IsShipEnabled, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.Length, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Length, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Length, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.Width, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Width, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Width, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.IsFreeShipping, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(model => model.IsFreeShipping, htmlAttributes: new { @class = "flat-red" })
+                                    @Html.ValidationMessageFor(model => model.IsFreeShipping, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.AdditionalShippingCharge, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.AdditionalShippingCharge, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AdditionalShippingCharge, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                    </div>
+                </div>
+            </div>
+            <div class="form-horizontal">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-sitemap panel-icon panel-icon"></i>
+                        <h3 class="box-title">Inventory</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.OrderMinimumQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.OrderMinimumQuantity, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.OrderMinimumQuantity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.OrderMaximumQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.OrderMaximumQuantity, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.OrderMaximumQuantity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.AllowedQuantities, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.AllowedQuantities, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AllowedQuantities, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.NotReturnable, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(model => model.NotReturnable, htmlAttributes: new { @class = "flat-red" })
+                                    @Html.ValidationMessageFor(model => model.NotReturnable, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                    </div>
+                </div>
+            </div>
+            <div class="form-horizontal">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-search panel-icon"></i>
+                        <h3 class="box-title">Seo</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.MetaTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.MetaTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.MetaKeywords, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.MetaKeywords, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MetaKeywords, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    @Html.LabelFor(model => model.MetaDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div title="" data-toggle="tooltip" class="ico-help">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.MetaDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MetaDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Footer {
+    <script src="/Assets/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/Assets/Admin/bower_components/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/Assets/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="/Assets/Admin/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- date-range-picker -->
+    <script src="/Assets/Admin/bower_components/moment/min/moment.min.js"></script>
+    <script src="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/Assets/Admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="/Assets/Admin/plugins/iCheck/icheck.min.js"></script>
+    <!-- FastClick -->
+    <script src="/Assets/Admin/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/Assets/Admin/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/Assets/Admin/dist/js/demo.js"></script>
+    <script src="/Assets/Admin/bower_components/ckeditor/ckeditor.js"></script>
+    <!-- Page script -->
+    <script>
+        $(document).ready(function () {
+            $('.sidebar-menu').tree()
+        })
+    </script>
+    <script>
+        $(function () {
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            CKEDITOR.replace('editor1')
+            CKEDITOR.replace('editor2')
+        })
+    </script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            //Datemask2 mm/dd/yyyy
+            $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+            //Money Euro
+            $('[data-mask]').inputmask()
+
+            //Date range picker
+            $('#reservation').daterangepicker()
+            //Date range picker with time picker
+            $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, locale: { format: 'MM/DD/YYYY hh:mm A' } })
+            //Date range as a button
+            $('#daterange-btn').daterangepicker(
+                {
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                }
+            )
+
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            })
+
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            })
+            //Red color scheme for iCheck
+            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                checkboxClass: 'icheckbox_minimal-red',
+                radioClass: 'iradio_minimal-red'
+            })
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
+            })
+
+            //Colorpicker
+            $('.my-colorpicker1').colorpicker()
+            //color picker with addon
+            $('.my-colorpicker2').colorpicker()
+
+            //Timepicker
+            $('.timepicker').timepicker({
+                showInputs: false
+            })
+        })
+    </script>
+}
