@@ -1,0 +1,31 @@
+﻿@model Models.EF.JCarousel
+
+<table class="table table-bordered table-striped" id="ProductList">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td class=" text-center">Display Order</td>
+            <td style="text-align:center">View</td>
+            <td style="text-align:center">Delete</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.JCarousel_Product_Mapping)
+        {
+            <tr>
+                <td style="vertical-align: inherit" class="col-md-9">
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-1">
+                    @Html.DisplayFor(modelItem => item.DisplayOrder)
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-1">
+                    <a class="btn btn-primary" href="/Admin/Product/Edit/@item.ProductId"><i class="fa fa-eye"></i>&nbsp;&nbsp;View</a>
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-1">
+                    <a class="btn btn-danger" href="/Admin/Product/Delete/@item.ProductId"><i class="fa fa-remove"></i>&nbsp;&nbsp;Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

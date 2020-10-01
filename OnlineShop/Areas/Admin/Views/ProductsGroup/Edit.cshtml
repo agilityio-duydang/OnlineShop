@@ -1,0 +1,361 @@
+﻿@model Models.EF.ProductsGroup
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Shared/_Layout.cshtml";
+}
+@section Header {
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/iCheck/all.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/select2/dist/css/select2.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/Assets/Admin//dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/Assets/Admin/dist/css/skins/_all-skins.min.css">
+    <style type="text/css">
+        .found-products-grid .ss-info {
+            margin: 1%;
+        }
+
+        /* Product Grid */
+
+        .found-products-grid {
+            /*display: none;*/
+            position: relative;
+            min-height: 300px;
+            overflow: hidden;
+        }
+
+            .found-products-grid .item-box {
+                display: inline-block;
+                position: relative;
+                margin: 1%;
+                width: 22%;
+                max-width: 200px;
+                vertical-align: top;
+            }
+
+                .found-products-grid .item-box .remove-button {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 25px;
+                    height: 25px;
+                    text-indent: -9999px;
+                    font-size: 0;
+                    background: rgba(255,255,255,0.6) url("../Images/remove-icons.png") no-repeat center -1px;
+                    cursor: pointer;
+                    z-index: 2;
+                }
+
+                    .found-products-grid .item-box .remove-button:hover {
+                        background-color: #fff;
+                        background-position: center -32px;
+                    }
+
+            .found-products-grid .picture a {
+                display: inline-block;
+                width: 200px;
+                max-width: 100%;
+                height: 200px;
+                overflow: hidden;
+                text-align: center;
+            }
+
+            .found-products-grid .sortable-grid .picture a {
+                cursor: move;
+            }
+
+            .found-products-grid .picture img {
+                max-width: none;
+                max-height: 100%;
+            }
+
+        .custom-list-add-products {
+            display: none;
+        }
+
+        .item-box.sortable.hint {
+            max-width: 200px;
+            overflow: hidden;
+        }
+
+            .item-box.sortable.hint .remove-button {
+                display: none;
+            }
+
+        .products-grid .item-box.sortable:hover {
+            opacity: 0.7;
+        }
+
+        .found-products-grid .item-box.sortable.placeholder {
+            display: inline-block;
+            position: relative;
+            height: 200px;
+            background: #f9f9f9;
+            border: 1px dashed #c5c5c5;
+            overflow: hidden;
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+            .found-products-grid .item-box.sortable.placeholder span {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                margin: auto;
+                max-width: 125px;
+                height: 45px;
+                overflow: hidden;
+            }
+    </style>
+
+}
+@using (Html.BeginForm("Edit", "ProductsGroup", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-header">
+        <div class="content-header clearfix">
+            <h1 class="pull-left">
+                Cập nhật Smart Product Collection
+                <small>
+                    <i class="fa fa-arrow-circle-left"></i>
+                    <a href="/Admin/ProductsGroup/Index">Trở lại danh sách Smart Product Collection</a>
+                </small>
+            </h1>
+            <div class="pull-right">
+                <button type="submit" class="btn bg-blue" name="save">
+                    <i class="fa fa-floppy-o"></i> Save
+                </button>
+                <button type="submit" class="btn bg-blue" name="save-contine">
+                    <i class="fa fa-floppy-o"></i>Save and Contine Edit
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class=" box box-info">
+        <div class="box-header with-border">
+            <div class="form-horizontal">
+                <form class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Thông tin</h3>
+                    </div>
+                </form>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="label-wrapper">
+                                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div title="" data-toggle="tooltip" class="ico-help">
+                                    <i class="fa fa-question-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="label-wrapper">
+                                @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div title="" data-toggle="tooltip" class="ico-help">
+                                    <i class="fa fa-question-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(model => model.Published, htmlAttributes: new { @class = "flat-red" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Published, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="label-wrapper">
+                                @Html.LabelFor(model => model.NumberOfProductsPerItem, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div title="" data-toggle="tooltip" class="ico-help">
+                                    <i class="fa fa-question-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.EditorFor(model => model.NumberOfProductsPerItem, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NumberOfProductsPerItem, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="label-wrapper">
+                                @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div title="" data-toggle="tooltip" class="ico-help">
+                                    <i class="fa fa-question-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="label-wrapper">
+                                @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div title="" data-toggle="tooltip" class="ico-help">
+                                    <i class="fa fa-question-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-info btn-flat">Add Category</button>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="label-wrapper">
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.Partial("_CategoryList", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("_TabBuilder", Model)
+        </div>
+    </div>
+}
+
+@section Footer {
+    <script src="/Assets/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/Assets/Admin/bower_components/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/Assets/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="/Assets/Admin/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- date-range-picker -->
+    <script src="/Assets/Admin/bower_components/moment/min/moment.min.js"></script>
+    <script src="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/Assets/Admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="/Assets/Admin/plugins/iCheck/icheck.min.js"></script>
+    <!-- FastClick -->
+    <script src="/Assets/Admin/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/Assets/Admin/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/Assets/Admin/dist/js/demo.js"></script>
+    <!-- Page script -->
+    <script>
+        $(document).ready(function () {
+            $('.sidebar-menu').tree()
+        })
+    </script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            //Datemask2 mm/dd/yyyy
+            $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+            //Money Euro
+            $('[data-mask]').inputmask()
+
+            //Date range picker
+            $('#reservation').daterangepicker()
+            //Date range picker with time picker
+            $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, locale: { format: 'MM/DD/YYYY hh:mm A' } })
+            //Date range as a button
+            $('#daterange-btn').daterangepicker(
+                {
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                }
+            )
+
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            })
+
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            })
+            //Red color scheme for iCheck
+            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                checkboxClass: 'icheckbox_minimal-red',
+                radioClass: 'iradio_minimal-red'
+            })
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
+            })
+
+            //Colorpicker
+            $('.my-colorpicker1').colorpicker()
+            //color picker with addon
+            $('.my-colorpicker2').colorpicker()
+
+            //Timepicker
+            $('.timepicker').timepicker({
+                showInputs: false
+            })
+        })
+    </script>
+}

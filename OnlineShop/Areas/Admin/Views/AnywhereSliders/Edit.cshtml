@@ -1,0 +1,507 @@
+﻿@model Models.EF.AnywhereSlider
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Shared/_Layout.cshtml";
+}
+@section Header {
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/iCheck/all.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/select2/dist/css/select2.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/Assets/Admin//dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/Assets/Admin/dist/css/skins/_all-skins.min.css">
+
+}
+@using (Html.BeginForm("Edit", "AnywhereSliders", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-header">
+        <div class="content-header clearfix">
+            <h1 class="pull-left">
+                Thêm mới Sliders
+                <small>
+                    <i class="fa fa-arrow-circle-left"></i>
+                    <a href="/Admin/AnywhereSliders/Index">Trở lại danh sách Slides</a>
+                </small>
+            </h1>
+            <div class="pull-right">
+                <button type="submit" class="btn bg-blue" name="save">
+                    <i class="fa fa-floppy-o"></i> Save
+                </button>
+                <button type="submit" class="btn bg-blue" name="save-contine">
+                    <i class="fa fa-floppy-o"></i>Save and Contine Edit
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class=" box box-info">
+        <div class="box-header with-border">
+            <div class="form-horizontal">
+                <form class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Thông tin</h3>
+                    </div>
+                </form>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="label-wrapper">
+                                @Html.LabelFor(model => model.SystemName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div title="" data-toggle="tooltip" class="ico-help">
+                                    <i class="fa fa-question-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.SystemName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SystemName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="label-wrapper">
+                                @Html.LabelFor(model => model.SliderType, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div title="" data-toggle="tooltip" class="ico-help">
+                                    <i class="fa fa-question-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.SliderType, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SliderType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-horizontal">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-picture-o panel-icon"></i>
+                        <h3 class="box-title">Picture</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        @Html.Partial("_PictureList", Model)
+                        <div class="row margin-bottom">
+
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel panel-heading">
+                                Add a new picture
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <div class="label-wrapper">
+                                                @Html.LabelFor(model => model.SliderImages.SingleOrDefault().PictureId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div title="" data-toggle="tooltip" class="ico-help">
+                                                    <i class="fa fa-question-circle"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div style="width:100px ;height:100px" id="Image">
+                                                <img src="https://admin-demo.nopcommerce.com/images/thumbs/default-image_100.png">
+                                            </div>
+                                            <div class="input-group" style="margin-top:10px">
+                                                @Html.EditorFor(model => model.SliderImages.FirstOrDefault().PictureId, new { htmlAttributes = new { @class = "form-control", @id = "PictureId", @readonly = "readonly", @style = "display:none" }, id = "PictureId" })
+                                                <div class="form-control">
+                                                    <input type="file" id="FileUpload" accept="image/*" />
+                                                </div>
+                                                <span class="input-group-btn">
+                                                    <button type="button" id="Upload" class="btn btn-info btn-flat">Upload Image</button>
+                                                    <button type="button" id="Remove" class="btn btn-info btn-danger" style="display:none">Remove Image</button>
+                                                </span>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.SliderImages.FirstOrDefault().PictureId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <div class="label-wrapper">
+                                                @Html.LabelFor(model => model.SliderImages.FirstOrDefault().Visible, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div title="" data-toggle="tooltip" class="ico-help">
+                                                    <i class="fa fa-question-circle"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="checkbox">
+                                                @Html.CheckBoxFor(model => model.SliderImages.FirstOrDefault().Visible, htmlAttributes : new { @class = "flat-red" })
+                                                @Html.ValidationMessageFor(model => model.SliderImages.FirstOrDefault().Visible, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <div class="label-wrapper">
+                                                @Html.LabelFor(model => model.SliderImages.FirstOrDefault().DisplayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div title="" data-toggle="tooltip" class="ico-help">
+                                                    <i class="fa fa-question-circle"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            @Html.EditorFor(model => model.SliderImages.FirstOrDefault().DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.SliderImages.FirstOrDefault().DisplayOrder, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <div class="label-wrapper">
+                                                @Html.LabelFor(model => model.SliderImages.FirstOrDefault().Url, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div title="" data-toggle="tooltip" class="ico-help">
+                                                    <i class="fa fa-question-circle"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @Html.EditorFor(model => model.SliderImages.FirstOrDefault().Url, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.SliderImages.FirstOrDefault().Url, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <div class="label-wrapper">
+                                                @Html.LabelFor(model => model.SliderImages.FirstOrDefault().Alt, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div title="" data-toggle="tooltip" class="ico-help">
+                                                    <i class="fa fa-question-circle"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @Html.EditorFor(model => model.SliderImages.FirstOrDefault().Alt, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.SliderImages.FirstOrDefault().Alt, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <div class="label-wrapper">
+                                                @Html.LabelFor(model => model.SliderImages.FirstOrDefault().DisplayText, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div title="" data-toggle="tooltip" class="ico-help">
+                                                    <i class="fa fa-question-circle"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @Html.EditorFor(model => model.SliderImages.FirstOrDefault().DisplayText, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.SliderImages.FirstOrDefault().DisplayText, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">                                    
+                                    <div class="col-md-3 col-md-offset-3">
+                                        <button id="addSliderPicture" type="button" class="btn btn-primary">Add slider picture</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="addProductPictureAlert-action-alert" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addProductPictureAlert-action-alert-title">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                            <h4 class="modal-title" id="addProductPictureAlert-action-alert-title">Information</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="additional-text" id="addProductPictureAlert-info"></div>
+                                            Upload picture first.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <span class="btn btn-primary pull-right" data-dismiss="modal">Ok</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn btn-default" id="addProductPictureAlert" style="display:none" data-toggle="modal" data-target="#addProductPictureAlert-action-alert"></div>
+                            </div>
+                            <div id="productPictureAddAlert-action-alert" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="productPictureAddAlert-action-alert-title">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                            <h4 class="modal-title" id="productPictureAddAlert-action-alert-title">Information</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="additional-text" id="productPictureAddAlert-info"></div>
+                                            Failed to add product picture.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <span class="btn btn-primary pull-right" data-dismiss="modal">Ok</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn btn-default" id="productPictureAddAlert" style="display:none" data-toggle="modal" data-target="#productPictureAddAlert-action-alert"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Footer {
+    <script>
+        $('#btnSelectImage').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#txtImage').val(url);
+            };
+            finder.popup();
+        })
+    </script>
+
+    <script src="/Assets/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/Assets/Admin/bower_components/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/Assets/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="/Assets/Admin/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- date-range-picker -->
+    <script src="/Assets/Admin/bower_components/moment/min/moment.min.js"></script>
+    <script src="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/Assets/Admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="/Assets/Admin/plugins/iCheck/icheck.min.js"></script>
+    <!-- FastClick -->
+    <script src="/Assets/Admin/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/Assets/Admin/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/Assets/Admin/dist/js/demo.js"></script>
+    <script src="/Assets/Admin/bower_components/ckeditor/ckeditor.js"></script>
+    <script src="/Assets/Admin/bower_components/ckfinder/ckfinder.js"></script>
+    <!-- Page script -->
+    <script>
+        $(document).ready(function () {
+            $('.sidebar-menu').tree()
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#addProductPictureAlert').attr("data-toggle", "modal").attr("data-target", "#addProductPictureAlert-action-alert")
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#productPictureAddAlert').attr("data-toggle", "modal").attr("data-target", "#productPictureAddAlert-action-alert")
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#addSliderPicture').click(function () {
+                var PictureId = $("#PictureId").val();
+                var Visible = $("#Visible").val();
+                var Url = $("#Url").val();
+                var AltAttribute = $("#Alt").val();
+                var TitleAttribute = $("#DisplayText").val();
+                var DisplayOrder = $("#DisplayOrder").val();
+
+                if (PictureId == 0) {
+                    $("#addProductPictureAlert").click();
+                    return;
+                }
+
+                $('#addSliderPicture').attr('disabled', true);
+
+                var postData = {
+                    PictureId: PictureId,
+                    Visible: Visible,
+                    Url: Url,
+                    DisplayOrder: DisplayOrder,
+                    AltAttribute: AltAttribute,
+                    TitleAttribute: TitleAttribute,
+                    SliderId: '@Model.Id'
+                };
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "/Admin/AnywhereSliders/PictureAdd",
+                    data: postData,
+                    success: function (data, textStatus, jqXHR) {
+                        if (!data.Result) {
+                            return;
+                        } else {
+                            PictureList();
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#productPictureAddAlert").click();
+                    },
+                    complete: function (jqXHR, textStatus) {
+                        $('#addSliderPicture').attr('disabled', false);
+                        $("#PictureId").val(0);
+                        $("#FileUpload").val('');
+                        $("#Alt").val('');
+                        $("#DisplayText").val('');
+                        $("#Url").val('');
+                        $("#DisplayOrder").val(0);
+                        $("#Remove").hide();
+                        $("#Image").html("<img src='https://admin-demo.nopcommerce.com/images/thumbs/default-image_100.png'/>");
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        function PictureList() {
+            $("#PictureList").empty();
+                var postData = {
+                    SliderId: '@Model.Id'
+                };
+            $.ajax({
+                url: "/Admin/AnywhereSliders/PictureList",
+                type: "POST",
+                dataType: "html",
+                data: postData,
+                success: function (data) {
+                    $("#PictureList").html(data);
+                    $("#PictureList").show();
+                }
+            });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#Upload").click(function () {
+                var formData = new FormData();
+                var totalFiles = document.getElementById("FileUpload").files.length;
+                for (var i = 0; i < totalFiles; i++) {
+                    var file = document.getElementById("FileUpload").files[i];
+
+                    formData.append("FileUpload", file);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/Admin/Picture/AsyncUpload',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            $("#Image").html("<img src='" + response.imageUrl + "' style='width: 100px ; height: 100px'/>");
+                            $("#PictureId").val(response.pictureId);
+                            $("#Remove").show();
+                        }
+                    },
+                    error: function (error) {
+                        alert("Upload Picrure Not Success !");
+                    }
+                });
+            });
+            $("#Remove").click(function (e) {
+                $("#Image").html("<img src='https://admin-demo.nopcommerce.com/images/thumbs/default-image_100.png'/>");
+                $("#PictureId").val(0);
+                $("#FileUpload").val('');
+                $(this).hide();
+            });
+        });
+
+    </script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            //Datemask2 mm/dd/yyyy
+            $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+            //Money Euro
+            $('[data-mask]').inputmask()
+
+            //Date range picker
+            $('#reservation').daterangepicker()
+            //Date range picker with time picker
+            $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, locale: { format: 'MM/DD/YYYY hh:mm A' } })
+            //Date range as a button
+            $('#daterange-btn').daterangepicker(
+                {
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                }
+            )
+
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            })
+
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            })
+            //Red color scheme for iCheck
+            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                checkboxClass: 'icheckbox_minimal-red',
+                radioClass: 'iradio_minimal-red'
+            })
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
+            })
+
+            //Colorpicker
+            $('.my-colorpicker1').colorpicker()
+            //color picker with addon
+            $('.my-colorpicker2').colorpicker()
+
+            //Timepicker
+            $('.timepicker').timepicker({
+                showInputs: false
+            })
+        })
+    </script>
+}

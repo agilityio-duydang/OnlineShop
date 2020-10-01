@@ -15,6 +15,7 @@ namespace Models.EF
         public virtual DbSet<ActivityLog> ActivityLogs { get; set; }
         public virtual DbSet<ActivityLogType> ActivityLogTypes { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<AnywhereSlider> AnywhereSliders { get; set; }
         public virtual DbSet<BlogComment> BlogComments { get; set; }
         public virtual DbSet<BlogPost> BlogPosts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -27,6 +28,8 @@ namespace Models.EF
         public virtual DbSet<EmailAccount> EmailAccounts { get; set; }
         public virtual DbSet<GiftCard> GiftCards { get; set; }
         public virtual DbSet<GiftCardUsageHistory> GiftCardUsageHistories { get; set; }
+        public virtual DbSet<JCarousel> JCarousels { get; set; }
+        public virtual DbSet<JCarousel_Product_Mapping> JCarousel_Product_Mapping { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Manufacturer> Manufacturers { get; set; }
         public virtual DbSet<News> News { get; set; }
@@ -45,11 +48,15 @@ namespace Models.EF
         public virtual DbSet<Product_Manufacturer_Mapping> Product_Manufacturer_Mapping { get; set; }
         public virtual DbSet<Product_Picture_Mapping> Product_Picture_Mapping { get; set; }
         public virtual DbSet<ProductReview> ProductReviews { get; set; }
+        public virtual DbSet<ProductsGroup> ProductsGroups { get; set; }
+        public virtual DbSet<ProductsGroupItem> ProductsGroupItems { get; set; }
         public virtual DbSet<ProductTag> ProductTags { get; set; }
         public virtual DbSet<QueuedEmail> QueuedEmails { get; set; }
         public virtual DbSet<RelatedProduct> RelatedProducts { get; set; }
+        public virtual DbSet<SaleOfTheDayOffer> SaleOfTheDayOffers { get; set; }
+        public virtual DbSet<SaleOfTheDayOffer_Product_Mapping> SaleOfTheDayOffer_Product_Mapping { get; set; }
         public virtual DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<SliderImage> SliderImages { get; set; }
         public virtual DbSet<TaxCategory> TaxCategories { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<VendorNote> VendorNotes { get; set; }
@@ -81,6 +88,11 @@ namespace Models.EF
                 .HasMany(e => e.Orders2)
                 .WithOptional(e => e.Address2)
                 .HasForeignKey(e => e.ShippingAddressId);
+
+            modelBuilder.Entity<AnywhereSlider>()
+                .HasMany(e => e.SliderImages)
+                .WithRequired(e => e.AnywhereSlider)
+                .HasForeignKey(e => e.SliderId);
 
             modelBuilder.Entity<Customer>()
                 .HasMany(e => e.CustomerRoles)
@@ -276,6 +288,11 @@ namespace Models.EF
                 .HasMany(e => e.ProductTags)
                 .WithMany(e => e.Products)
                 .Map(m => m.ToTable("Product_ProductTag_Mapping"));
+
+            modelBuilder.Entity<ProductsGroup>()
+                .HasMany(e => e.ProductsGroupItems)
+                .WithRequired(e => e.ProductsGroup)
+                .HasForeignKey(e => e.GroupId);
 
             modelBuilder.Entity<ShoppingCartItem>()
                 .Property(e => e.CustomerEnteredPrice)

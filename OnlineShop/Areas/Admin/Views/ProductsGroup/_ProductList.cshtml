@@ -1,0 +1,28 @@
+﻿@model Models.EF.ProductsGroup
+
+<div class="products-grid">
+    @if (Model.ProductsGroupItems.Count == 0)
+    {
+        <div class="callout bg-gray-light ss-info no-products-available">
+            <i class="fa fa-exclamation-circle"></i>
+            No Products Available.
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model.ProductsGroupItems)
+        {
+            <div class="item-box" data-productid="@item.Id">
+                <div class="picture">
+                    <a href="/Admin/Product/Edit/@item.Products.SingleOrDefault().Id" title="" target="_blank" aria-describedby="ui-tooltip-135">
+                        <img alt="Obey Propaganda Hat" src="http://localhost:15536/images/thumbs/0000062_obey-propaganda-hat_200.jpg">
+                    </a>
+                </div>
+                <h4 class="product-title">
+                    <a href="/Admin/Product/Edit/@item.Products.SingleOrDefault().Id" title="@item.Products.SingleOrDefault().MetaTitle." target="_blank">@item.Products.SingleOrDefault().MetaTitle</a>
+                </h4>
+                <div class="product-price">@item.Products.SingleOrDefault().Price</div>
+            </div>
+        }
+    }
+</div>

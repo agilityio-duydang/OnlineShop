@@ -1,0 +1,168 @@
+﻿@model PagedList.IPagedList<Models.EF.JCarousel>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Shared/_Layout.cshtml";
+}
+@section Header {
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/iCheck/all.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Assets/Admin/bower_components/select2/dist/css/select2.min.css">
+}
+
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        JCarousels
+    </h1>
+    <div class="pull-right">
+        <a class="btn bg-blue" href="/Admin/JCarousels/Create">
+            <i class="fa fa-plus-square"></i>
+            Add new
+        </a>
+        <button type="submit" name="download-catalog-pdf" class="btn bg-purple">
+            <i class="fa fa-file-pdf-o"></i>
+            Download catalog as PDF
+        </button>
+        <div class="btn-group">
+            <button type="button" class="btn btn-success">
+                <i class="fa fa-download"></i>
+                Export
+            </button>
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">&nbsp;</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <button type="submit" name="exportxml-all">
+                        <i class="fa fa-file-code-o"></i>
+                        Export to XML (all found)
+                    </button>
+                </li>
+                <li>
+                    <button type="button" id="exportxml-selected">
+                        <i class="fa fa-file-code-o"></i>
+                        Export to XML (selected)
+                    </button>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <button type="submit" name="exportexcel-all">
+                        <i class="fa fa-file-excel-o"></i>
+                        Export to Excel (all found)
+                    </button>
+                </li>
+                <li>
+                    <button type="button" id="exportexcel-selected">
+                        <i class="fa fa-file-excel-o"></i>
+                        Export to Excel (selected)
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <button type="button" name="importexcel" class="btn bg-olive" data-toggle="modal" data-target="#importexcel-window">
+            <i class="fa fa-upload"></i>
+            Import
+        </button>
+        <button type="button" id="delete-selected" class="btn bg-red">
+            <i class="fa fa-trash-o"></i>
+            Delete (selected)
+        </button>
+
+    </div>
+</div>
+<div class="content">
+    <div class="form-horizontal">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-lg-7">
+                                    Name
+                                </th>
+                                <th class="text-center col-lg-1">
+                                    Data source type
+                                </th>
+                                <th class="text-center col-lg-1">
+                                    Skin
+                                </th>
+                                <th class="text-center col-lg-1">Edit</th>
+                                <th class="text-center col-lg-1">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.Id">
+                                    <td style="vertical-align:inherit">
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td style="vertical-align :inherit ; text-align:center">
+                                        @Html.DisplayFor(modelItem => item.DataSourceType)
+                                    </td>
+                                    <td style="vertical-align :inherit ; text-align:center">
+                                        @Html.DisplayFor(modelItem => item.CarouselType)
+                                    </td>
+                                    <td style="vertical-align: inherit" class=" text-center">
+                                        <a class="btn btn-primary" href="/Admin/JCarousels/Edit/@item.Id"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit</a>
+                                    </td>
+                                    <td style="vertical-align: inherit" class=" text-center">
+                                        <a class="btn btn-danger" href="/Admin/JCarousels/Delete/@item.Id"><i class="fa fa-remove"></i>&nbsp;&nbsp;Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Footer {
+    <script src="/Assets/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/Assets/Admin/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/Assets/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="/Assets/Admin/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/Assets/Admin/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- date-range-picker -->
+    <script src="/Assets/Admin/bower_components/moment/min/moment.min.js"></script>
+    <script src="/Assets/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="/Assets/Admin/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="/Assets/Admin/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/Assets/Admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="/Assets/Admin/plugins/iCheck/icheck.min.js"></script>
+    <!-- FastClick -->
+    <script src="/Assets/Admin/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/Assets/Admin/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/Assets/Admin/dist/js/demo.js"></script>
+    <!-- Page script -->
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+        })
+    </script>
+}

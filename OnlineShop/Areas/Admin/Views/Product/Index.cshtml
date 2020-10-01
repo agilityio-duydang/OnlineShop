@@ -16,248 +16,258 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/Assets/Admin/bower_components/select2/dist/css/select2.min.css">
 }
-<div class="box box-header">
+@using (Html.BeginForm("Index", "Product", FormMethod.Post))
+{
     <div class="content-header clearfix">
-        <h1 class="pull-left">Danh sách sản phẩm</h1>
+        <h1 class="pull-left">
+            Products
+        </h1>
         <div class="pull-right">
-            <a class="btn bg-blue" href="/Admin/Product/Create"> <i class="fa fa-plus-square"></i> Add new </a>
+            <a class="btn bg-blue" href="/Admin/Product/Create">
+                <i class="fa fa-plus-square"></i>
+                Add new
+            </a>
+            <button type="submit" name="download-catalog-pdf" class="btn bg-purple">
+                <i class="fa fa-file-pdf-o"></i>
+                Download catalog as PDF
+            </button>
             <div class="btn-group">
                 <button type="button" class="btn btn-success">
-                    <i class="fa fa-download"> Export</i>
+                    <i class="fa fa-download"></i>
+                    Export
                 </button>
                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
+                    <span class="sr-only">&nbsp;</span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li class="fa fa-file-excel"><a href="/Admin/Product/ExportToXML" class="fa fa-file-excel">Export to XML</a></li>
-                    <li class="fa fa-file-pdf"><a href="/Admin/Product/ExportToPdf" class="fa fa-file-pdf">Export to PDF</a></li>
+                    <li>
+                        <button type="submit" name="exportxml-all">
+                            <i class="fa fa-file-code-o"></i>
+                            Export to XML (all found)
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" id="exportxml-selected">
+                            <i class="fa fa-file-code-o"></i>
+                            Export to XML (selected)
+                        </button>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <button type="submit" name="exportexcel-all">
+                            <i class="fa fa-file-excel-o"></i>
+                            Export to Excel (all found)
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" id="exportexcel-selected">
+                            <i class="fa fa-file-excel-o"></i>
+                            Export to Excel (selected)
+                        </button>
+                    </li>
                 </ul>
             </div>
+            <button type="button" name="importexcel" class="btn bg-olive" data-toggle="modal" data-target="#importexcel-window">
+                <i class="fa fa-upload"></i>
+                Import
+            </button>
+            <button type="button" id="delete-selected" class="btn bg-red">
+                <i class="fa fa-trash-o"></i>
+                Delete (selected)
+            </button>
+
         </div>
     </div>
-</div>
-@using (Html.BeginForm("Index", "Product", FormMethod.Post))
-{
-    <div class="panel panel-default panel-search">
+    <div class="content">
         <div class="form-horizontal">
-            <div class="panel-body">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Tìm kiếm</h3>
-                </div>
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <div class="label-wrapper">
-                                        <label class="control-label" for="SearchProductName">ProductName</label>
-                                        <div title="" data-toggle="tooltip" class="ico-help">
-                                            <i class="fa fa-question-circle"></i>
+            <div class="panel-group">
+                <div class="panel panel-default panel-search">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="label-wrapper">
+                                            <label class="control-label" for="SearchProductName">ProductName</label>
+                                            <div title="" data-toggle="tooltip" class="ico-help">
+                                                <i class="fa fa-question-circle"></i>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" id="SearchProductName" name="SearchProductName" value="@ViewBag.SearchProductName" type="text" />
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <input class="form-control" id="SearchProductName" name="SearchProductName" value="@ViewBag.SearchProductName" type="text" />
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="label-wrapper">
+                                            <label class="control-label" for="SearchCategory">Category</label>
+                                            <div title="" data-toggle="tooltip" class="ico-help">
+                                                <i class="fa fa-question-circle"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8"><input class="form-control text-box single-line" id="SearchCategory" name="SearchCategory" value="@ViewBag.SearchCategory" type="text" /></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="label-wrapper">
+                                            <label class="control-label" for="SearchManufacturer">Manufacturer</label>
+                                            <div title="" data-toggle="tooltip" class="ico-help">
+                                                <i class="fa fa-question-circle"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8"><input class="form-control text-box single-line" id="SearchManufacturer" name="SearchManufacturer" value="@ViewBag.SearchManufacturer" type="text" /></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="label-wrapper">
+                                            <label class="control-label" for="SearchVendor">Vendor</label>
+                                            <div title="" data-toggle="tooltip" class="ico-help">
+                                                <i class="fa fa-question-circle"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8"><input class="form-control text-box single-line" id="SearchVendor" name="SearchVendor" type="text" value="@ViewBag.SearchVendor" /></div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <div class="label-wrapper">
-                                        <label class="control-label" for="SearchCategory">Category</label>
-                                        <div title="" data-toggle="tooltip" class="ico-help">
-                                            <i class="fa fa-question-circle"></i>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="label-wrapper">
+                                            <label class="control-label" for="SearchProductTypeId">Product type	</label>
+                                            <div title="" data-toggle="tooltip" class="ico-help">
+                                                <i class="fa fa-question-circle"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-8"><input class="form-control text-box single-line" id="SearchCategory" name="SearchCategory" value="@ViewBag.SearchCategory" type="text" /></div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <div class="label-wrapper">
-                                        <label class="control-label" for="SearchManufacturer">Manufacturer</label>
-                                        <div title="" data-toggle="tooltip" class="ico-help">
-                                            <i class="fa fa-question-circle"></i>
-                                        </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control valid" data-val="true" data-val-required="The Product type field is required." value="@ViewBag.SearchProductTypeId" id="SearchProductTypeId" name="SearchProductTypeId" aria-describedby="SearchProductTypeId-error" aria-invalid="false">
+                                            <option selected="selected" value="0">All</option>
+                                            <option value="5">Simple</option>
+                                            <option value="10">Grouped (product with variants)</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-md-8"><input class="form-control text-box single-line" id="SearchManufacturer" name="SearchManufacturer" value="@ViewBag.SearchManufacturer" type="text" /></div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <div class="label-wrapper">
-                                        <label class="control-label" for="SearchVendor">Vendor</label>
-                                        <div title="" data-toggle="tooltip" class="ico-help">
-                                            <i class="fa fa-question-circle"></i>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="label-wrapper">
+                                            <label class="control-label" for="SearchPublishedId">Published</label>
+                                            <div title="" data-toggle="tooltip" class="ico-help">
+                                                <i class="fa fa-question-circle"></i>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control valid" data-val="true" data-val-required="The Published field is required." value="@ViewBag.SearchPublishedId" id="SearchPublishedId" name="SearchPublishedId" aria-describedby="SearchPublishedId-error" aria-invalid="false">
+                                            <option selected="selected" value="0">All</option>
+                                            <option value="1">Published only</option>
+                                            <option value="2">Unpublished only</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-md-8"><input class="form-control text-box single-line" id="SearchVendor" name="SearchVendor" type="text" value="@ViewBag.SearchVendor" /></div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="label-wrapper">
+                                            <label class="control-label" for="SearchSKU">SKU</label>
+                                            <div title="" data-toggle="tooltip" class="ico-help">
+                                                <i class="fa fa-question-circle"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8"><input class="form-control text-box single-line" id="SearchSKU" name="SearchSKU" value="@ViewBag.SearchSKU" type="text" /></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <div class="label-wrapper">
-                                        <label class="control-label" for="SearchProductTypeId">Product type	</label>
-                                        <div title="" data-toggle="tooltip" class="ico-help">
-                                            <i class="fa fa-question-circle"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <select class="form-control valid" data-val="true" data-val-required="The Product type field is required." value="@ViewBag.SearchProductTypeId" id="SearchProductTypeId" name="SearchProductTypeId" aria-describedby="SearchProductTypeId-error" aria-invalid="false">
-                                        <option selected="selected" value="0">All</option>
-                                        <option value="5">Simple</option>
-                                        <option value="10">Grouped (product with variants)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <div class="label-wrapper">
-                                        <label class="control-label" for="SearchPublishedId">Published</label>
-                                        <div title="" data-toggle="tooltip" class="ico-help">
-                                            <i class="fa fa-question-circle"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <select class="form-control valid" data-val="true" data-val-required="The Published field is required." value="@ViewBag.SearchPublishedId" id="SearchPublishedId" name="SearchPublishedId" aria-describedby="SearchPublishedId-error" aria-invalid="false">
-                                        <option selected="selected" value="0">All</option>
-                                        <option value="1">Published only</option>
-                                        <option value="2">Unpublished only</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <div class="label-wrapper">
-                                        <label class="control-label" for="SearchSKU">SKU</label>
-                                        <div title="" data-toggle="tooltip" class="ico-help">
-                                            <i class="fa fa-question-circle"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8"><input class="form-control text-box single-line" id="SearchSKU" name="SearchSKU" value="@ViewBag.SearchSKU" type="text" /></div>
+                        <div class="row">
+                            <div class="col-md-7 col-md-offset-5">
+                                <button type="button" id="search-products" class="btn btn-primary btn-search"><i class="fa fa-search"></i> Search</button>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-7 col-md-offset-5">
-                            <button type="button" id="search-products" class="btn btn-primary btn-search"><i class="fa fa-search"></i> Search</button>
-                        </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table id="products" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th role="columnheader" data-field="Id" style="text-align:center" class="k-header">
+                                        <input id="mastercheckbox" type="checkbox">
+                                    </th>
+                                    <th>Picture</th>
+                                    <th>Proudct Name</th>
+                                    <th>SKU</th>
+                                    <th>Price</th>
+                                    <th>Stock Quantity</th>
+                                    <th>Product Type</th>
+                                    <th style="text-align:center">Published</th>
+                                    <th style="text-align:center">Edit</th>
+                                    <th style="text-align:center">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="row_@item.Id">
+                                        <td style="vertical-align: inherit ;text-align:center">
+                                            <input type="checkbox" value="@item.Id" class="checkboxGroups">
+                                        </td>
+                                        <td>
+                                            @if (item.Product_Picture_Mapping.Count > 0)
+                                            {
+                                                <a href='@Url.Action("DisplayPicrure", "Picture", new { Id = item.Product_Picture_Mapping.FirstOrDefault().PictureId })' target="_blank">
+                                                    <img style="width:75px ;height:75px" src='@Url.Action("DisplayPicture", "Picture", new { Id = item.Product_Picture_Mapping.FirstOrDefault().PictureId })' />
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <img style="width:75px ;height:75px" src="https://admin-demo.nopcommerce.com/images/thumbs/default-image_100.png">
+                                            }
+                                        </td>
+                                        <td style="vertical-align: inherit">
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td style="vertical-align: inherit">
+                                            @Html.DisplayFor(modelItem => item.Sku)
+                                        </td>
+                                        <td style="vertical-align: inherit">
+                                            @Html.DisplayFor(modelItem => item.Price)
+                                        </td>
+                                        <td style="vertical-align: inherit">
+                                            @Html.DisplayFor(modelItem => item.StockQuantity)
+                                        </td>
+                                        <td style="vertical-align: inherit">
+                                            @Html.DisplayFor(modelItem => item.ProductTypeId)
+                                        </td>
+                                        <td class=" text-center" style="vertical-align: inherit">
+                                            @if (item.Published)
+                                            {
+                                                <i class="fa fa-check true-icon" style="color:#007fcc ;font-size:20px;"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-close false-icon" style="color:#d22d2d ;font-size:20px;"></i>
+                                            }
+                                        </td>
+                                        <td style="vertical-align: inherit" class=" text-center">
+                                            <a class="btn btn-primary" href="/Admin/Product/Edit/@item.Id"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit</a>
+                                        </td>
+                                        <td style="vertical-align: inherit" class=" text-center">
+                                            <a class="btn btn-danger" href="/Admin/Product/Delete/@item.Id"><i class="fa fa-remove"></i>&nbsp;&nbsp;Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
                     </div>
                 </div>
             </div>
         </div>
     </div>
 }
-
-<section class="content-header">
-</section>
-<!-- Main content -->
-<section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Danh sách sản phẩm</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th role="columnheader" data-field="Id" style="text-align:center" class="k-header">
-                                    <input id="mastercheckbox" type="checkbox">
-                                </th>
-                                <th>Picture</th>
-                                <th>Proudct Name</th>
-                                <th>SKU</th>
-                                <th>Price</th>
-                                <th>Stock Quantity</th>
-                                <th>Product Type</th>
-                                <th style="text-align:center">Published</th>
-                                <th style="text-align:center">Edit</th>
-                                <th style="text-align:center">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr id="row_@item.Id">
-                                    <td style="vertical-align: inherit ;text-align:center">
-                                        <input type="checkbox" value="@item.Id" class="checkboxGroups">
-                                    </td>
-                                    <td>
-                                        @if (item.Product_Picture_Mapping.Count > 0)
-                                        {
-                                            <a href='@Url.Action("DisplayPicrure", "Picture", new { Id = item.Product_Picture_Mapping.FirstOrDefault().PictureId })' target="_blank">
-                                                <img style="width:75px ;height:75px" src='@Url.Action("DisplayPicture", "Picture", new { Id = item.Product_Picture_Mapping.FirstOrDefault().PictureId })' />
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <img  style="width:75px ;height:75px" src="https://admin-demo.nopcommerce.com/images/thumbs/default-image_100.png">
-                                        }
-                                    </td>
-                                    <td style="vertical-align: inherit">
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td style="vertical-align: inherit">
-                                        @Html.DisplayFor(modelItem => item.Sku)
-                                    </td>
-                                    <td style="vertical-align: inherit">
-                                        @Html.DisplayFor(modelItem => item.Price)
-                                    </td>
-                                    <td style="vertical-align: inherit">
-                                        @Html.DisplayFor(modelItem => item.StockQuantity)
-                                    </td>
-                                    <td style="vertical-align: inherit">
-                                        @Html.DisplayFor(modelItem => item.ProductTypeId)
-                                    </td>
-                                    <td class=" text-center" style="vertical-align: inherit">
-                                        @if (item.Published)
-                                        {
-                                            <i class="fa fa-check true-icon" style="color:#007fcc ;font-size:20px;"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="fa fa-close false-icon" style="color:#d22d2d ;font-size:20px;"></i>
-                                        }
-                                    </td>
-                                    <td style="vertical-align: inherit" class=" text-center">
-                                        <a class="btn btn-primary" href="/Admin/Product/Edit/@item.Id"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit</a>
-                                    </td>
-                                    <td style="vertical-align: inherit" class=" text-center">
-                                        <a class="btn btn-danger" href="/Admin/Product/Delete/@item.Id"><i class="fa fa-remove"></i>&nbsp;&nbsp;Delete</a>
-                                    </td>
-                                    <!--<td style="vertical-align: inherit" class=" text-center">
-                                        <a class="btn btn-primary" href="Edit/@item.Id"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit</a>-->
-                                    @*@Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
-                                             @Ajax.ActionLink("Xoá", "Delete", new { @id = item.ID }, new AjaxOptions
-                                        {
-                                            Confirm = "Bạn có muốn xoá bản ghi này?",
-                                            OnComplete = "$('#row_" + @item.ID + "').remove()",
-                                            HttpMethod = "Delete"
-                                        })*@
-                                    @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
-                                    <!--</td>-->
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-                </div>
-                <!-- /.box-body -->
-
-            </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-    </div>
-</section>
 @section Footer {
     <script src="/Assets/Admin/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/Assets/Admin/bower_components/jquery-ui/jquery-ui.min.js"></script>
@@ -294,5 +304,38 @@
             //Initialize Select2 Elements
             $('.select2').select2()
         })
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#mastercheckbox').click(function () {
+                $('.checkboxGroups').attr('checked', $(this).is(':checked')).change();
+            });
+            //wire up checkboxes.
+            $('#products-grid').on('change', 'input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]', function (e) {
+                var $check = $(this);
+                if ($check.is(":checked") == true) {
+                    var checked = jQuery.inArray($check.val(), selectedIds);
+                    if (checked == -1) {
+                        //add id to selectedIds.
+                        selectedIds.push($check.val());
+                    }
+                }
+                else {
+                    var checked = jQuery.inArray($check.val(), selectedIds);
+                    if (checked > -1) {
+                        //remove id from selectedIds.
+                        selectedIds = $.grep(selectedIds, function (item, index) {
+                            return item != $check.val();
+                        });
+                    }
+                }
+                updateMasterCheckbox();
+            });
+        });
+        function updateMasterCheckbox() {
+            var numChkBoxes = $('#products-grid input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]').length;
+            var numChkBoxesChecked = $('#products-grid input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]:checked').length;
+            $('#mastercheckbox').attr('checked', numChkBoxes == numChkBoxesChecked && numChkBoxes > 0);
+        }
     </script>
 }

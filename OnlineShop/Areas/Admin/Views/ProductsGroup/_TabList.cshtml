@@ -1,0 +1,46 @@
+﻿@model Models.EF.ProductsGroup
+
+<table class="table table-striped table-bordered" id="TabList">
+    <thead>
+        <tr>
+            <td>Title</td>
+            <td>SortMethod</td>
+            <td class="text-center col-md-1">Display Order</td>
+            <td class="text-center col-md-1">Active</td>
+            <td class="text-center col-md-1">Edit</td>
+            <td class="text-center col-md-1">Delete</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ProductsGroupItems)
+        {
+        <tr>
+            <td style="vertical-align:inherit">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td style="vertical-align:inherit">
+                @Html.DisplayFor(modelItem => item.SortMethod)
+            </td>
+            <td style="vertical-align:inherit">
+                @Html.DisplayFor(modelItem => item.DisplayOrder)
+            </td>
+            <td style="vertical-align:inherit">
+                @if (item.Active)
+                {
+                    <i class="fa fa-check true-icon" style="color: #007fcc; font-size: 20px;"></i>
+                }
+                else
+                {
+                    <i class="fa fa-close false-icon" style="color: #d22d2d; font-size: 20px;"></i>
+                }
+            </td>
+            <td style="vertical-align:inherit" class="text-center col-md-1">
+                <a class="btn btn-primary" href="/Admin/Category/Edit/@item.CategoryId"><i class="fa fa-edit"></i>&nbsp;&nbsp;Edit</a>
+            </td>
+            <td style="vertical-align:inherit" class="text-center col-md-1">
+                <a class="btn btn-primary" href="/Admin/ProductsGroupItem/Delete/@item.Id"><i class="fa fa-remove"></i>&nbsp;&nbsp;Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

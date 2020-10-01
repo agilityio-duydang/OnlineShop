@@ -1,0 +1,104 @@
+﻿@model Models.EF.ProductsGroup
+
+<div class="form-horizontal" id="TabBuilder">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <i class="fa fa-list panel-icon">
+            </i>
+            <h3 class="box-title">Tab Builder (Accessories)</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="tab-content">
+                @Html.Partial("_TabList",Model)
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <div class="label-wrapper">
+                        @Html.LabelFor(model => model.ProductsGroupItems.SingleOrDefault().Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div title="" data-toggle="tooltip" class="ico-help">
+                            <i class="fa fa-question-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.ProductsGroupItems.SingleOrDefault().Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ProductsGroupItems.SingleOrDefault().Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <div class="label-wrapper">
+                        @Html.LabelFor(model => model.ProductsGroupItems.SingleOrDefault().Active, htmlAttributes: new { @class = "control-label" })
+                        <div title="" data-toggle="tooltip" class="ico-help">
+                            <i class="fa fa-question-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.ProductsGroupItems.SingleOrDefault().Active, new { htmlAttributes = new { @class = "flat-red" } })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ProductsGroupItems.SingleOrDefault().Active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <div class="label-wrapper">
+                        @Html.LabelFor(model => model.ProductsGroupItems.SingleOrDefault().SortMethod, htmlAttributes: new { @class = "control-label" })
+                        <div title="" data-toggle="tooltip" class="ico-help">
+                            <i class="fa fa-question-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select class="itemSortMethod form-control valid" name="itemSortMethod">
+                        <option value="0">Default Order</option>
+                        <option value="20">Name Ascending</option>
+                        <option value="30">Name Descending</option>
+                        <option value="40">Price Ascending</option>
+                        <option value="50">Price Descending</option>
+                        <option value="60" selected="selected">Newest</option>
+                        <option value="70">Marked As New (sorted by date created)</option>
+                        <option value="80">Best Sellers (sorted by quantity)</option>
+                        <option value="90">Featured (sorted by display order)</option>
+                        <option value="100">On Sale (sorted by highest price difference)</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.ProductsGroupItems.SingleOrDefault().SortMethod, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <div class="label-wrapper">
+                        @Html.LabelFor(model => model.ProductsGroupItems.SingleOrDefault().DisplayOrder, htmlAttributes: new { @class = "control-label" })
+                        <div title="" data-toggle="tooltip" class="ico-help">
+                            <i class="fa fa-question-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.ProductsGroupItems.SingleOrDefault().DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ProductsGroupItems.SingleOrDefault().DisplayOrder, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <div class="label-wrapper">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button id="addProductsGroup" type="button" class="btn btn-primary">Add Tab</button>
+                </div>
+            </div>
+            <div class="panel panel-default fieldset-wrapper">
+                <div class="panel-heading fieldset-title">Preview</div>
+                <div class="found-products-grid">
+                    @Html.Partial("_ProductList", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

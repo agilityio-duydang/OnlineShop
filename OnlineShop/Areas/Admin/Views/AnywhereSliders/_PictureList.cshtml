@@ -1,0 +1,57 @@
+﻿@model Models.EF.AnywhereSlider
+
+<table class="table table-bordered table-striped" id="PictureList">
+    <thead>
+        <tr>
+            <td>Picture</td>
+            <td class=" text-center">Url</td>
+            <td class=" text-center">Alt</td>
+            <td class=" text-center">DisplayOrder</td>
+            <td class="text-center">Visible</td>
+            <td style="text-align:center">Edit</td>
+            <td style="text-align:center">Delete</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SliderImages)
+        {
+            <tr>
+                <td style="width:200px ;height:47px">
+                    @if (item.PictureId > 0)
+                    {
+                        <a href='@Url.Action("DisplayPicture", "Picture", new { Id = item.PictureId })' target="_blank">
+                            <img style="width:200px ;height:47px" src='@Url.Action("DisplayPicture", "Picture", new { Id = item.PictureId })' />
+                        </a>
+                        @*<img src="https://admin-demo.nopcommerce.com/images/thumbs/default-image_100.png">*@
+                    }
+                    @*@Html.DisplayFor(modelItem => item.Picture.PictureBinary)*@
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-2">
+                    <a href="@Html.DisplayFor(modelItem => item.Url)" target="_blank">@Html.DisplayFor(modelItem => item.Url)</a>                    
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-2">
+                    @Html.DisplayFor(modelItem => item.Alt)
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-2">
+                    @Html.DisplayFor(modelItem => item.DisplayOrder)
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-1">
+                    @if (item.Visible)
+                    {
+                        <i class="fa fa-check true-icon" style="color:#007fcc ;font-size:20px;"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-close false-icon" style="color:#d22d2d ;font-size:20px;"></i>
+                    }
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-1">
+                    <a class="btn btn-primary" href="/Admin/Picture/Edit/@item.PictureId"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit</a>
+                </td>
+                <td style="vertical-align: inherit" class=" text-center col-md-1">
+                    <a class="btn btn-danger" href="/Admin/Picture/Delete/@item.PictureId"><i class="fa fa-remove"></i>&nbsp;&nbsp;Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

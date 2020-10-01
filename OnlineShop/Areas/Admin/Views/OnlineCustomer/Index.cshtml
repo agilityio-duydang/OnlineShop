@@ -16,15 +16,12 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/Assets/Admin/bower_components/select2/dist/css/select2.min.css">
 }
-<section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Online customers</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -39,7 +36,7 @@
                             {
                                 <tr id="row_@item.Id">
                                     <td style="vertical-align: inherit">
-                                        @Html.ActionLink(item.LastName + " " + item.FirstName, "Edit","Customer", new { id = item.Id }, new { id = item.Id })
+                                        @Html.ActionLink(item.LastName + " " + item.FirstName, "Edit", "Customer", new { id = item.Id }, new { id = item.Id })
                                     </td>
                                     <td style="vertical-align: inherit">
                                         @Html.DisplayFor(modelItem => item.Email)
@@ -56,14 +53,10 @@
                     </table>
                     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
                 </div>
-                <!-- /.box-body -->
-
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </div>
-</section>
+</div>
 <!-- /.content -->
 @section Footer {
     <script src="/Assets/Admin/bower_components/jquery/dist/jquery.min.js"></script>

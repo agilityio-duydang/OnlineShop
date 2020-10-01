@@ -18,7 +18,7 @@
                 <td style="width:150px ;height:150px">
                     @if (item.PictureId > 0)
                     {
-                        <a href='@Url.Action("DisplayPicrure", "Picture", new { Id = item.PictureId })' target="_blank">
+                        <a href='@Url.Action("DisplayPicture", "Picture", new { Id = item.PictureId })' target="_blank">
                             <img style="width:150px ;height:150px" src='@Url.Action("DisplayPicture", "Picture", new { Id = item.PictureId })' />
                         </a>
                         @*<img src="https://admin-demo.nopcommerce.com/images/thumbs/default-image_100.png">*@

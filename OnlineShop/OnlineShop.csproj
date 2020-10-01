@@ -207,6 +207,7 @@
     <Compile Include="Areas\Admin\Controllers\ActivityLogController.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityLogTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\AddressController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AnywhereSlidersController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogCommentController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogPostController.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="Areas\Admin\Controllers\DiscountController.cs" />
     <Compile Include="Areas\Admin\Controllers\GiftCardController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\JCarouselsController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManufactureController.cs" />
@@ -226,8 +228,11 @@
     <Compile Include="Areas\Admin\Controllers\PictureController.cs" />
     <Compile Include="Areas\Admin\Controllers\PollController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductMappingsAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductReviewController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductsGroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductTagController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SaleOfTheDayOfferController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShoppingCartItemController.cs" />
     <Compile Include="Areas\Admin\Controllers\VendorController.cs" />
     <Compile Include="Areas\Admin\Models\AddressModel.cs" />
@@ -997,6 +1002,27 @@
     <Content Include="Assets\Admin\bower_components\ckfinder\userfiles\.htaccess" />
     <Content Include="Areas\Admin\Views\Picture\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Product\_ProductPictureList.cshtml" />
+    <Content Include="Areas\Admin\Views\AnywhereSliders\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AnywhereSliders\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\AnywhereSliders\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\AnywhereSliders\_PictureList.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductMappingsAdmin\ProductAddJCarouselPopup.cshtml" />
+    <Content Include="Areas\Admin\Views\JCarousels\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\JCarousels\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\JCarousels\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\JCarousels\_ProductList.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductsGroup\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductsGroup\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SaleOfTheDayOffer\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SaleOfTheDayOffer\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SaleOfTheDayOffer\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SaleOfTheDayOffer\_ProductList.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductMappingsAdmin\ProductAddSaleOfTheDayOfferPopup.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductsGroup\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductsGroup\_CategoryList.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductsGroup\_TabBuilder.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductsGroup\_TabList.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductsGroup\_ProductList.cshtml" />
     <None Include="Assets\Admin\lib\jquery-1.10.2.intellisense.js" />
     <Content Include="Assets\Admin\lib\jquery-1.10.2.js" />
     <Content Include="Assets\Admin\lib\jquery-1.10.2.min.js" />
@@ -4272,6 +4298,10 @@
     <Content Include="Content\Themes\Emporium\Content\img\view-list.png" />
     <Content Include="Content\Themes\Emporium\Content\scripts\emporium.js" />
     <Content Include="Content\Themes\Emporium\preview.jpg" />
+    <Content Include="Database\OnlineShop.mdf" />
+    <Content Include="Database\OnlineShop_log.ldf">
+      <DependentUpon>OnlineShop.mdf</DependentUpon>
+    </Content>
     <Content Include="Data\Images\0000252_huawei-p10-plus_360.png" />
     <Content Include="Data\Images\0000265_kodak-pixpro-astro_360.png" />
     <Content Include="Data\Images\0000269_sony-a99-mark-ii_360.png" />

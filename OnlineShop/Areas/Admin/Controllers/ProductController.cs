@@ -91,7 +91,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             ViewBag.CategoryID = new SelectList(category.ListAllCategories(), "ID", "Name", selectedId);
             ViewBag.Manufacturer = new SelectList(manufacturerDao.GetManufacturers(), "ID", "Name", selectedId);
         }
-        public  ActionResult ProductPictureAdd(int pictureId, int displayOrder, string AltAttribute, string TitleAttribute, int productId)
+        public ActionResult ProductPictureAdd(int pictureId, int displayOrder, string AltAttribute, string TitleAttribute, int productId)
         {
             if (pictureId == 0)
                 throw new ArgumentException(nameof(pictureId));
@@ -117,8 +117,14 @@ namespace OnlineShop.Areas.Admin.Controllers
                 DisplayOrder = displayOrder
             };
             int Id = new Product_Picture_MappingDao().InsertProductPictureMapping(productPictureMaping);
-
-            return Json(new { Result = true });
+            if (Id > 0)
+            {
+                return Json(new { Result = true });
+            }
+            else
+            {
+                return Json(new { Result = false });
+            }
         }
 
         [HttpPost]
@@ -132,6 +138,6 @@ namespace OnlineShop.Areas.Admin.Controllers
                 throw new ArgumentNullException(nameof(product));
 
             return PartialView("_ProductPictureList", product);
-        }    
+        }
     }
 }
