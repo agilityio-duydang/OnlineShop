@@ -1,0 +1,22 @@
+﻿@model List<Models.EF.Manufacturer>
+<div class="block block-manufacturer-navigation">
+    <div class="title">
+        <strong>Manufacturers</strong>
+    </div>
+    <div class="listbox">
+        <ul class="list">
+            @foreach (var item in Model)
+            {
+                <li class="inactive">
+                    <a href="/manufacturer/@item.Name.ToLower().Replace(" ","-")">@item.Name</a>
+                </li>
+            }
+            @*<li class="inactive">
+                <a href="/hp">HP</a>
+            </li>*@
+        </ul>
+        <div class="view-all">
+            <a href="/manufacturer/all">View all</a>
+        </div>
+    </div>
+</div>

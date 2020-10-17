@@ -22,7 +22,6 @@ namespace Models.EF
         [StringLength(400)]
         public string Name { get; set; }
 
-        [System.Web.Mvc.AllowHtml]
         public string Description { get; set; }
 
         public int ManufacturerTemplateId { get; set; }

@@ -1,0 +1,172 @@
+﻿@model Models.EF.Category
+
+@{
+    ViewBag.Title = "CategoryDetails";
+    Layout = "~/Views/Shared/_CategoryDetail.cshtml";
+    var ChildCategory = (List<Models.EF.Category>)ViewBag.ChildCategory;
+    var ProductsCategory = (List<Models.EF.Product>)ViewBag.ProductsCategory;
+}
+<div class="center-2">
+    <div class="page category-page">
+        <div class="breadcrumb">
+            <ul>
+                <li>
+                    <a href="/" title="Home">Home</a>
+                    <span class="delimiter">/</span>
+                </li>
+                <li>
+                    <strong class="current-item">@Model.Name</strong>
+                </li>
+            </ul>
+        </div>
+        <div class="page-title">
+            <h1>@Model.Name</h1>
+        </div>
+        <div class="page-body">
+            @if (ChildCategory.Count() > 0)
+            {
+                <div class="category-grid sub-category-grid">
+                    <div class="item-grid">
+                        @foreach (var item in ChildCategory)
+                        {
+                            var picture = new Models.Dao.PictureDao().GetPictureById(item.PictureId);
+                            <div class="item-box">
+                                <div class="sub-category-item">
+                                    @if (picture != null)
+                                    {
+                                        var url = new Models.Dao.PictureDao().GetPictureUrl(item.PictureId, 370, true, null, Models.Dao.PictureType.Entity);
+                                        <div class="picture">
+                                            <a href="/category/@item.Name.Replace(" ","-").ToLower()" title="@item.MetaTitle">
+                                                <img alt="@picture.AltAttribute" src="@url" title="@picture.TitleAttribute" />
+                                            </a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(370, Models.Dao.PictureType.Entity, null);
+                                        <div class="picture">
+                                            <a href="/category/@item.Name.Replace(" ","-").ToLower()" title="@item.MetaTitle">
+                                                <img alt="" src="@url" title="" />
+                                            </a>
+                                        </div>
+                                    }
+                                    <h2 class="title">
+                                        <a href="/category/@item.Name.ToLower().Replace(" ","-")" title="@item.MetaTitle">
+                                            @item.Name
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            <div class="product-selectors">
+                <div class="filters-button-wrapper">
+                    <button class="filters-button">Filters</button>
+                </div>
+                <div class="product-viewmode">
+                    <span>View as</span>
+                    <a class="viewmode-icon grid selected" href="http://localhost:15536/computers?viewmode=grid" title="Grid">Grid</a>
+                    <a class="viewmode-icon list " href="http://localhost:15536/computers?viewmode=list" title="List">List</a>
+                </div>
+                <div class="product-sorting">
+                    <span>Sort by</span>
+                    <select id="products-orderby" name="products-orderby" onchange="setLocation(this.value);">
+                        <option selected="selected" value="http://localhost:15536/computers?orderby=0">Position</option>
+                        <option value="http://localhost:15536/computers?orderby=5">Name: A to Z</option>
+                        <option value="http://localhost:15536/computers?orderby=6">Name: Z to A</option>
+                        <option value="http://localhost:15536/computers?orderby=10">Price: Low to High</option>
+                        <option value="http://localhost:15536/computers?orderby=11">Price: High to Low</option>
+                        <option value="http://localhost:15536/computers?orderby=15">Created on</option>
+                    </select>
+                </div>
+                <div class="product-page-size">
+                    <span>Display</span>
+                    <select id="products-pagesize-mobile" name="products-pagesize" onchange="setLocation(this.value);">
+                        <option value="http://localhost:15536/computers?pagesize=3">3</option>
+                        <option value="http://localhost:15536/computers?pagesize=6" selected='selected'>6</option>
+                        <option value="http://localhost:15536/computers?pagesize=9">9</option>
+                    </select>
+                    <select id="products-pagesize-desktop" name="products-pagesize-desktop" onchange="setLocation(this.value);">
+                        <option value="http://localhost:15536/computers?pagesize=3">3</option>
+                        <option selected="selected" value="http://localhost:15536/computers?pagesize=6">6</option>
+                        <option value="http://localhost:15536/computers?pagesize=9">9</option>
+                    </select>
+                    <span>per page</span>
+                </div>
+            </div>
+            <div class="product-filters">
+            </div>
+            <div class="product-grid">
+                <div class="item-grid">
+                    @foreach (var item in ProductsCategory)
+                    {
+                        var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(item.Id, 1);
+                        <div class="item-box">
+                            <div class="product-item" data-productid="10">
+                                @if (productPictures.Count() > 0)
+                                {
+                                    var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 360, true, null, Models.Dao.PictureType.Entity);
+                                    <div class="picture">
+                                        <a href="/product/@item.Name.Replace(" ","-").ToLower()" title="@item.MetaTitle">
+                                            <img class="picture-img" src="@url" alt="@productPictures.SingleOrDefault().AltAttribute" title="@productPictures.SingleOrDefault().TitleAttribute" />
+                                        </a>
+                                        <div class="btn-wrapper">
+                                            <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/10');return false;">Add to compare list</button>
+                                            <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/10/2/1');return false;">Add to wishlist</button>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(360, Models.Dao.PictureType.Entity, null);
+                                    <div class="picture">
+                                        <a href="/product/@item.Name.Replace(" ","-").ToLower()" title="@item.MetaTitle">
+                                            <img class="picture-img" src="@url" alt="" title="" />
+                                        </a>
+                                        <div class="btn-wrapper">
+                                            <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/10');return false;">Add to compare list</button>
+                                            <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/10/2/1');return false;">Add to wishlist</button>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="details">
+                                    <h2 class="product-title">
+                                        <a href="/product/@item.Name.Replace(" ","-").ToLower()">@item.Name</a>
+                                    </h2>
+                                    <div class="product-rating-box" title="1 review(s)">
+                                        <div class="rating">
+                                            <div style="width: 80%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        @item.FullDescription
+                                    </div>
+                                    <div class="add-info">
+                                        <div class="prices">
+                                            <span class="price actual-price">@item.Price</span>
+                                        </div>
+                                        <div class="buttons">
+                                            <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/10/1/1');return false;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="pager">
+                <ul>
+                    <li class="current-page"><span>1</span></li>
+                    <li class="individual-page"><a href="http://localhost:15536/computers?pagenumber=2">2</a></li>
+                    <li class="next-page"><a href="http://localhost:15536/computers?pagenumber=2">Next</a></li>
+                </ul>
+            </div>
+            <div class="returned-products-marker"></div>
+        </div>
+    </div>
+</div>
+

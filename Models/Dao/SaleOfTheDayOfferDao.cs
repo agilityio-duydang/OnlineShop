@@ -23,6 +23,13 @@ namespace Models.Dao
             return saleOfTheDayOffers.OrderByDescending(x => x.Id).ToPagedList(page, pageSize);
         }
 
+        public List<SaleOfTheDayOffer> GetSaleOfTheDayOffers()
+        {
+            List<SaleOfTheDayOffer> saleOfTheDayOffers = dbContext.SaleOfTheDayOffers.OrderByDescending(x=>x.Id).ToList();
+
+            return saleOfTheDayOffers.OrderByDescending(x => x.Id).ToList();
+        }
+
         public int InsertSaleOfTheDayOffer(SaleOfTheDayOffer saleOfTheDayOffer)
         {
             if (saleOfTheDayOffer == null)

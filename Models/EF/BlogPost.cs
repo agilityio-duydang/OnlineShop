@@ -5,7 +5,6 @@ namespace Models.EF
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Web.Mvc;
 
     [Table("BlogPost")]
     public partial class BlogPost
@@ -23,11 +22,9 @@ namespace Models.EF
         [Required]
         public string Title { get; set; }
 
-        [AllowHtml]
         [Required]
         public string Body { get; set; }
 
-        [AllowHtml]
         public string BodyOverview { get; set; }
 
         public bool AllowComments { get; set; }

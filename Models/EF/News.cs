@@ -5,7 +5,6 @@ namespace Models.EF
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Web.Mvc;
 
     public partial class News
     {
@@ -25,7 +24,6 @@ namespace Models.EF
         [Required]
         public string Short { get; set; }
 
-        [AllowHtml]
         [Required]
         public string Full { get; set; }
 

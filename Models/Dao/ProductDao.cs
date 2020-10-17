@@ -128,12 +128,12 @@ namespace Models.Dao
             }
         }
 
-        public bool DeleteProduct(int productId)
+        public bool DeleteProduct(int Id)
         {
-            if (productId == 0)
+            if (Id == 0)
                 return false;
 
-            var product = dbContext.Products.Find(productId);
+            var product = dbContext.Products.Find(Id);
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
 
@@ -141,12 +141,16 @@ namespace Models.Dao
             dbContext.SaveChanges();
             return true;
         }
-        public Product GetProductById(int productId)
+        public Product GetProductById(int Id)
         {
-            if (productId == 0)
+            if (Id == 0)
                 return null;
 
-            return dbContext.Products.Find(productId);
+            var product = dbContext.Products.Find(Id);
+            if (product == null)
+                throw new ArgumentNullException(nameof(product));
+
+            return product;
         }
 
         public Product GetProductBySku(string sku)
@@ -155,6 +159,44 @@ namespace Models.Dao
                 return null;
 
             return dbContext.Products.Where(x => x.Sku.ToLower() == sku.ToLower().Trim()).FirstOrDefault();
+        }
+
+        public Product GetProductByName(string name)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+                return null;
+
+            return dbContext.Products.Where(x => x.Name.ToLower() == name.ToLower().Trim()).FirstOrDefault();
+        }
+
+        public List<Product> GetProductsRelated(int productId)
+        {
+            if (productId == 0)
+                return new List<Product>();
+
+            var query = from p in dbContext.Products 
+                        join pp in dbContext.Product_Category_Mapping on p.Id equals pp.CategoryId
+                        orderby pp.DisplayOrder, pp.Id
+                        where pp.ProductId == productId
+                        select p;
+
+            var products = query.ToList();
+            return products;
+        }
+
+        public List<Product> GetProductsByCategory(int categoryId)
+        {
+            if (categoryId == 0)
+                return new List<Product>();
+
+            var query = from p in dbContext.Products
+                        join pp in dbContext.Product_Category_Mapping on p.Id equals pp.ProductId
+                        orderby pp.DisplayOrder, pp.Id
+                        where pp.CategoryId == categoryId
+                        select p;
+
+            var products = query.ToList();
+            return products;
         }
     }
 }

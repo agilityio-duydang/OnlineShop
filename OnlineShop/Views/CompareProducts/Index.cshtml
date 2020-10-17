@@ -1,0 +1,207 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="master-wrapper-content">
+    <div class="ajaxCartInfo" data-getajaxcartbuttonurl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productpageaddtocartbuttonselector=".add-to-cart-button" data-productboxaddtocartbuttonselector=".product-box-add-to-cart-button" data-productboxproductitemelementselector=".product-item" data-enableonproductpage="True" data-enableoncatalogpages="True" data-minishoppingcartquatityformattingresource="({0})" data-miniwishlistquatityformattingresource="({0})" data-addtowishlistbuttonselector=".add-to-wishlist-button">
+    </div>
+    <input id="addProductVariantToCartUrl" name="addProductVariantToCartUrl" type="hidden" value="/AddProductFromProductDetailsPageToCartAjax">
+    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/AddProductToCartAjax">
+    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/MiniShoppingCart">
+    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/NopAjaxCartFlyoutShoppingCart">
+    <input id="checkProductAttributesUrl" name="checkProductAttributesUrl" type="hidden" value="/CheckIfProductOrItsAssociatedProductsHasAttributes">
+    <input id="getMiniProductDetailsViewUrl" name="getMiniProductDetailsViewUrl" type="hidden" value="/GetMiniProductDetailsView">
+    <input id="flyoutShoppingCartPanelSelector" name="flyoutShoppingCartPanelSelector" type="hidden" value="#flyout-cart">
+    <input id="shoppingCartMenuLinkSelector" name="shoppingCartMenuLinkSelector" type="hidden" value=".cart-qty">
+    <input id="wishlistMenuLinkSelector" name="wishlistMenuLinkSelector" type="hidden" value="span.wishlist-qty">
+    <div id="product-ribbon-info" data-productid="0" data-productboxselector=".product-item, .item-holder" data-productboxpicturecontainerselector=".picture, .item-picture" data-productpagepicturesparentcontainerselector=".product-essential" data-productpagebugpicturecontainerselector=".picture" data-retrieveproductribbonsurl="/RetrieveProductRibbons">
+    </div>
+    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content">
+    </div>
+    <div class="master-column-wrapper">
+        <div class="center-1">
+            <div class="page compare-products-page">
+                <div class="page-title">
+                    <h1>Compare products</h1>
+                </div>
+                <div class="page-body">
+                    <a href="#" onclick="setLocation('/clearcomparelist')" class="clear-list"><span>Clear list</span></a>
+                    <div class="table-wrapper">
+                        <table class="compare-products-table">
+                            <tbody>
+                                <tr class="remove-product">
+                                    <td class="empty">&nbsp;</td>
+                                    <td style="width: 45%;">
+                                        <button type="button" value="Remove" title="Remove" class="button-2 remove-button" onclick="setLocation('/compareproducts/remove/4')"><span>Remove</span></button>
+                                    </td>
+                                    <td style="width: 45%;">
+                                        <button type="button" value="Remove" title="Remove" class="button-2 remove-button" onclick="setLocation('/compareproducts/remove/10')"><span>Remove</span></button>
+                                    </td>
+                                </tr>
+                                <tr class="product-picture">
+                                    <td class="empty">&nbsp;</td>
+                                    <td style="width: 45%;">
+                                        <a class="picture" href="/apple-macbook-pro-13-inch"><img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch"></a>
+                                    </td>
+                                    <td style="width: 45%;">
+                                        <a class="picture" href="/adobe-photoshop-cs4"><img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4"></a>
+                                    </td>
+                                </tr>
+                                <tr class="product-name">
+                                    <td>
+                                        <label>Name</label>
+                                    </td>
+                                    <td style="width: 45%;">
+                                        <a href="/apple-macbook-pro-13-inch">Apple MacBook Pro 13-inch</a>
+                                    </td>
+                                    <td style="width: 45%;">
+                                        <a href="/adobe-photoshop-cs4">Adobe Photoshop CS4</a>
+                                    </td>
+                                </tr>
+                                <tr class="product-price">
+                                    <td>
+                                        <label>Price</label>
+                                    </td>
+                                    <td style="width: 45%;">
+                                        $1,800.00
+                                    </td>
+                                    <td style="width: 45%;">
+                                        $75.00
+                                    </td>
+                                </tr>
+                                <tr class="specification">
+                                    <td>
+                                        <label>Screensize</label>
+                                    </td>
+                                    <td style="width: 45%;">
+                                        13.0''
+                                    </td>
+                                    <td style="width: 45%;">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr class="specification">
+                                    <td>
+                                        <label>CPU Type</label>
+                                    </td>
+                                    <td style="width: 45%;">
+                                        Intel Core i5
+                                    </td>
+                                    <td style="width: 45%;">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr class="specification">
+                                    <td>
+                                        <label>Memory</label>
+                                    </td>
+                                    <td style="width: 45%;">
+                                        4 GB
+                                    </td>
+                                    <td style="width: 45%;">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="compare-products-mobile">
+                        <div class="compare-section product">
+                            <div class="title">Name</div>
+                            <ul>
+                                <li class="item">
+                                    <div class="picture">
+                                        <a href="/apple-macbook-pro-13-inch"><img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch"></a>
+                                    </div>
+                                    <div class="details">
+                                        <div class="product-name">
+                                            <a href="/apple-macbook-pro-13-inch">Apple MacBook Pro 13-inch</a>
+                                        </div>
+                                        <button type="button" title="Remove" class="button-2 remove-button" onclick="setLocation('/compareproducts/remove/4')"><span>Remove</span></button>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="picture">
+                                        <a href="/adobe-photoshop-cs4"><img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4"></a>
+                                    </div>
+                                    <div class="details">
+                                        <div class="product-name">
+                                            <a href="/adobe-photoshop-cs4">Adobe Photoshop CS4</a>
+                                        </div>
+                                        <button type="button" title="Remove" class="button-2 remove-button" onclick="setLocation('/compareproducts/remove/10')"><span>Remove</span></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="compare-section price">
+                            <div class="title">Price</div>
+                            <ul>
+                                <li class="item">
+                                    <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
+                                    <span>$1,800.00</span>
+                                </li>
+                                <li class="item">
+                                    <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
+                                    <span>$75.00</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="compare-section description">
+                            <div class="title">Short description</div>
+                            <ul>
+                                <li class="item">
+                                    <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
+                                    <p>No description!</p>
+                                </li>
+                                <li class="item">
+                                    <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
+                                    <p>No description!</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="compare-section specification">
+                            <div class="title">Screensize</div>
+                            <ul>
+                                <li class="item">
+                                    <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
+                                    <span>13.0''</span>
+                                </li>
+                                <li class="item">
+                                    <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
+                                    <span class="empty">n/a</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="compare-section specification">
+                            <div class="title">CPU Type</div>
+                            <ul>
+                                <li class="item">
+                                    <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
+                                    <span>Intel Core i5</span>
+                                </li>
+                                <li class="item">
+                                    <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
+                                    <span class="empty">n/a</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="compare-section specification">
+                            <div class="title">Memory</div>
+                            <ul>
+                                <li class="item">
+                                    <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
+                                    <span>4 GB</span>
+                                </li>
+                                <li class="item">
+                                    <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
+                                    <span class="empty">n/a</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

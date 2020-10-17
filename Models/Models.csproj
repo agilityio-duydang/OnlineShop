@@ -82,6 +82,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.4.2.8\lib\net45\ImageResizer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
@@ -100,8 +103,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -142,6 +147,7 @@
     <Compile Include="Dao\DiscountRequirementDao.cs" />
     <Compile Include="Dao\DiscountUsageHistoryDao.cs" />
     <Compile Include="Dao\JCarouselDao.cs" />
+    <Compile Include="Dao\PictureType.cs" />
     <Compile Include="Dao\ProcessingStatus.cs" />
     <Compile Include="Dao\GiftCardDao.cs" />
     <Compile Include="Dao\GiftCardUsageHistoryDao.cs" />
@@ -162,6 +168,7 @@
     <Compile Include="Dao\ProductsGroupDao.cs" />
     <Compile Include="Dao\ProductTagDao.cs" />
     <Compile Include="Dao\Product_Picture_MappingDao.cs" />
+    <Compile Include="Dao\ResizeType.cs" />
     <Compile Include="Dao\SaleOfTheDayOfferDao.cs" />
     <Compile Include="Dao\ShoppingCartItemDao.cs" />
     <Compile Include="Dao\SliderImageDao.cs" />

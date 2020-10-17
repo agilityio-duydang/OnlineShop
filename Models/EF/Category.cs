@@ -5,7 +5,6 @@ namespace Models.EF
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Web.Mvc;
 
     [Table("Category")]
     public partial class Category
@@ -23,7 +22,6 @@ namespace Models.EF
         [StringLength(400)]
         public string Name { get; set; }
 
-        [AllowHtml]
         public string Description { get; set; }
 
         [StringLength(400)]

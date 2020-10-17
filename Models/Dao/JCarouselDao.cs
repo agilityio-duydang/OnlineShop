@@ -23,6 +23,11 @@ namespace Models.Dao
             return jCarousels.OrderByDescending(x => x.Id).ToPagedList(page, pageSize);
         }
 
+        public List<JCarousel> GetJCarousels()
+        {
+            List<JCarousel> jCarousels = dbContext.JCarousels.OrderByDescending(x => x.Id).ToList();
+            return jCarousels.OrderByDescending(x => x.Id).ToList();
+        }    
         public int InsertJCarousels (JCarousel jCarousel)
         {
             if (jCarousel == null)

@@ -49,6 +49,12 @@ namespace Models.Dao
 
             return categories.OrderByDescending(x => x.Id).ToList();
         }
+
+        public List<Category> GetCategories()
+        {
+            List<Category> categories = context.Categories.OrderByDescending(x => x.Id).ToList(); ;
+            return categories.OrderBy(x => x.Id).ToList();
+        }
         public long InsertCategory(Category category)
         {
             if (category == null)
@@ -109,6 +115,13 @@ namespace Models.Dao
                 return null;
 
             return context.Categories.Find(categoryId);
+        }
+        public List<Category> GetCategoryChild(long parentId)
+        {
+            if (parentId == 0)
+                return null;
+
+            return context.Categories.Where(x => x.ParentCategoryId == parentId).ToList();
         }
         public Category GetCategoryByName(string name)
         {

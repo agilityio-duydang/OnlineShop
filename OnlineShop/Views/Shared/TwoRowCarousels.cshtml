@@ -1,119 +1,172 @@
-﻿<div class="two-row-carousels small-products">
-    <div class="product-grid home-page-product-grid">
-        <div class="title"> <strong>Featured products</strong> </div>
-        <div class="item-grid">
-            <div class="item-box">
-                <div class="product-item" data-productid="1">
-                    <div class="picture">
-                        <a href="/build-your-own-computer" title="Show details for Build your own computer"> <img class="picture-img" src="https://localhost:44359/Content/images/thumbs/0000020_build-your-own-computer_360.jpeg" alt="Picture of Build your own computer" title="Show details for Build your own computer" /> </a>
-                        <div class="btn-wrapper">
-                            <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/1');return false;">Add to compare list</button>
-                            <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/1/2/1');return false;">Add to wishlist</button>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <h2 class="product-title">
-                            <a href="/build-your-own-computer">Build your own computer</a>
-                        </h2>
-                        <div class="product-rating-box" title="1 review(s)">
-                            <div class="rating">
-                                <div style="width: 100%"> </div>
+﻿@model List<Models.EF.JCarousel>
+<div class="two-row-carousels small-products">
+    @foreach (var item in Model)
+    {
+        <div class="product-grid home-page-product-grid">
+            <div class="title"> <strong>@item.Name</strong> </div>
+            <div class="item-grid">
+                @foreach (var itemChild in item.JCarousel_Product_Mapping)
+                {
+                    var product = new Models.Dao.ProductDao().GetProductById(itemChild.ProductId);
+                    var pictures = new Models.Dao.PictureDao().GetPicturesByProductId(product.Id, 1);
+                    <div class="item-box">
+                        <div class="product-item" data-productid="@product.Id">
+                            <div class="picture">
+                                @if (pictures.Count() > 0)
+                                {
+                                    var url = new Models.Dao.PictureDao().GetPictureUrl(pictures.SingleOrDefault().Id, 400, true, null, Models.Dao.PictureType.Entity);
+                                    <a href="/product/@product.Name.ToLower().Replace(" ","-")" title="@product.MetaTitle"> <img class="picture-img" src="@url" alt="@pictures.SingleOrDefault().AltAttribute" title="@pictures.SingleOrDefault().TitleAttribute" /> </a>
+                                }
+                                else
+                                {
+                                    var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(400, Models.Dao.PictureType.Entity, null);
+                                    <a href="/product/@product.Name.ToLower().Replace(" ","-")" title="@product.MetaTitle">
+                                        <img class="picture-img" src="@url">
+                                    </a>
+                                }
+                                <div class="btn-wrapper">
+                                    <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/1');return false;">Add to compare list</button>
+                                    <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/1/2/1');return false;">Add to wishlist</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="description"> Build it </div>
-                        <div class="add-info">
-                            <div class="prices"> <span class="price actual-price">$1,200.00</span> </div>
-                            <div class="buttons">
-                                <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/1/1/1');return false;" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-box">
-                <div class="product-item" data-productid="4">
-                    <div class="picture">
-                        <a href="/apple-macbook-pro-13-inch" title="Show details for Apple MacBook Pro 13-inch"> <img class="picture-img" src="https://localhost:44359/Content/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" alt="Picture of Apple MacBook Pro 13-inch" title="Show details for Apple MacBook Pro 13-inch" /> </a>
-                        <div class="btn-wrapper">
-                            <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/4');return false;">Add to compare list</button>
-                            <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/4/2/1');return false;">Add to wishlist</button>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <h2 class="product-title">
-                            <a href="/apple-macbook-pro-13-inch">Apple MacBook Pro 13-inch</a>
-                        </h2>
-                        <div class="product-rating-box" title="1 review(s)">
-                            <div class="rating">
-                                <div style="width: 80%"> </div>
-                            </div>
-                        </div>
-                        <div class="description"> A groundbreaking Retina display. A new force-sensing trackpad. All-flash architecture. Powerful dual-core and quad-core Intel processors. Together, these features take the notebook to a new level of performance. And they will do the same for you in everything you create. </div>
-                        <div class="add-info">
-                            <div class="prices"> <span class="price actual-price">$1,800.00</span> </div>
-                            <div class="buttons">
-                                <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/4/1/1');return false;" />
+                            <div class="details">
+                                <h2 class="product-title">
+                                    <a href="/product/@product.Name.ToLower().Replace(" ","-")">@product.Name</a>
+                                </h2>
+                                <div class="product-rating-box" title="1 review(s)">
+                                    <div class="rating">
+                                        <div style="width: 100%"> </div>
+                                    </div>
+                                </div>
+                                <div class="description">@product.MetaDescription</div>
+                                <div class="add-info">
+                                    <div class="prices"> <span class="price actual-price">@product.Price</span> </div>
+                                    <div class="buttons">
+                                        <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/1/1/1');return false;" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="item-box">
-                <div class="product-item" data-productid="18">
-                    <div class="picture">
-                        <a href="/htc-one-m8-android-l-50-lollipop" title="Show details for HTC One M8 Android L 5.0 Lollipop"> <img class="picture-img" src="https://localhost:44359/Content/images/thumbs/0000041_htc-one-m8-android-l-50-lollipop_360.jpeg" alt="Picture of HTC One M8 Android L 5.0 Lollipop" title="Show details for HTC One M8 Android L 5.0 Lollipop" /> </a>
-                        <div class="btn-wrapper">
-                            <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/18');return false;">Add to compare list</button>
-                            <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/18/2/1');return false;">Add to wishlist</button>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <h2 class="product-title">
-                            <a href="/htc-one-m8-android-l-50-lollipop">HTC One M8 Android L 5.0 Lollipop</a>
-                        </h2>
-                        <div class="product-rating-box" title="1 review(s)">
-                            <div class="rating">
-                                <div style="width: 100%"> </div>
-                            </div>
-                        </div>
-                        <div class="description"> HTC - One (M8) 4G LTE Cell Phone with 32GB Memory - Gunmetal (Sprint) </div>
-                        <div class="add-info">
-                            <div class="prices"> <span class="price actual-price">$245.00</span> </div>
-                            <div class="buttons">
-                                <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/18/1/1');return false;" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-box">
-                <div class="product-item" data-productid="43">
-                    <div class="picture">
-                        <a href="/25-virtual-gift-card" title="Show details for $25 Virtual Gift Card"> <img class="picture-img" src="https://localhost:44359/Content/images/thumbs/0000074_25-virtual-gift-card_360.jpeg" alt="Picture of $25 Virtual Gift Card" title="Show details for $25 Virtual Gift Card" /> </a>
-                        <div class="btn-wrapper">
-                            <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/43');return false;">Add to compare list</button>
-                            <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/43/2/1');return false;">Add to wishlist</button>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <h2 class="product-title">
-                            <a href="/25-virtual-gift-card">$25 Virtual Gift Card</a>
-                        </h2>
-                        <div class="product-rating-box" title="0 review(s)">
-                            <div class="rating">
-                                <div style="width: 0%"> </div>
-                            </div>
-                        </div>
-                        <div class="description"> $25 Gift Card. Gift Cards must be redeemed through our site Web site toward the purchase of eligible products. </div>
-                        <div class="add-info">
-                            <div class="prices"> <span class="price actual-price">$25.00</span> </div>
-                            <div class="buttons">
-                                <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/43/1/1');return false;" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
-    </div>
+    }
+    @*<div class="product-grid home-page-product-grid">
+            <div class="title"> <strong>Featured products</strong> </div>
+            <div class="item-grid">
+                <div class="item-box">
+                    <div class="product-item" data-productid="1">
+                        <div class="picture">
+                            <a href="/build-your-own-computer" title="Show details for Build your own computer"> <img class="picture-img" src="https://localhost:44359/Content/images/thumbs/0000020_build-your-own-computer_360.jpeg" alt="Picture of Build your own computer" title="Show details for Build your own computer" /> </a>
+                            <div class="btn-wrapper">
+                                <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/1');return false;">Add to compare list</button>
+                                <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/1/2/1');return false;">Add to wishlist</button>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <h2 class="product-title">
+                                <a href="/build-your-own-computer">Build your own computer</a>
+                            </h2>
+                            <div class="product-rating-box" title="1 review(s)">
+                                <div class="rating">
+                                    <div style="width: 100%"> </div>
+                                </div>
+                            </div>
+                            <div class="description"> Build it </div>
+                            <div class="add-info">
+                                <div class="prices"> <span class="price actual-price">$1,200.00</span> </div>
+                                <div class="buttons">
+                                    <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/1/1/1');return false;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-box">
+                    <div class="product-item" data-productid="4">
+                        <div class="picture">
+                            <a href="/apple-macbook-pro-13-inch" title="Show details for Apple MacBook Pro 13-inch"> <img class="picture-img" src="https://localhost:44359/Content/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" alt="Picture of Apple MacBook Pro 13-inch" title="Show details for Apple MacBook Pro 13-inch" /> </a>
+                            <div class="btn-wrapper">
+                                <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/4');return false;">Add to compare list</button>
+                                <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/4/2/1');return false;">Add to wishlist</button>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <h2 class="product-title">
+                                <a href="/apple-macbook-pro-13-inch">Apple MacBook Pro 13-inch</a>
+                            </h2>
+                            <div class="product-rating-box" title="1 review(s)">
+                                <div class="rating">
+                                    <div style="width: 80%"> </div>
+                                </div>
+                            </div>
+                            <div class="description"> A groundbreaking Retina display. A new force-sensing trackpad. All-flash architecture. Powerful dual-core and quad-core Intel processors. Together, these features take the notebook to a new level of performance. And they will do the same for you in everything you create. </div>
+                            <div class="add-info">
+                                <div class="prices"> <span class="price actual-price">$1,800.00</span> </div>
+                                <div class="buttons">
+                                    <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/4/1/1');return false;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-box">
+                    <div class="product-item" data-productid="18">
+                        <div class="picture">
+                            <a href="/htc-one-m8-android-l-50-lollipop" title="Show details for HTC One M8 Android L 5.0 Lollipop"> <img class="picture-img" src="https://localhost:44359/Content/images/thumbs/0000041_htc-one-m8-android-l-50-lollipop_360.jpeg" alt="Picture of HTC One M8 Android L 5.0 Lollipop" title="Show details for HTC One M8 Android L 5.0 Lollipop" /> </a>
+                            <div class="btn-wrapper">
+                                <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/18');return false;">Add to compare list</button>
+                                <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/18/2/1');return false;">Add to wishlist</button>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <h2 class="product-title">
+                                <a href="/htc-one-m8-android-l-50-lollipop">HTC One M8 Android L 5.0 Lollipop</a>
+                            </h2>
+                            <div class="product-rating-box" title="1 review(s)">
+                                <div class="rating">
+                                    <div style="width: 100%"> </div>
+                                </div>
+                            </div>
+                            <div class="description"> HTC - One (M8) 4G LTE Cell Phone with 32GB Memory - Gunmetal (Sprint) </div>
+                            <div class="add-info">
+                                <div class="prices"> <span class="price actual-price">$245.00</span> </div>
+                                <div class="buttons">
+                                    <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/18/1/1');return false;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-box">
+                    <div class="product-item" data-productid="43">
+                        <div class="picture">
+                            <a href="/25-virtual-gift-card" title="Show details for $25 Virtual Gift Card"> <img class="picture-img" src="https://localhost:44359/Content/images/thumbs/0000074_25-virtual-gift-card_360.jpeg" alt="Picture of $25 Virtual Gift Card" title="Show details for $25 Virtual Gift Card" /> </a>
+                            <div class="btn-wrapper">
+                                <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/43');return false;">Add to compare list</button>
+                                <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/43/2/1');return false;">Add to wishlist</button>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <h2 class="product-title">
+                                <a href="/25-virtual-gift-card">$25 Virtual Gift Card</a>
+                            </h2>
+                            <div class="product-rating-box" title="0 review(s)">
+                                <div class="rating">
+                                    <div style="width: 0%"> </div>
+                                </div>
+                            </div>
+                            <div class="description"> $25 Gift Card. Gift Cards must be redeemed through our site Web site toward the purchase of eligible products. </div>
+                            <div class="add-info">
+                                <div class="prices"> <span class="price actual-price">$25.00</span> </div>
+                                <div class="buttons">
+                                    <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/43/1/1');return false;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 </div>

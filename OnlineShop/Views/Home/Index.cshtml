@@ -4,18 +4,18 @@
 }
 @{Html.RenderAction("NivoSlider", "Home");}
 <div class="master-wrapper-content">
-    <div class="ajaxCartInfo" data-getAjaxCartButtonUrl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productPageAddToCartButtonSelector=".add-to-cart-button" data-productBoxAddToCartButtonSelector=".product-box-add-to-cart-button" data-productBoxProductItemElementSelector=".product-item" data-enableOnProductPage="True" data-enableOnCatalogPages="True" data-miniShoppingCartQuatityFormattingResource="({0})" data-miniWishlistQuatityFormattingResource="({0})" data-addToWishlistButtonSelector=".add-to-wishlist-button"> </div>
+    @*<div class="ajaxCartInfo" data-getAjaxCartButtonUrl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productPageAddToCartButtonSelector=".add-to-cart-button" data-productBoxAddToCartButtonSelector=".product-box-add-to-cart-button" data-productBoxProductItemElementSelector=".product-item" data-enableOnProductPage="True" data-enableOnCatalogPages="True" data-miniShoppingCartQuatityFormattingResource="({0})" data-miniWishlistQuatityFormattingResource="({0})" data-addToWishlistButtonSelector=".add-to-wishlist-button"> </div>*@
     <input id="addProductVariantToCartUrl" name="addProductVariantToCartUrl" type="hidden" value="/AddProductFromProductDetailsPageToCartAjax" />
-    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/AddProductToCartAjax" />
-    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/MiniShoppingCart" />
-    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/NopAjaxCartFlyoutShoppingCart" />
+    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/cart/AddProductToCartAjax" />
+    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/cart/MiniShoppingCart" />
+    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/cart/NopAjaxCartFlyoutShoppingCart" />
     <input id="checkProductAttributesUrl" name="checkProductAttributesUrl" type="hidden" value="/CheckIfProductOrItsAssociatedProductsHasAttributes" />
     <input id="getMiniProductDetailsViewUrl" name="getMiniProductDetailsViewUrl" type="hidden" value="/GetMiniProductDetailsView" />
     <input id="flyoutShoppingCartPanelSelector" name="flyoutShoppingCartPanelSelector" type="hidden" value="#flyout-cart" />
     <input id="shoppingCartMenuLinkSelector" name="shoppingCartMenuLinkSelector" type="hidden" value=".cart-qty" />
     <input id="wishlistMenuLinkSelector" name="wishlistMenuLinkSelector" type="hidden" value="span.wishlist-qty" />
     <div id="product-ribbon-info" data-productid="0" data-productboxselector=".product-item, .item-holder" data-productboxpicturecontainerselector=".picture, .item-picture" data-productpagepicturesparentcontainerselector=".product-essential" data-productpagebugpicturecontainerselector=".picture" data-retrieveproductribbonsurl="/RetrieveProductRibbons"> </div>
-    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content"> </div>
+    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/product/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content"> </div>
     <div class="master-column-wrapper">
         <div class="center-1">
             <input id="home-page-carousel-breakpoints" type="hidden" value="[{&quot;breakpoint&quot;:1600,&quot;settings&quot;:{&quot;slidesToShow&quot;:3}},{&quot;breakpoint&quot;:1024,&quot;settings&quot;:{&quot;slidesToShow&quot;:2}},{&quot;breakpoint&quot;:600,&quot;settings&quot;:{&quot;slidesToShow&quot;:1}}]" />

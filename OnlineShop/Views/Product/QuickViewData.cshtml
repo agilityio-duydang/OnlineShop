@@ -1,0 +1,460 @@
+﻿@model Models.EF.Product
+@{
+    var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(Model.Id, 1);
+}
+@*<div class="k-widget k-window ajaxCart" style="padding-top: 28px; min-width: 90px; min-height: 50px; display: block; left: 601.5px; top: 321.5px; z-index: 1072;">
+        <div class="k-window-titlebar k-header" style="margin-top: -28px;">
+            &nbsp;<span class="k-window-title" style="right: 1913px;"></span>
+            <div class="k-window-actions"><a role="button" href="#" class="k-window-action k-link"><span role="presentation" class="k-icon k-i-close">Close</span></a></div>
+        </div>
+        <div class="productAddedToCartWindow k-window-content k-content" data-role="window" tabindex="0" style="">
+            <div class="productAddedToCartWindowTitle">
+                Just Added To Your Basket
+            </div>
+            <div class="productAddedToCartItem">
+                <div class="productAddedToCartWindowImage">
+                    @if (productPictures.Count > 0)
+                    {
+                        var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 600, true, null, Models.Dao.PictureType.Entity);
+                        <a href="/product/@Model.Name.ToLower().Replace(" ","-")" title="@Model.MetaTitle">
+                            <img alt="@productPictures.SingleOrDefault().AltAttribute" src="@url" title="@productPictures.SingleOrDefault().TitleAttribute">
+                        </a>
+                    }
+                    else
+                    {
+                        var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(600, Models.Dao.PictureType.Entity, null);
+                        <a href="/product/@Model.Name.ToLower().Replace(" ","-")" title="@Model.MetaTitle">
+                            <img alt="@Model.Name" src="@url" title="@Model.MetaTitle">
+                        </a>
+                    }
+                </div>
+                <div class="productAddedToCartWindowDescription">
+                    <h1>
+                        <a href="/product/@Model.Name.ToLower().Replace(" ","-")">@Model.Name</a>
+                    </h1>
+                    <strong class="price">@Model.Price</strong>
+                    <div class="attributeInfo"></div>
+                    <span class="quantity">Quantity : 1</span>
+                </div>
+            </div>
+            <div class="productAddedToCartWindowSummary">
+                <a class="continueShoppingLink" href="#">Continue Shopping</a>
+                <div>
+                    <input type="submit" class="button-1 productAddedToCartWindowCheckout" value="Go to cart" onclick="setLocation('/cart');">
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="quickViewWindow k-window-content k-content" data-role="window" tabindex="0" style="">
+        <input id="add-to-cart-details" type="hidden" data-productid="122" data-url="/addproducttocart/details/122/1">
+        <input id="add-to-wishlist-details" type="hidden" data-productid="122" data-url="/addproducttocart/details/122/2">
+        <div class="product-essential">
+            <form method="post" id="product-details-form" action="/droid-inventor-kit">
+                <div class="popup-header">
+                    <h1 class="product-name">
+                        @Model.Name
+                    </h1>
+                </div>
+                <div class="product-content">
+                    <div class="gallery">
+                        <script>
+                            $(document).ready(function () {
+                                CloudZoom.quickStart();
+                            });
+                        </script>
+                        @if (productPictures.Count > 0)
+                        {
+                            var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 600, true, null, Models.Dao.PictureType.Entity);
+                            <div class="picture">
+                                <a>
+                                    <img class="cloudzoom" src="@url" data-cloudzoom="appendSelector: '.quickViewWindow .gallery .picture', zoomPosition: 'inside', zoomOffsetX: 0, easing: 3, zoomFlyOut: false, disableZoom: 'auto'" alt="Picture of Droid Inventor Kit" id="quick-view-zoom" style="user-select: none;">
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(600, Models.Dao.PictureType.Entity, null);
+                            <div class="picture">
+                                <a>
+                                    <img class="cloudzoom" src="@url" data-cloudzoom="appendSelector: '.quickViewWindow .gallery .picture', zoomPosition: 'inside', zoomOffsetX: 0, easing: 3, zoomFlyOut: false, disableZoom: 'auto'" alt="Picture of Droid Inventor Kit" id="quick-view-zoom" style="user-select: none;">
+                                </a>
+                            </div>
+                        }
+                        <div class="thumbnails">
+                            @foreach (var item in productPictures)
+                            {
+                                var url = new Models.Dao.PictureDao().GetPictureUrl(item.Id, 600, true, null, Models.Dao.PictureType.Entity);
+                                var urlThumbail = new Models.Dao.PictureDao().GetPictureUrl(item.Id, 75, true, null, Models.Dao.PictureType.Entity);
+                                <a href="@url" class="cloudzoom-gallery" data-cloudzoom="appendSelector: '.quickViewWindow .gallery .picture', zoomPosition: 'inside', zoomOffsetX: 0, easing: 3, zoomFlyOut: false, disableZoom: 'auto', titleOpacity: 0,  useZoom: '#quick-view-zoom', image: '@url', zoomImage: '@url'">
+                                    <img class="cloud-zoom-gallery-img" src="@urlThumbail" alt="Picture of Droid Inventor Kit">
+                                </a>
+                            }
+                        </div>
+                        <input type="hidden" class="quickViewAdjustPictureOnProductAttributeValueChange" data-productid="122" data-iscloudzoomavailable="true">
+                    </div>
+                    <div class="overview">
+                        <div id="accordion" class="ui-accordion ui-widget ui-helper-reset" role="tablist">
+                            <h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons" role="tab" id="ui-id-11" aria-controls="ui-id-12" aria-selected="true" aria-expanded="true" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s"></span>Details</h3>
+                            <div class="product-details ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active" id="ui-id-12" aria-labelledby="ui-id-11" role="tabpanel" aria-hidden="false" style="">
+                                <div class="additional-details">
+                                </div>
+                                <div class="manufacturers">
+                                    <span class="label">Manufacturer:</span>
+                                    <span class="value">
+                                        <a href="/manufacturer-5">Amazon</a>
+                                    </span>
+                                </div>
+                                <div class="availability">
+                                    <div class="stock">
+                                        <span class="label">Availability:</span>
+                                        <span class="value" id="stock-availability-value-122">In stock</span>
+                                    </div>
+                                </div>
+                                <div class="purchase-area">
+                                    <div class="prices">
+                                        <div class="old-product-price">
+                                            <span>Old price:</span>
+                                            <span>@Model.OldPrice</span>
+                                        </div>
+                                        <div class="product-price">
+                                            <label for="price-value-122">Price:</label>
+                                            <span id="price-value-122" class="price-value-122">
+                                                @Model.Price
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart sevenspikes-ajaxcart">
+                                        <div class="add-to-cart-panel">
+                                            <label class="qty-label" for="addtocart_122_EnteredQuantity">Qty:</label>
+                                            <div class="add-to-cart-qty-wrapper">
+                                                <input id="product_enteredQuantity_122" class="qty-input" type="text" aria-label="Enter a quantity" data-val="true" data-val-required="The Qty field is required." name="addtocart_122.EnteredQuantity" value="1">
+                                                <span class="plus">i</span>
+                                                <span class="minus">h</span>
+                                            </div>
+                                            <div class="ajax-cart-button-wrapper" data-productid="122" data-isproductpage="true">
+                                                <input type="button" id="add-to-cart-button-122" value="Add to cart" class="button-1 add-to-cart-button nopAjaxCartProductVariantAddToCartButton" data-productid="122">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="compare-products">
+                                    <button type="button" value="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/122');return false;">Add to compare list</button>
+                                </div>
+                                <div class="delivery">
+                                    <div id="free-shipping-122" class="free-shipping">Free shipping</div>
+                                    <div class="delivery-date">
+                                        <span class="label">Delivery date:</span>
+                                        <span class="value">1-3 days</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="ui-accordion-header ui-corner-top ui-accordion-header-collapsed ui-corner-all ui-state-default ui-accordion-icons" role="tab" id="ui-id-13" aria-controls="ui-id-14" aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-circle-arrow-e"></span>Description</h3>
+                            <div class="product-details ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content" style="display: none;" id="ui-id-14" aria-labelledby="ui-id-13" role="tabpanel" aria-hidden="true">
+                                <div class="short-description">
+                                    @Model.ShortDescription
+                                </div>
+                            </div>
+                            <h3 class="ui-accordion-header ui-corner-top ui-accordion-header-collapsed ui-corner-all ui-state-default ui-accordion-icons" role="tab" id="ui-id-15" aria-controls="ui-id-16" aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-circle-arrow-e"></span>Specifications</h3>
+                            <div class="product-details ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content" style="display: none;" id="ui-id-16" aria-labelledby="ui-id-15" role="tabpanel" aria-hidden="true">
+                                <div class="product-specs-box">
+                                    <div class="title">
+                                        <strong>Products specifications</strong>
+                                    </div>
+                                    <div class="table-wrapper">
+                                        <table class="data-table">
+                                            <colgroup>
+                                                <col width="25%">
+                                                <col>
+                                            </colgroup>
+                                            <tbody>
+                                                <tr class="odd">
+                                                    <td class="spec-name">
+                                                        Two Weeks Free Return
+                                                    </td>
+                                                    <td class="spec-value">
+                                                        Yes
+                                                    </td>
+                                                </tr>
+                                                <tr class="even">
+                                                    <td class="spec-name">
+                                                        Find more at
+                                                    </td>
+                                                    <td class="spec-value">
+                                                        <a href="https://nop-templates.com" target="_blank">https://nop-templates.com</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="links-panel">
+                            <a href="/droid-inventor-kit" class="link-to-product-page">Go to product's page</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="related-products-grid product-grid">
+                    <div class="title">
+                        <strong>Related products</strong>
+                    </div>
+                    <div class="item-grid">
+                        <div class="item-box">
+                            <div class="product-item sevenspikes-ajaxcart" data-productid="125">
+                                <div class="picture">
+                                    <a href="/helium-canister" title="Show details for Helium Canister">
+                                        <img src="https://megastore.nop-templates.com/images/thumbs/0000634_helium-canister_360.png" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000634_helium-canister_360.png" alt="Picture of Helium Canister" title="Show details for Helium Canister" class="picture-img" loadedimage="true">
+                                    </a>
+                                    <div class="btn-wrapper">
+                                        <button type="button" title="Compare" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/125');return false;">Compare</button>
+                                        <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/125/2/1');return false;">Add to wishlist</button>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <h2 class="product-title">
+                                        <a href="/helium-canister">Helium Canister</a>
+                                    </h2>
+                                    <div class="product-rating-box" title="1 review(s)">
+                                        <div class="rating">
+                                            <div style="width: 100%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        Lorem ipsum suspendisse et ante vitae curabitur nisl curabitur ultrices et torquent magna, etiam justo morbi dui feugiat tortor nisi lorem sodales turpis augue, metus per diam faucibus nullam commodo quis tellus convallis mauris eget risus nostra euismod tempor.
+                                    </div>
+                                    <div class="add-info">
+                                        <div class="prices">
+                                            <span class="price actual-price">$40.00</span>
+                                        </div>
+                                        <div class="buttons">
+                                            <div class="ajax-cart-button-wrapper" data-productid="125" data-isproductpage="false">
+                                                <div class="add-to-cart-qty-wrapper">
+                                                    <input data-quantityproductid="125" type="text" class="productQuantityTextBox" value="1">
+                                                    <span class="plus">i</span>
+                                                    <span class="minus">h</span>
+                                                </div>
+                                                <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button nopAjaxCartProductListAddToCartButton" data-productid="125">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="product-item sevenspikes-ajaxcart" data-productid="121">
+                                <div class="picture">
+                                    <a href="/lego-brick-box" title="Show details for Lego Brick Box">
+                                        <img src="https://megastore.nop-templates.com/images/thumbs/0000611_lego-brick-box_360.png" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000611_lego-brick-box_360.png" alt="Picture of Lego Brick Box" title="Show details for Lego Brick Box" class="picture-img" loadedimage="true">
+                                    </a>
+                                    <div class="btn-wrapper">
+                                        <button type="button" title="Compare" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/121');return false;">Compare</button>
+                                        <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/121/2/1');return false;">Add to wishlist</button>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <h2 class="product-title">
+                                        <a href="/lego-brick-box">Lego Brick Box</a>
+                                    </h2>
+                                    <div class="product-rating-box" title="1 review(s)">
+                                        <div class="rating">
+                                            <div style="width: 80%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        Lorem ipsum suspendisse et ante vitae curabitur nisl curabitur ultrices et torquent magna, etiam justo morbi dui feugiat tortor nisi lorem sodales turpis augue, metus per diam faucibus nullam commodo quis tellus convallis mauris eget risus nostra euismod tempor.
+                                    </div>
+                                    <div class="add-info">
+                                        <div class="prices">
+                                            <span class="price actual-price">$96.00</span>
+                                        </div>
+                                        <div class="buttons">
+                                            <div class="ajax-cart-button-wrapper" data-productid="121" data-isproductpage="false">
+                                                <div class="add-to-cart-qty-wrapper">
+                                                    <input data-quantityproductid="121" type="text" class="productQuantityTextBox" value="1">
+                                                    <span class="plus">i</span>
+                                                    <span class="minus">h</span>
+                                                </div>
+                                                <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button nopAjaxCartProductListAddToCartButton" data-productid="121">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="product-item sevenspikes-ajaxcart" data-productid="123">
+                                <div class="picture">
+                                    <a href="/power-wheels-jeep" title="Show details for Power Wheels Jeep">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000622_power-wheels-jeep_360.png" alt="Picture of Power Wheels Jeep" title="Show details for Power Wheels Jeep" class="picture-img">
+                                    </a>
+                                    <div class="btn-wrapper">
+                                        <button type="button" title="Compare" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/123');return false;">Compare</button>
+                                        <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/123/2/1');return false;">Add to wishlist</button>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <h2 class="product-title">
+                                        <a href="/power-wheels-jeep">Power Wheels Jeep</a>
+                                    </h2>
+                                    <div class="product-rating-box" title="0 review(s)">
+                                        <div class="rating">
+                                            <div style="width: 0%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        Lorem ipsum suspendisse et ante vitae curabitur nisl curabitur ultrices et torquent magna, etiam justo morbi dui feugiat tortor nisi lorem sodales turpis augue, metus per diam faucibus nullam commodo quis tellus convallis mauris eget risus nostra euismod tempor.
+                                    </div>
+                                    <div class="add-info">
+                                        <div class="prices">
+                                            <span class="price actual-price">$153.00</span>
+                                        </div>
+                                        <div class="buttons">
+                                            <div class="ajax-cart-button-wrapper" data-productid="123" data-isproductpage="false">
+                                                <div class="add-to-cart-qty-wrapper">
+                                                    <input data-quantityproductid="123" type="text" class="productQuantityTextBox" value="1">
+                                                    <span class="plus">i</span>
+                                                    <span class="minus">h</span>
+                                                </div>
+                                                <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button nopAjaxCartProductListAddToCartButton" data-productid="123">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="product-item sevenspikes-ajaxcart" data-productid="118">
+                                <div class="picture">
+                                    <a href="/ezviz-mini-o" title="Show details for Ezviz Mini O">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000599_ezviz-mini-o_360.png" alt="Picture of Ezviz Mini O" title="Show details for Ezviz Mini O" class="picture-img">
+                                    </a>
+                                    <div class="btn-wrapper">
+                                        <button type="button" title="Compare" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/118');return false;">Compare</button>
+                                        <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/118/2/1');return false;">Add to wishlist</button>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <h2 class="product-title">
+                                        <a href="/ezviz-mini-o">Ezviz Mini O</a>
+                                    </h2>
+                                    <div class="product-rating-box" title="1 review(s)">
+                                        <div class="rating">
+                                            <div style="width: 100%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        Lorem ipsum suspendisse et ante vitae curabitur nisl curabitur ultrices et torquent magna, etiam justo morbi dui feugiat tortor nisi lorem sodales turpis augue, metus per diam faucibus nullam commodo quis tellus convallis mauris eget risus nostra euismod tempor.
+                                    </div>
+                                    <div class="add-info">
+                                        <div class="prices">
+                                            <span class="price actual-price">Call for pricing</span>
+                                        </div>
+                                        <div class="buttons">
+                                            <div class="ajax-cart-button-wrapper" data-productid="118" data-isproductpage="false">
+                                                <div class="add-to-cart-qty-wrapper">
+                                                    <input data-quantityproductid="118" type="text" class="productQuantityTextBox" value="1">
+                                                    <span class="plus">i</span>
+                                                    <span class="minus">h</span>
+                                                </div>
+                                                <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button nopAjaxCartProductListAddToCartButton" data-productid="118">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="product-item sevenspikes-ajaxcart" data-productid="133">
+                                <div class="picture">
+                                    <a href="/steel-scissors" title="Show details for Steel Scissors">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000660_steel-scissors_360.png" alt="Picture of Steel Scissors" title="Show details for Steel Scissors" class="picture-img">
+                                    </a>
+                                    <div class="btn-wrapper">
+                                        <button type="button" title="Compare" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/133');return false;">Compare</button>
+                                        <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/133/2/1');return false;">Add to wishlist</button>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <h2 class="product-title">
+                                        <a href="/steel-scissors">Steel Scissors</a>
+                                    </h2>
+                                    <div class="product-rating-box" title="0 review(s)">
+                                        <div class="rating">
+                                            <div style="width: 0%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        Lorem ipsum suspendisse et ante vitae curabitur nisl curabitur ultrices et torquent magna, etiam justo morbi dui feugiat tortor nisi lorem sodales turpis augue, metus per diam faucibus nullam commodo quis tellus convallis mauris eget risus nostra euismod tempor.
+                                    </div>
+                                    <div class="add-info">
+                                        <div class="prices">
+                                            <span class="price actual-price">$95.00</span>
+                                        </div>
+                                        <div class="buttons">
+                                            <div class="ajax-cart-button-wrapper" data-productid="133" data-isproductpage="false">
+                                                <div class="add-to-cart-qty-wrapper">
+                                                    <input data-quantityproductid="133" type="text" class="productQuantityTextBox" value="1">
+                                                    <span class="plus">i</span>
+                                                    <span class="minus">h</span>
+                                                </div>
+                                                <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button nopAjaxCartProductListAddToCartButton" data-productid="133">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="product-item sevenspikes-ajaxcart" data-productid="134">
+                                <div class="picture">
+                                    <a href="/mod-podge" title="Show details for Mod Podge">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000664_mod-podge_360.png" alt="Picture of Mod Podge" title="Show details for Mod Podge" class="picture-img">
+                                    </a>
+                                    <div class="btn-wrapper">
+                                        <button type="button" title="Compare" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/134');return false;">Compare</button>
+                                        <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/134/2/1');return false;">Add to wishlist</button>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <h2 class="product-title">
+                                        <a href="/mod-podge">Mod Podge</a>
+                                    </h2>
+                                    <div class="product-rating-box" title="0 review(s)">
+                                        <div class="rating">
+                                            <div style="width: 0%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        Lorem ipsum suspendisse et ante vitae curabitur nisl curabitur ultrices et torquent magna, etiam justo morbi dui feugiat tortor nisi lorem sodales turpis augue, metus per diam faucibus nullam commodo quis tellus convallis mauris eget risus nostra euismod tempor.
+                                    </div>
+                                    <div class="add-info">
+                                        <div class="prices">
+                                            <span class="price actual-price">$43.00</span>
+                                        </div>
+                                        <div class="buttons">
+                                            <div class="ajax-cart-button-wrapper" data-productid="134" data-isproductpage="false">
+                                                <div class="add-to-cart-qty-wrapper">
+                                                    <input data-quantityproductid="134" type="text" class="productQuantityTextBox" value="1">
+                                                    <span class="plus">i</span>
+                                                    <span class="minus">h</span>
+                                                </div>
+                                                <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button nopAjaxCartProductListAddToCartButton" data-productid="134">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHhYtztWWzGpViCd5F5-BLeFxf1NNMcBWNzqirGmQvdtnPC6hxS-Kl63gHZui5AFIvs3IQ8Ij6CU6a6pEiKRT-KEtgmfI7KKcjaInhX3Mj5EXb1-MBZTXmnlr0hbxDff7GE">
+            </form>
+        </div>
+    </div>

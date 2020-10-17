@@ -26,6 +26,10 @@ namespace Models.Dao
             return productTags.OrderByDescending(x => x.Id).ToPagedList(page, pageSize);
         }
 
+        public List<ProductTag> GetProductTags()
+        {
+            return dbContext.ProductTags.ToList();
+        }
         public int InsertProductTag(ProductTag productTag)
         {
             if (productTag == null)

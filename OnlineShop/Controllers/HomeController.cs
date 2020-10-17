@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Dao;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,13 +31,15 @@ namespace OnlineShop.Controllers
         [ChildActionOnly]
         public ActionResult Header()
         {
-            return PartialView();
+            var model = new CategoryDao().GetCategories();
+            return PartialView(model);
         }
 
         [ChildActionOnly]
         public ActionResult NivoSlider()
         {
-            return PartialView();
+            var model = new AnywhereSliderDao().GetAnywhereSliders();
+            return PartialView(model);
         }
 
         [ChildActionOnly]
@@ -54,13 +57,15 @@ namespace OnlineShop.Controllers
         [ChildActionOnly]
         public ActionResult JCarouselMain()
         {
-            return PartialView();
+            var model = new JCarouselDao().GetJCarousels();
+            return PartialView(model);
         }
 
         [ChildActionOnly]
         public ActionResult HomePageCategory()
         {
-            return PartialView();
+            var model = new CategoryDao().GetCategories();
+            return PartialView(model);
         }
 
         [ChildActionOnly]
@@ -72,13 +77,15 @@ namespace OnlineShop.Controllers
         [ChildActionOnly]
         public ActionResult SaleOfTheDay()
         {
-            return PartialView();
+            var model = new SaleOfTheDayOfferDao().GetSaleOfTheDayOffers();
+            return PartialView(model);
         }
 
         [ChildActionOnly]
         public ActionResult TwoRowCarousels()
         {
-            return PartialView();
+            var model = new JCarouselDao().GetJCarousels();
+            return PartialView(model);
         }
     }
 }

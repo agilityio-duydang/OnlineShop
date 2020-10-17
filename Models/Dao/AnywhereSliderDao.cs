@@ -22,6 +22,11 @@ namespace Models.Dao
 
             return anywhereSliders.OrderByDescending(x => x.Id).ToPagedList(page, pageSize);
         }
+        public List<AnywhereSlider> GetAnywhereSliders()
+        {
+            List<AnywhereSlider> anywhereSliders = dbContext.AnywhereSliders.OrderByDescending(x => x.Id).ToList();
+            return anywhereSliders.OrderByDescending(x => x.Id).ToList();
+        }
         public int InsertAnywhereSlider(AnywhereSlider anywhereSlider)
         {
             if (anywhereSlider == null)

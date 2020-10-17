@@ -5,7 +5,6 @@ namespace Models.EF
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Web.Mvc;
 
     [Table("Vendor")]
     public partial class Vendor
@@ -25,7 +24,6 @@ namespace Models.EF
         [StringLength(400)]
         public string Email { get; set; }
 
-        [AllowHtml]
         public string Description { get; set; }
 
         public int PictureId { get; set; }

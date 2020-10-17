@@ -1,0 +1,48 @@
+﻿@model Models.EF.Product
+@{ 
+    var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(Model.Id, 1);
+ }
+<div class="k-widget k-window ajaxCart" style="padding-top: 28px; min-width: 90px; min-height: 50px; display: block; left: 601.5px; top: 321.5px; z-index: 1072;">
+    <div class="k-window-titlebar k-header" style="margin-top: -28px;">
+        &nbsp;<span class="k-window-title" style="right: 1913px;"></span>
+        <div class="k-window-actions"><a role="button" href="#" class="k-window-action k-link"><span role="presentation" class="k-icon k-i-close">Close</span></a></div>
+    </div>
+    <div class="productAddedToCartWindow k-window-content k-content" data-role="window" tabindex="0" style="">
+        <div class="productAddedToCartWindowTitle">
+            Just Added To Your Basket
+        </div>
+        <div class="productAddedToCartItem">
+            <div class="productAddedToCartWindowImage">
+                @if (productPictures.Count() > 0)
+                {
+                    var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 224, true, null, Models.Dao.PictureType.Entity);
+                    <a href="/product/@Model.Name.ToLower().Replace(" ","-")" title="@Model.MetaTitle">
+                        <img alt="@productPictures.SingleOrDefault().AltAttribute" src="@url" title="@productPictures.SingleOrDefault().TitleAttribute">
+                    </a>
+                }
+                else
+                {
+                    var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(224, Models.Dao.PictureType.Entity, null);
+
+                    <a href="/product/@Model.Name.ToLower().Replace(" ","-")" title="@Model.MetaTitle">
+                        <img alt="" src="@url" title="">
+                    </a>
+                }
+            </div>
+            <div class="productAddedToCartWindowDescription">
+                <h1>
+                    <a href="/product/@Model.Name.ToLower().Replace(" ","-")">@Model.Name</a>
+                </h1>
+                <strong class="price">@Model.Price</strong>
+                <div class="attributeInfo"></div>
+                <span class="quantity">Quantity : 1</span>
+            </div>
+        </div>
+        <div class="productAddedToCartWindowSummary">
+            <a class="continueShoppingLink" href="#">Continue Shopping</a>
+            <div>
+                <input type="submit" class="button-1 productAddedToCartWindowCheckout" value="Go to cart" onclick="setLocation('/cart');">
+            </div>
+        </div>
+    </div>
+</div>

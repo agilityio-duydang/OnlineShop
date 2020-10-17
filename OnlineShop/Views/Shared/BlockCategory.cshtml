@@ -1,0 +1,59 @@
+﻿@model List<Models.EF.Category>
+<div class="block block-category-navigation">
+    <div class="title">
+        <strong>Categories</strong>
+    </div>
+    <div class="listbox">
+        <ul class="list">
+            @foreach (var item in Model.Where(x => x.ParentCategoryId == 0))
+            {
+                var ChildCategory = Model.Where(x => x.ParentCategoryId == item.Id);
+            <li class="active last">
+                <a href="/category/@item.Name.Replace(" ", "-").ToLower()">
+                    @item.Name
+                </a>
+                <ul class="sublist">
+                    @foreach (var itemChil in ChildCategory)
+                    {
+                        <li class="inactive">
+                            <a href="/category/@itemChil.Name.Replace(" ", "-").ToLower()">
+                                @itemChil.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+            }
+            @*<li class="inactive">
+                    <a href="/electronics">
+                        Electronics
+                    </a>
+                </li>
+                <li class="inactive">
+                    <a href="/apparel">
+                        Apparel
+                    </a>
+                </li>
+                <li class="inactive">
+                    <a href="/digital-downloads">
+                        Digital downloads
+                    </a>
+                </li>
+                <li class="inactive">
+                    <a href="/books">
+                        Books
+                    </a>
+                </li>
+                <li class="inactive">
+                    <a href="/jewelry">
+                        Jewelry
+                    </a>
+                </li>
+                <li class="inactive">
+                    <a href="/gift-cards">
+                        Gift Cards
+                    </a>
+                </li>*@
+        </ul>
+    </div>
+</div>

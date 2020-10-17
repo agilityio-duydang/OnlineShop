@@ -243,10 +243,16 @@
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\MimeTypes.cs" />
     <Compile Include="Common\UserLogin.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CompareProductsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PictureController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ShoppingCartItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -12042,6 +12048,19 @@
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\SaleOfTheDay.cshtml" />
     <Content Include="Views\Shared\TwoRowCarousels.cshtml" />
+    <Content Include="Views\Product\ProductDetails.cshtml" />
+    <Content Include="Views\Shared\_ProductDetail.cshtml" />
+    <Content Include="Views\Shared\_CategoryDetail.cshtml" />
+    <Content Include="Views\Category\CategoryDetails.cshtml" />
+    <Content Include="Views\Shared\Block.cshtml" />
+    <Content Include="Views\Shared\BlockCategory.cshtml" />
+    <Content Include="Views\Shared\BlockManufacture.cshtml" />
+    <Content Include="Views\Shared\BlockRecentlyViewedProducts.cshtml" />
+    <Content Include="Views\Shared\BlockPopularTags.cshtml" />
+    <Content Include="Views\Product\QuickViewData.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\AddProductToCartAjax.cshtml" />
+    <Content Include="Views\CompareProducts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -12057,8 +12076,8 @@
     <Folder Include="Content\lib\fancybox\" />
     <Folder Include="Content\lib\fonts\ionicons\" />
     <Folder Include="Content\lib\Roxy_Fileman\tmp\" />
-    <Folder Include="Models\" />
     <Folder Include="Uploads\" />
+    <Folder Include="Views\Picture\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

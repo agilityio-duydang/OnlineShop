@@ -9,10 +9,6 @@ namespace Models.EF
     [Table("ProductsGroupItem")]
     public partial class ProductsGroupItem
     {
-        public ProductsGroupItem()
-        {
-            Products = new HashSet<Product>();
-        }
         public int Id { get; set; }
 
         public bool Active { get; set; }
@@ -30,7 +26,5 @@ namespace Models.EF
         public int GroupId { get; set; }
 
         public virtual ProductsGroup ProductsGroup { get; set; }
-
-        public virtual ICollection<Product> Products { get; set; }
     }
 }
