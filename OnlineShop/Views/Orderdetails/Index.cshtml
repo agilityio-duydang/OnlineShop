@@ -1,0 +1,276 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="master-wrapper-content">
+    <div class="ajaxCartInfo" data-getajaxcartbuttonurl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productpageaddtocartbuttonselector=".add-to-cart-button" data-productboxaddtocartbuttonselector=".product-box-add-to-cart-button" data-productboxproductitemelementselector=".product-item" data-usenopnotification="False" data-nopnotificationresource="The product has been added to your <a href=&quot;/cart&quot;>shopping cart</a>" data-enableonproductpage="True" data-enableoncatalogpages="True" data-minishoppingcartquatityformattingresource="{0}" data-miniwishlistquatityformattingresource="{0}" data-addtowishlistbuttonselector=".add-to-wishlist-button">
+    </div>
+    <input id="addProductVariantToCartUrl" name="addProductVariantToCartUrl" type="hidden" value="/AddProductFromProductDetailsPageToCartAjax">
+    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/AddProductToCartAjax">
+    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/MiniShoppingCart">
+    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/NopAjaxCartFlyoutShoppingCart">
+    <input id="checkProductAttributesUrl" name="checkProductAttributesUrl" type="hidden" value="/CheckIfProductOrItsAssociatedProductsHasAttributes">
+    <input id="getMiniProductDetailsViewUrl" name="getMiniProductDetailsViewUrl" type="hidden" value="/GetMiniProductDetailsView">
+    <input id="flyoutShoppingCartPanelSelector" name="flyoutShoppingCartPanelSelector" type="hidden" value="#flyout-cart">
+    <input id="shoppingCartMenuLinkSelector" name="shoppingCartMenuLinkSelector" type="hidden" value=".cart-qty">
+    <input id="wishlistMenuLinkSelector" name="wishlistMenuLinkSelector" type="hidden" value="span.wishlist-qty">
+    <div id="product-ribbon-info" data-productid="0" data-productboxselector=".product-item, .item-holder" data-productboxpicturecontainerselector=".picture, .item-picture" data-productpagepicturesparentcontainerselector=".product-essential" data-productpagebugpicturecontainerselector=".picture" data-retrieveproductribbonsurl="/RetrieveProductRibbons">
+    </div>
+    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content" data-getquickviewbuttonroute="/getquickviewbutton">
+    </div>
+    <input type="hidden" id="theme-active-preset" data-colorpreset="1076c0, eebe00">
+    <div class="master-column-wrapper">
+        <div class="center-1">
+            <div class="page order-details-page">
+                <div class="page-title">
+                    <h1>Order information</h1>
+                    <a href="/orderdetails/print/1256" target="_blank" class="button-2 print-order-button">Print</a>
+                    <a href="/orderdetails/pdf/1256" class="button-2 pdf-invoice-button">PDF Invoice</a>
+                </div>
+                <div class="page-body">
+                    <div class="order-overview">
+                        <div class="order-number">
+                            <strong>Order #1256</strong>
+                        </div>
+                        <ul class="order-overview-content">
+                            <li class="order-date">
+                                Order Date: <strong>Tuesday, October 20, 2020</strong>
+                            </li>
+                            <li class="order-status">
+                                Order Status: <strong>Pending</strong>
+                            </li>
+                            <li class="order-total">
+                                Order Total: <strong>$554.00</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-details-area">
+                        <div class="billing-info-wrap" style="height: 434px;">
+                            <div class="billing-info">
+                                <div class="title">
+                                    <strong>Billing Address</strong>
+                                </div>
+                                <ul class="info-list">
+                                    <li class="name">
+                                        ĐẶNG DUY
+                                    </li>
+                                    <li class="email">
+                                        Email: dangphuocduy@gmail.com
+                                    </li>
+                                    <li class="phone">
+                                        Phone: 0966196757
+                                    </li>
+                                    <li class="fax">
+                                        Fax:
+                                    </li>
+                                    <li class="address1">
+                                        Address
+                                    </li>
+                                    <li class="address2">
+                                        Address
+                                    </li>
+                                    <li class="city-state-zip">
+                                        Da Nang,55000
+                                    </li>
+                                    <li class="country">
+                                        Viet Nam
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="payment-method-info">
+                                <div class="title">
+                                    <strong>Payment</strong>
+                                </div>
+                                <ul class="info-list">
+                                    <li class="payment-method">
+                                        <span class="label">
+                                            Payment Method:
+                                        </span>
+                                        <span class="value">
+                                            Check / Money Order
+                                        </span>
+                                    </li>
+                                    <li class="payment-method-status">
+                                        <span class="label">
+                                            Payment Status:
+                                        </span>
+                                        <span class="value">
+                                            Pending
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="shipping-info-wrap" style="height: 434px;">
+                            <div class="shipping-info">
+                                <div class="title">
+                                    <strong>Shipping Address</strong>
+                                </div>
+                                <ul class="info-list">
+                                    <li class="name">
+                                        ĐẶNG DUY
+                                    </li>
+                                    <li class="email">
+                                        Email: dangphuocduy@gmail.com
+                                    </li>
+                                    <li class="phone">
+                                        Phone: 0966196757
+                                    </li>
+                                    <li class="fax">
+                                        Fax:
+                                    </li>
+                                    <li class="address1">
+                                        Address
+                                    </li>
+                                    <li class="address2">
+                                        Address
+                                    </li>
+                                    <li class="city-state-zip">
+                                        Da Nang,55000
+                                    </li>
+                                    <li class="country">
+                                        Viet Nam
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="shipping-method-info">
+                                <div class="title">
+                                    <strong>Shipping</strong>
+                                </div>
+                                <ul class="info-list">
+                                    <li class="shipping-method">
+                                        <span class="label">
+                                            Shipping Method:
+                                        </span>
+                                        <span class="value">
+                                            Ground
+                                        </span>
+                                    </li>
+                                    <li class="shipping-status">
+                                        <span class="label">
+                                            Shipping Status:
+                                        </span>
+                                        <span class="value">
+                                            Not yet shipped
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section products">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <colgroup>
+                                    <col>
+                                    <col width="1">
+                                    <col width="1">
+                                    <col width="1">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th class="name">
+                                            Name
+                                        </th>
+                                        <th class="price" data-hide="w410, w480">
+                                            Price
+                                        </th>
+                                        <th class="quantity" data-hide="w410, w480">
+                                            Qty
+                                        </th>
+                                        <th class="total">
+                                            Total
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="product">
+                                            <em><a href="/droid-inventor-kit">Droid Inventor Kit</a></em>
+                                        </td>
+                                        <td class="unit-price">
+                                            <label class="td-title">Price: </label>
+                                            <span class="product-unit-price">$88.00</span>
+                                        </td>
+                                        <td class="quantity">
+                                            <label class="td-title">Qty: </label>
+                                            <span class="product-quantity">3</span>
+                                        </td>
+                                        <td class="total">
+                                            <label class="td-title">Total: </label>
+                                            <span class="product-subtotal">$264.00</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product">
+                                            <em><a href="/huawei-p10-plus">Huawei P10 Plus</a></em>
+                                        </td>
+                                        <td class="unit-price">
+                                            <label class="td-title">Price: </label>
+                                            <span class="product-unit-price">$290.00</span>
+                                        </td>
+                                        <td class="quantity">
+                                            <label class="td-title">Qty: </label>
+                                            <span class="product-quantity">1</span>
+                                        </td>
+                                        <td class="total">
+                                            <label class="td-title">Total: </label>
+                                            <span class="product-subtotal">$290.00</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="section options">
+                    </div>
+                    <div class="section totals">
+                        <div class="total-info">
+                            <table class="cart-total">
+                                <tbody>
+                                    <tr>
+                                        <td class="cart-total-left">
+                                            <label>Sub-Total:</label>
+                                        </td>
+                                        <td class="cart-total-right">
+                                            <span>$554.00</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cart-total-left">
+                                            <label>Shipping:</label>
+                                        </td>
+                                        <td class="cart-total-right">
+                                            <span>$0.00</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cart-total-left">
+                                            <label>Tax:</label>
+                                        </td>
+                                        <td class="cart-total-right">
+                                            <span>$0.00</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="order-total">
+                                        <td class="cart-total-left">
+                                            <label>Order Total:</label>
+                                        </td>
+                                        <td class="cart-total-right">
+                                            <span><strong>$554.00</strong></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="actions">
+                            <input type="button" value="Re-order" class="button-1 re-order-button" onclick="setLocation('/reorder/1256    ')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

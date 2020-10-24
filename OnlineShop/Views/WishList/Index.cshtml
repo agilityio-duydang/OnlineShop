@@ -1,0 +1,156 @@
+﻿@model List<OnlineShop.Models.WishListItem>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="master-wrapper-content">
+    <div class="ajaxCartInfo" data-getajaxcartbuttonurl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productpageaddtocartbuttonselector=".add-to-cart-button" data-productboxaddtocartbuttonselector=".product-box-add-to-cart-button" data-productboxproductitemelementselector=".product-item" data-usenopnotification="False" data-nopnotificationresource="The product has been added to your <a href=&quot;/cart&quot;>shopping cart</a>" data-enableonproductpage="True" data-enableoncatalogpages="True" data-minishoppingcartquatityformattingresource="{0}" data-miniwishlistquatityformattingresource="{0}" data-addtowishlistbuttonselector=".add-to-wishlist-button">
+    </div>
+    <input id="addProductVariantToCartUrl" name="addProductVariantToCartUrl" type="hidden" value="/AddProductFromProductDetailsPageToCartAjax">
+    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/AddProductToCartAjax">
+    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/MiniShoppingCart">
+    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/NopAjaxCartFlyoutShoppingCart">
+    <input id="checkProductAttributesUrl" name="checkProductAttributesUrl" type="hidden" value="/CheckIfProductOrItsAssociatedProductsHasAttributes">
+    <input id="getMiniProductDetailsViewUrl" name="getMiniProductDetailsViewUrl" type="hidden" value="/GetMiniProductDetailsView">
+    <input id="flyoutShoppingCartPanelSelector" name="flyoutShoppingCartPanelSelector" type="hidden" value="#flyout-cart">
+    <input id="shoppingCartMenuLinkSelector" name="shoppingCartMenuLinkSelector" type="hidden" value=".cart-qty">
+    <input id="wishlistMenuLinkSelector" name="wishlistMenuLinkSelector" type="hidden" value="span.wishlist-qty">
+    <div id="product-ribbon-info" data-productid="0" data-productboxselector=".product-item, .item-holder" data-productboxpicturecontainerselector=".picture, .item-picture" data-productpagepicturesparentcontainerselector=".product-essential" data-productpagebugpicturecontainerselector=".picture" data-retrieveproductribbonsurl="/RetrieveProductRibbons">
+    </div>
+    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content" data-getquickviewbuttonroute="/getquickviewbutton">
+    </div>
+    <input type="hidden" id="theme-active-preset" data-colorpreset="1076c0, eebe00">
+    @if (Model.Count() > 0)
+    {
+        <div class="master-column-wrapper">
+            <div class="center-1">
+                <div class="page wishlist-page">
+                    <div class="page-title">
+                        <h1>
+                            Wishlist
+                        </h1>
+                    </div>
+                    <div class="page-body">
+                        <div class="wishlist-content">
+                            <form method="post" action="/wishlist">
+                                <div class="table-wrapper">
+                                    <table class="cart">
+                                        <colgroup>
+                                            <col width="1">
+                                            <col width="1">
+                                            <col width="1">
+                                            <col>
+                                            <col width="1">
+                                            <col width="1">
+                                            <col width="1">
+                                        </colgroup>
+                                        <thead>
+                                            <tr class="cart-header-row">
+                                                <th class="remove-from-cart" data-hide="w410, w480, w580">
+                                                    Remove
+                                                </th>
+                                                <th class="add-to-cart" data-hide="w410">
+                                                    Add to cart
+                                                </th>
+                                                <th class="product-picture">
+                                                    Image
+                                                </th>
+                                                <th class="product" data-hide="w410, w480, w580, w768">
+                                                    Product(s)
+                                                </th>
+                                                <th class="unit-price" data-hide="w410, w480, w580">
+                                                    Price
+                                                </th>
+                                                <th class="quantity" data-hide="w410">
+                                                    Qty
+                                                </th>
+                                                <th class="subtotal">
+                                                    Total
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(item.Product.Id, 1);
+                                                <tr class="cart-item-row">
+                                                    <td class="remove-from-cart">
+                                                        <input type="checkbox" id="removeFromWishlistCheckbox" name="removefromcart" value="@item.Product.Id" aria-label="Remove">
+                                                        <label class="td-title" for="removeFromWishlistCheckbox">Remove</label>
+                                                    </td>
+                                                    <td class="add-to-cart">
+                                                        <input type="checkbox" id="addToCartFromWishlistCheckbox" name="addtocart" value="@item.Product.Id" aria-label="Add to cart">
+                                                        <label class="td-title" for="addToCartFromWishlistCheckbox">Add to cart</label>
+                                                    </td>
+                                                    @if (productPictures.Count() > 0)
+                                                    {
+                                                        var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 200, true, null, Models.Dao.PictureType.Entity);
+                                                        <td class="product-picture">
+                                                            <a href="/product/@item.Product.Name.Replace(" ","-").ToLower()"><img alt="@productPictures.SingleOrDefault().AltAttribute" src="@url" title="@productPictures.SingleOrDefault().TitleAttribute"></a>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(200, Models.Dao.PictureType.Entity, null);
+                                                        <td class="product-picture">
+                                                            <a href="/product/@item.Product.Name.Replace(" ","-").ToLower()"><img alt="" src="@url" title=""></a>
+                                                        </td>
+                                                    }
+                                                    <td class="product">
+                                                        <a href="/product/@item.Product.Name.Replace(" ","-").ToLower()" class="product-name">@item.Product.Name</a>
+                                                    </td>
+                                                    <td class="unit-price">
+                                                        <label class="td-title">Price: </label>
+                                                        <span class="product-unit-price">@item.Product.Price</span>
+                                                    </td>
+                                                    <td class="quantity">
+                                                        <label class="td-title">Qty: </label>
+                                                        <input name="itemquantity7030" type="text" value="1" class="qty-input" aria-label="Qty">
+                                                    </td>
+                                                    <td class="subtotal">
+                                                        <label class="td-title">Total: </label>
+                                                        <span class="product-subtotal">@item.Product.Price</span>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="buttons">
+                                    <button type="submit" name="updatecart" value="Update wishlist" class="button-2 update-wishlist-button"><span>Update wishlist</span></button>
+                                    <button type="button" value="Email a friend" class="button-2 email-a-friend-wishlist-button" onclick="setLocation('/emailwishlist')"><span>Email a friend</span></button>
+                                    <button type="submit" name="addtocartbutton" value="Add to cart" class="button-2 wishlist-add-to-cart-button"><span>Add to cart</span></button>
+                                </div>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHiWjSt6qrOhmd9m3_vP3684nPb1twwKPjhKVFUazlYG8qwYXfyTORM8P7QOXOw6Ct1WTHOJl9z5cGvHz6WAPD67O92nbyEZbsK_Tel4TB5qLvBcSd4ldcMCYvwQnt_64c8">
+                            </form>
+                        </div>
+                        <div class="share-info">
+                            <span class="share-label">Your wishlist URL for sharing:</span>
+                            <a href="/wishlist/@Guid.NewGuid().ToString()" class="share-link">http://megastore.nop-templates.com/wishlist/@Guid.NewGuid().ToString()</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="master-column-wrapper">
+            <div class="center-1">
+                <div class="page wishlist-page">
+                    <div class="page-title">
+                        <h1>
+                            Wishlist
+                        </h1>
+                    </div>
+                    <div class="page-body">
+                        <div class="no-data">
+                            The wishlist is empty!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

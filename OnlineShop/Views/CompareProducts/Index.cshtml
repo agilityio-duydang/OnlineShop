@@ -1,4 +1,4 @@
-﻿
+﻿@model List<OnlineShop.Models.CompareProductsItem>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,189 +19,140 @@
     </div>
     <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content">
     </div>
-    <div class="master-column-wrapper">
-        <div class="center-1">
-            <div class="page compare-products-page">
-                <div class="page-title">
-                    <h1>Compare products</h1>
-                </div>
-                <div class="page-body">
-                    <a href="#" onclick="setLocation('/clearcomparelist')" class="clear-list"><span>Clear list</span></a>
-                    <div class="table-wrapper">
-                        <table class="compare-products-table">
-                            <tbody>
-                                <tr class="remove-product">
-                                    <td class="empty">&nbsp;</td>
-                                    <td style="width: 45%;">
-                                        <button type="button" value="Remove" title="Remove" class="button-2 remove-button" onclick="setLocation('/compareproducts/remove/4')"><span>Remove</span></button>
-                                    </td>
-                                    <td style="width: 45%;">
-                                        <button type="button" value="Remove" title="Remove" class="button-2 remove-button" onclick="setLocation('/compareproducts/remove/10')"><span>Remove</span></button>
-                                    </td>
-                                </tr>
-                                <tr class="product-picture">
-                                    <td class="empty">&nbsp;</td>
-                                    <td style="width: 45%;">
-                                        <a class="picture" href="/apple-macbook-pro-13-inch"><img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch"></a>
-                                    </td>
-                                    <td style="width: 45%;">
-                                        <a class="picture" href="/adobe-photoshop-cs4"><img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4"></a>
-                                    </td>
-                                </tr>
-                                <tr class="product-name">
-                                    <td>
-                                        <label>Name</label>
-                                    </td>
-                                    <td style="width: 45%;">
-                                        <a href="/apple-macbook-pro-13-inch">Apple MacBook Pro 13-inch</a>
-                                    </td>
-                                    <td style="width: 45%;">
-                                        <a href="/adobe-photoshop-cs4">Adobe Photoshop CS4</a>
-                                    </td>
-                                </tr>
-                                <tr class="product-price">
-                                    <td>
-                                        <label>Price</label>
-                                    </td>
-                                    <td style="width: 45%;">
-                                        $1,800.00
-                                    </td>
-                                    <td style="width: 45%;">
-                                        $75.00
-                                    </td>
-                                </tr>
-                                <tr class="specification">
-                                    <td>
-                                        <label>Screensize</label>
-                                    </td>
-                                    <td style="width: 45%;">
-                                        13.0''
-                                    </td>
-                                    <td style="width: 45%;">
-                                        &nbsp;
-                                    </td>
-                                </tr>
-                                <tr class="specification">
-                                    <td>
-                                        <label>CPU Type</label>
-                                    </td>
-                                    <td style="width: 45%;">
-                                        Intel Core i5
-                                    </td>
-                                    <td style="width: 45%;">
-                                        &nbsp;
-                                    </td>
-                                </tr>
-                                <tr class="specification">
-                                    <td>
-                                        <label>Memory</label>
-                                    </td>
-                                    <td style="width: 45%;">
-                                        4 GB
-                                    </td>
-                                    <td style="width: 45%;">
-                                        &nbsp;
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+    @if (Model.Count() > 0)
+    {
+        <div class="master-column-wrapper">
+            <div class="center-1">
+                <div class="page compare-products-page">
+                    <div class="page-title">
+                        <h1>Compare products</h1>
                     </div>
-                    <div class="compare-products-mobile">
-                        <div class="compare-section product">
-                            <div class="title">Name</div>
-                            <ul>
-                                <li class="item">
-                                    <div class="picture">
-                                        <a href="/apple-macbook-pro-13-inch"><img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch"></a>
-                                    </div>
-                                    <div class="details">
-                                        <div class="product-name">
-                                            <a href="/apple-macbook-pro-13-inch">Apple MacBook Pro 13-inch</a>
+                    <div class="page-body">
+                        <a href="#" onclick="setLocation('CompareProducts/ClearCompareList')" class="clear-list"><span>Clear list</span></a>
+                        <div class="table-wrapper">
+                            <table class="compare-products-table">
+                                <tbody>
+                                    <tr class="remove-product">
+                                        <td class="empty">&nbsp;</td>
+                                        @foreach (var item in Model)
+                                        {
+                                            <td>
+                                                <button type="button" value="Remove" title="Remove" class="button-@item.Product.Id remove-button" onclick="setLocation('/compareproducts/remove/@item.Product.Id')"><span>Remove</span></button>
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr class="product-picture">
+                                        <td class="empty">&nbsp;</td>
+                                        @foreach (var item in Model)
+                                        {
+                                            var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(item.Product.Id, 1);
+                                            if (productPictures.Count() > 0)
+                                            {
+                                                var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 360, true, null, Models.Dao.PictureType.Entity);
+                                                <td>
+                                                    <a class="picture" href="/product/@item.Product.Name.Replace(" ","-").ToLower()">
+                                                        <img alt="@productPictures.SingleOrDefault().AltAttribute" src="@url" title="@productPictures.SingleOrDefault().TitleAttribute">
+                                                    </a>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(360, Models.Dao.PictureType.Entity, null);
+                                                <td>
+                                                    <a class="picture" href="/product/@item.Product.Name.Replace(" ","-").ToLower()">
+                                                        <img alt="" src="@url" title="">
+                                                    </a>
+                                                </td>
+                                            }
+                                        }
+                                    </tr>
+                                    <tr class="product-name">
+                                        <td>
+                                            <label>Name</label>
+                                        </td>
+                                        @foreach (var item in Model)
+                                        {
+                                            <td>
+                                                <a href="/product/@item.Product.Name.Replace(" ","-").ToLower()">@item.Product.Name</a>
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr class="product-price">
+                                        <td>
+                                            <label>Price</label>
+                                        </td>
+                                        @foreach (var item in Model)
+                                        {
+                                            <td>
+                                                @item.Product.Price
+                                            </td>
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="compare-products-mobile">
+                            <div class="compare-section product">
+                                <div class="title">Name</div>
+                                <ul>
+                                    <li class="item">
+                                        <div class="picture">
+                                            <a href="/apple-macbook-pro-13-inch"><img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch"></a>
                                         </div>
-                                        <button type="button" title="Remove" class="button-2 remove-button" onclick="setLocation('/compareproducts/remove/4')"><span>Remove</span></button>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="picture">
-                                        <a href="/adobe-photoshop-cs4"><img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4"></a>
-                                    </div>
-                                    <div class="details">
-                                        <div class="product-name">
-                                            <a href="/adobe-photoshop-cs4">Adobe Photoshop CS4</a>
+                                        <div class="details">
+                                            <div class="product-name">
+                                                <a href="/apple-macbook-pro-13-inch">Apple MacBook Pro 13-inch</a>
+                                            </div>
+                                            <button type="button" title="Remove" class="button-2 remove-button" onclick="setLocation('/compareproducts/remove/4')"><span>Remove</span></button>
                                         </div>
-                                        <button type="button" title="Remove" class="button-2 remove-button" onclick="setLocation('/compareproducts/remove/10')"><span>Remove</span></button>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="compare-section price">
-                            <div class="title">Price</div>
-                            <ul>
-                                <li class="item">
-                                    <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
-                                    <span>$1,800.00</span>
-                                </li>
-                                <li class="item">
-                                    <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
-                                    <span>$75.00</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="compare-section description">
-                            <div class="title">Short description</div>
-                            <ul>
-                                <li class="item">
-                                    <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
-                                    <p>No description!</p>
-                                </li>
-                                <li class="item">
-                                    <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
-                                    <p>No description!</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="compare-section specification">
-                            <div class="title">Screensize</div>
-                            <ul>
-                                <li class="item">
-                                    <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
-                                    <span>13.0''</span>
-                                </li>
-                                <li class="item">
-                                    <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
-                                    <span class="empty">n/a</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="compare-section specification">
-                            <div class="title">CPU Type</div>
-                            <ul>
-                                <li class="item">
-                                    <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
-                                    <span>Intel Core i5</span>
-                                </li>
-                                <li class="item">
-                                    <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
-                                    <span class="empty">n/a</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="compare-section specification">
-                            <div class="title">Memory</div>
-                            <ul>
-                                <li class="item">
-                                    <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
-                                    <span>4 GB</span>
-                                </li>
-                                <li class="item">
-                                    <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
-                                    <span class="empty">n/a</span>
-                                </li>
-                            </ul>
+                                    </li>
+                                    <li class="item">
+                                        <div class="picture">
+                                            <a href="/adobe-photoshop-cs4"><img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4"></a>
+                                        </div>
+                                        <div class="details">
+                                            <div class="product-name">
+                                                <a href="/adobe-photoshop-cs4">Adobe Photoshop CS4</a>
+                                            </div>
+                                            <button type="button" title="Remove" class="button-2 remove-button" onclick="setLocation('/compareproducts/remove/10')"><span>Remove</span></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="compare-section price">
+                                <div class="title">Price</div>
+                                <ul>
+                                    <li class="item">
+                                        <img alt="Picture of Apple MacBook Pro 13-inch" src="http://localhost:15536/images/thumbs/0000024_apple-macbook-pro-13-inch_360.jpeg" title="Show details for Apple MacBook Pro 13-inch">
+                                        <span>$1,800.00</span>
+                                    </li>
+                                    <li class="item">
+                                        <img alt="Picture of Adobe Photoshop CS4" src="http://localhost:15536/images/thumbs/0000032_adobe-photoshop-cs4_360.jpeg" title="Show details for Adobe Photoshop CS4">
+                                        <span>$75.00</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="master-column-wrapper">
+            <div class="center-1">
+                <div class="page compare-products-page">
+                    <div class="page-title">
+                        <h1>Compare products</h1>
+                    </div>
+                    <div class="page-body">
+                        <div class="no-data">
+                            You have no items to compare.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>

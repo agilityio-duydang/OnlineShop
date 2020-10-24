@@ -1,0 +1,291 @@
+﻿
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="master-wrapper-content">
+    <div class="ajaxCartInfo" data-getajaxcartbuttonurl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productpageaddtocartbuttonselector=".add-to-cart-button" data-productboxaddtocartbuttonselector=".product-box-add-to-cart-button" data-productboxproductitemelementselector=".product-item" data-usenopnotification="False" data-nopnotificationresource="The product has been added to your <a href=&quot;/cart&quot;>shopping cart</a>" data-enableonproductpage="True" data-enableoncatalogpages="True" data-minishoppingcartquatityformattingresource="{0}" data-miniwishlistquatityformattingresource="{0}" data-addtowishlistbuttonselector=".add-to-wishlist-button">
+    </div>
+    <input id="addProductVariantToCartUrl" name="addProductVariantToCartUrl" type="hidden" value="/AddProductFromProductDetailsPageToCartAjax">
+    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/AddProductToCartAjax">
+    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/MiniShoppingCart">
+    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/NopAjaxCartFlyoutShoppingCart">
+    <input id="checkProductAttributesUrl" name="checkProductAttributesUrl" type="hidden" value="/CheckIfProductOrItsAssociatedProductsHasAttributes">
+    <input id="getMiniProductDetailsViewUrl" name="getMiniProductDetailsViewUrl" type="hidden" value="/GetMiniProductDetailsView">
+    <input id="flyoutShoppingCartPanelSelector" name="flyoutShoppingCartPanelSelector" type="hidden" value="#flyout-cart">
+    <input id="shoppingCartMenuLinkSelector" name="shoppingCartMenuLinkSelector" type="hidden" value=".cart-qty">
+    <input id="wishlistMenuLinkSelector" name="wishlistMenuLinkSelector" type="hidden" value="span.wishlist-qty">
+    <div id="product-ribbon-info" data-productid="0" data-productboxselector=".product-item, .item-holder" data-productboxpicturecontainerselector=".picture, .item-picture" data-productpagepicturesparentcontainerselector=".product-essential" data-productpagebugpicturecontainerselector=".picture" data-retrieveproductribbonsurl="/RetrieveProductRibbons">
+    </div>
+    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content" data-getquickviewbuttonroute="/getquickviewbutton">
+    </div>
+    <input type="hidden" id="theme-active-preset" data-colorpreset="1076c0, eebe00">
+    <div class="master-column-wrapper">
+        <div class="center-1">
+            <div class="page checkout-page order-confirm-page">
+                <div class="order-progress">
+                    <ul>
+                        <li class="active-step">
+                            <a href="/cart"><span>Cart</span></a>
+                        </li>
+                        <li class="active-step">
+                            <a href="/checkout/billingaddress"><span>Address</span></a>
+                        </li>
+                        <li class="active-step">
+                            <a href="/checkout/shippingmethod"><span>Shipping</span></a>
+                        </li>
+                        <li class="active-step">
+                            <a href="/checkout/paymentmethod"><span>Payment</span></a>
+                        </li>
+                        <li class="active-step last">
+                            <a href="/checkout/confirm"><span>Confirm</span></a>
+                        </li>
+                        <li class="inactive-step">
+                            <a><span>Complete</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="page-title">
+                    <h1>Confirm your order</h1>
+                </div>
+                <div class="page-body checkout-data">
+                    <div class="section confirm-order">
+                        <form method="post" id="confirm-order-form" action="/checkout/confirm">
+                            <div class="buttons">
+                                <input type="submit" name="nextstep" value="Confirm" class="button-1 confirm-order-next-step-button">
+                            </div>
+                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHiPrbzH-fQN0WUVIh6A7y8kLxfX1PktFYwfP_Wbvrapz_-KjpGVEjxQHbjjpDUaSqN3EsqtNYSkftoQKAVPNUhe0bsqq4F2gWsV_NJZCr6S-y8yz_TgEdCEq-TNgZT2TO8">
+                        </form>
+                    </div>
+                    <div class="section order-summary">
+                        <div class="order-summary-content">
+                            <div class="order-review-data">
+                                <div class="billing-info-wrap" style="height: 444px;">
+                                    <div class="billing-info">
+                                        <div class="title">
+                                            <strong>Billing Address</strong>
+                                        </div>
+                                        <ul class="info-list">
+                                            <li class="name">
+                                                ĐẶNG DUY
+                                            </li>
+                                            <li class="email">
+                                                Email: dangphuocduy@gmail.com
+                                            </li>
+                                            <li class="phone">
+                                                Phone: 0966196757
+                                            </li>
+                                            <li class="fax">
+                                                Fax:
+                                            </li>
+                                            <li class="address1">
+                                                Address
+                                            </li>
+                                            <li class="address2">
+                                                Address
+                                            </li>
+                                            <li class="city-state-zip">
+                                                Da Nang,55000
+                                            </li>
+                                            <li class="country">
+                                                Viet Nam
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="payment-method-info">
+                                        <div class="title">
+                                            <strong>Payment</strong>
+                                        </div>
+                                        <ul class="info-list">
+                                            <li class="payment-method">
+                                                <span class="label">
+                                                    Payment Method:
+                                                </span>
+                                                <span class="value">
+                                                    Check / Money Order
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="shipping-info-wrap" style="height: 444px;">
+                                    <div class="shipping-info">
+                                        <div class="title">
+                                            <strong>Shipping Address</strong>
+                                        </div>
+                                        <ul class="info-list">
+                                            <li class="name">
+                                                ĐẶNG DUY
+                                            </li>
+                                            <li class="email">
+                                                Email: dangphuocduy@gmail.com
+                                            </li>
+                                            <li class="phone">
+                                                Phone: 0966196757
+                                            </li>
+                                            <li class="fax">
+                                                Fax:
+                                            </li>
+                                            <li class="address1">
+                                                Address
+                                            </li>
+                                            <li class="address2">
+                                                Address
+                                            </li>
+                                            <li class="city-state-zip">
+                                                Da Nang,55000
+                                            </li>
+                                            <li class="country">
+                                                Viet Nam
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="shipping-method-info">
+                                        <div class="title">
+                                            <strong>Shipping</strong>
+                                        </div>
+                                        <ul class="info-list">
+                                            <li class="shipping-method">
+                                                <span class="label">
+                                                    Shipping Method:
+                                                </span>
+                                                <span class="value">
+                                                    Ground
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <form method="post" enctype="multipart/form-data" id="shopping-cart-form" action="/cart">
+                                <div class="table-wrapper">
+                                    <table class="cart">
+                                        <colgroup>
+                                            <col width="1">
+                                            <col>
+                                            <col width="1">
+                                            <col width="1">
+                                            <col width="1">
+                                        </colgroup>
+                                        <thead>
+                                            <tr class="cart-header-row">
+                                                <th class="product-picture">
+                                                    Image
+                                                </th>
+                                                <th class="product" data-hide="w410, w480, w580, w768">
+                                                    Product(s)
+                                                </th>
+                                                <th class="unit-price" data-hide="w410, w480">
+                                                    Price
+                                                </th>
+                                                <th class="quantity">
+                                                    Qty
+                                                </th>
+                                                <th class="subtotal">
+                                                    Total
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="cart-item-row">
+                                                <td class="product-picture">
+                                                    <a href="/droid-inventor-kit">
+                                                        <img src="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_200.png" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_200.png" alt="Picture of Droid Inventor Kit" title="Show details for Droid Inventor Kit" loadedimage="true">
+                                                    </a>
+                                                </td>
+                                                <td class="product">
+                                                    <a href="/droid-inventor-kit" class="product-name">Droid Inventor Kit</a>
+                                                </td>
+                                                <td class="unit-price">
+                                                    <label class="td-title">Price:</label>
+                                                    <span class="product-unit-price">$88.00</span>
+                                                </td>
+                                                <td class="quantity">
+                                                    <label class="td-title" for="itemquantity6982">Qty:</label>
+                                                    <span class="product-quantity">3</span>
+                                                </td>
+                                                <td class="subtotal">
+                                                    <label class="td-title">Total:</label>
+                                                    <span class="product-subtotal">$264.00</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="cart-item-row">
+                                                <td class="product-picture">
+                                                    <a href="/huawei-p10-plus">
+                                                        <img src="https://megastore.nop-templates.com/images/thumbs/0000252_huawei-p10-plus_200.png" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000252_huawei-p10-plus_200.png" alt="Picture of Huawei P10 Plus" title="Show details for Huawei P10 Plus" loadedimage="true">
+                                                    </a>
+                                                </td>
+                                                <td class="product">
+                                                    <a href="/huawei-p10-plus" class="product-name">Huawei P10 Plus</a>
+                                                </td>
+                                                <td class="unit-price">
+                                                    <label class="td-title">Price:</label>
+                                                    <span class="product-unit-price">$290.00</span>
+                                                </td>
+                                                <td class="quantity">
+                                                    <label class="td-title" for="itemquantity6993">Qty:</label>
+                                                    <span class="product-quantity">1</span>
+                                                </td>
+                                                <td class="subtotal">
+                                                    <label class="td-title">Total:</label>
+                                                    <span class="product-subtotal">$290.00</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="cart-footer">
+                                    <div class="cart-options">
+                                    </div>
+                                    <div class="totals">
+                                        <div class="total-info">
+                                            <table class="cart-total">
+                                                <tbody>
+                                                    <tr class="order-subtotal">
+                                                        <td class="cart-total-left">
+                                                            <label>Total:</label>
+                                                        </td>
+                                                        <td class="cart-total-right">
+                                                            <span class="value-summary">$554.00</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="shipping-cost">
+                                                        <td class="cart-total-left">
+                                                            <label>Shipping:</label>
+                                                            <span class="selected-shipping-method">(Ground)</span>
+                                                        </td>
+                                                        <td class="cart-total-right">
+                                                            <span class="value-summary">$0.00</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="tax-value">
+                                                        <td class="cart-total-left">
+                                                            <label>Tax:</label>
+                                                        </td>
+                                                        <td class="cart-total-right">
+                                                            <span class="value-summary">$0.00</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="order-total">
+                                                        <td class="cart-total-left">
+                                                            <label>Total:</label>
+                                                        </td>
+                                                        <td class="cart-total-right">
+                                                            <span class="value-summary"><strong>$554.00</strong></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHiPrbzH-fQN0WUVIh6A7y8kLxfX1PktFYwfP_Wbvrapz_-KjpGVEjxQHbjjpDUaSqN3EsqtNYSkftoQKAVPNUhe0bsqq4F2gWsV_NJZCr6S-y8yz_TgEdCEq-TNgZT2TO8">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

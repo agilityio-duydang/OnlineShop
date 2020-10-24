@@ -21,6 +21,13 @@ namespace OnlineShop
             );
 
             routes.MapRoute(
+                name: "Add Product To Cart Ajax",
+                url: "AddProductToCartAjax",
+                defaults: new { controller = "Cart", action = "AddProductToCartAjax", id = UrlParameter.Optional },
+                new[] { "OnlineShop.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "QuickViewData",
                 url: "product/quickviewdata/{id}",
                 defaults: new { controller = "Product", action = "QuickViewData", id = UrlParameter.Optional },

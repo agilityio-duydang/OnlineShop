@@ -50,14 +50,76 @@
                     </li>
                 </ul>
                 <div class="mobile-flyout-wrapper">
-                    <div class="close-side-menu"> <span class="close-side-menu-text">Shopping cart</span> <span class="close-side-menu-btn">Close</span> </div>
-                    <div id="flyout-cart" class="flyout-cart" data-removeItemFromCartUrl="/EmporiumTheme/RemoveItemFromCart" data-flyoutCartUrl="/EmporiumTheme/FlyoutShoppingCart">
+                    <div class="close-side-menu">
+                        <span class="close-side-menu-text">Shopping cart</span>
+                        <span class="close-side-menu-btn">Close</span>
+                    </div>
+                    <div id="flyout-cart" class="flyout-cart" data-removeitemfromcarturl="/EmporiumTheme/RemoveItemFromCart" data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart">
                         <div id="topcartlink">
-                            <a href="/cart" class="ico-cart"> <span class="cart-qty">0</span> <span class="cart-label">$0.00            </span> </a>
+                            <a href="/cart" class="ico-cart">
+                                <span class="cart-qty">2</span>
+                                <span class="cart-label">
+                                    $51.00
+                                </span>
+                            </a>
                         </div>
                         <div class="mini-shopping-cart">
                             <div class="flyout-cart-scroll-area">
-                                <p>You have no items in your shopping cart.</p>
+                                <div class="items ps-container">
+                                    <div class="item first" data-shoppingcartid="2">
+                                        <div class="picture">
+                                            <a href="/pride-and-prejudice" title="Show details for Pride and Prejudice">
+                                                <img alt="Picture of Pride and Prejudice" src="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_95.png" title="Show details for Pride and Prejudice">
+                                            </a>
+                                        </div>
+                                        <div class="product">
+                                            <div class="left">
+                                                <div class="name">
+                                                    <a href="/pride-and-prejudice">Pride and Prejudice</a>
+                                                </div>
+                                            </div>
+                                            <div class="right">
+                                                <div class="price"> <span>$24.00</span></div>
+                                                <div class="quantity">Quantity: <span>1</span></div>
+                                            </div>
+                                            <a class="remove-item" href="javascript:;" title="remove">remove</a>
+                                        </div>
+                                    </div>
+                                    <div class="item" data-shoppingcartid="1">
+                                        <div class="picture">
+                                            <a href="/fahrenheit-451-by-ray-bradbury" title="Show details for Fahrenheit 451 by Ray Bradbury">
+                                                <img alt="Picture of Fahrenheit 451 by Ray Bradbury" src="https://megastore.nop-templates.com/images/thumbs/0000895_catit-senses-feeding-maze_95.png" title="Show details for Fahrenheit 451 by Ray Bradbury">
+                                            </a>
+                                        </div>
+                                        <div class="product">
+                                            <div class="left">
+                                                <div class="name">
+                                                    <a href="/fahrenheit-451-by-ray-bradbury">Fahrenheit 451 by Ray Bradbury</a>
+                                                </div>
+                                            </div>
+                                            <div class="right">
+                                                <div class="price"> <span>$27.00</span></div>
+                                                <div class="quantity">Quantity: <span>1</span></div>
+                                            </div>
+                                            <a class="remove-item" href="javascript:;" title="remove">remove</a>
+                                        </div>
+                                    </div>
+                                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
+                                        <div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div>
+                                    </div>
+                                    <div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;">
+                                        <div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div>
+                                    </div>
+                                </div>
+                                <div class="flyout-lower">
+                                    <div class="count">
+                                        <a href="/cart">2 item(s)</a>
+                                    </div>
+                                    <div class="totals">Sub-Total: <strong>$51.00</strong></div>
+                                    <div class="buttons">
+                                        <input type="button" value="Go to cart" class="button-1 cart-button" onclick="setLocation('/cart')">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,46 +166,6 @@
                                     <li class="root-category-items"> <a href="/category/@item.Name.ToLower().Replace(" ","-")">@item.Name</a> </li>
                                 }
                             }
-                            @*<li class="root-category-items">
-                                <a class="with-subcategories" href="/computers">Computers</a>
-                                <div class="plus-button"></div>
-                                <div class="sublist-wrap">
-                                    <ul class="sublist">
-                                        <li class="back-button"> <span>Back</span> </li>
-                                        <li> <a href="/desktops">Desktops</a> </li>
-                                        <li> <a href="/notebooks">Notebooks</a> </li>
-                                        <li> <a href="/software">Software</a> </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="root-category-items">
-                                <a class="with-subcategories" href="/electronics">Electronics</a>
-                                <div class="plus-button"></div>
-                                <div class="sublist-wrap">
-                                    <ul class="sublist">
-                                        <li class="back-button"> <span>Back</span> </li>
-                                        <li> <a href="/camera-photo">Camera &amp; photo</a> </li>
-                                        <li> <a href="/cell-phones">Cell phones</a> </li>
-                                        <li> <a href="/others">Others</a> </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="root-category-items">
-                                <a class="with-subcategories" href="/apparel">Apparel</a>
-                                <div class="plus-button"></div>
-                                <div class="sublist-wrap">
-                                    <ul class="sublist">
-                                        <li class="back-button"> <span>Back</span> </li>
-                                        <li> <a href="/shoes">Shoes</a> </li>
-                                        <li> <a href="/clothing">Clothing</a> </li>
-                                        <li> <a href="/accessories">Accessories</a> </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="root-category-items"> <a href="/digital-downloads">Digital downloads</a> </li>
-                            <li class="root-category-items"> <a href="/books">Books</a> </li>
-                            <li class="root-category-items"> <a href="/jewelry">Jewelry</a> </li>
-                            <li class="root-category-items"> <a href="/gift-cards">Gift Cards</a> </li>*@
                         </ul>
                     </div>
                 </li>

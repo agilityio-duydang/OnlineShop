@@ -1,0 +1,40 @@
+﻿@model Models.EF.Product
+
+<div class="k-window-titlebar k-header" style="margin-top: 0px;">
+    <span class="k-window-title"></span>
+    <div class="k-window-actions">
+        <a role="button" href="#" class="k-window-action k-link">
+            <span role="presentation" class="k-icon k-i-close" onclick="$('.ajaxCart').css('display','none');">
+                Close
+            </span>
+        </a>
+    </div>
+</div>
+<div class="productAddedToCartWindow k-window-content k-content" data-role="window" tabindex="0" style="">
+    <div class="productAddedToCartWindowTitle">
+        Just Added To Your Wishlist
+    </div>
+    <div class="productAddedToCartItem">
+        <div class="productAddedToCartWindowImage">
+            <a href="/droid-inventor-kit" title="Show details for Droid Inventor Kit">
+                <img alt="Picture of Droid Inventor Kit" src="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_224.png" title="Show details for Droid Inventor Kit">
+            </a>
+        </div>
+        <div class="productAddedToCartWindowDescription">
+            <h1>
+                <a href="/droid-inventor-kit">Droid Inventor Kit</a>
+            </h1>
+            <strong class="price">$88.00 / per unit</strong>
+            <div class="attributeInfo"></div>
+            <span class="quantity">Quantity : 2</span>
+        </div>
+    </div>
+    <div class="productAddedToCartWindowSummary">
+        <a class="continueShoppingLink" href="#">Continue Shopping</a>
+        <div>
+            <input type="submit" class="button-1 productAddedToCartWindowCheckout" value="Wishlist" onclick="setLocation('/wishlist');">
+        </div>
+    </div>
+
+</div>
+
