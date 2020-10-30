@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "NewsDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="master-column-wrapper">
+    <div class="center-1">
+        <div class="page news-item-page">
+            <a class="back-to-all-button" href="/news">Back to all</a>
+            <div class="page-title">
+                <h1>Find out about our products</h1>
+            </div>
+            <div class="page-body">
+                <div class="news-date">
+                    03 Apr 2018
+                </div>
+                <div class="news-body">
+                    <p>Lorem ipsum faucibus lacinia integer duis integer sodales accumsan, platea cubilia luctus sodales primis fusce ultricies, luctus feugiat tristique class urna consequat nostra duis erat malesuada semper tempor enim laoreet.</p>
+                </div>
+                <div class="fieldset new-comment" id="comments">
+                    <div class="title">
+                        <strong>Comments</strong>
+                    </div>
+                    <div class="comment-form-btn">
+                        <strong class="open-comment-form"><span>Leave your comment</span></strong>
+                        <strong class="close-comment-form"><span>Close</span></strong>
+                    </div>
+                    <div class="notifications">
+                    </div>
+                    <form method="post" action="/find-out-about-our-products">
+                        <div class="form-fields">
+                            <div class="inputs">
+                                <label for="AddNewComment_CommentTitle">Title:</label>
+                                <input class="enter-comment-title" type="text" id="AddNewComment_CommentTitle" name="AddNewComment.CommentTitle" value="">
+                                <span class="field-validation-valid" data-valmsg-for="AddNewComment.CommentTitle" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="inputs">
+                                <label for="AddNewComment_CommentText">Comment:</label>
+                                <textarea class="enter-comment-text" id="AddNewComment_CommentText" name="AddNewComment.CommentText"></textarea>
+                                <span class="field-validation-valid" data-valmsg-for="AddNewComment.CommentText" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <input type="submit" name="add-comment" class="button-1 news-item-add-comment-button" value="New comment">
+                        </div>
+                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHj3lROzm32jHqO7XPMDSpWCkG-Nm0hnhkL54WatS6b0-4TYt15DBik1hDaM_JhGDPGvgEt27X7HWvUpKI6cNIKmFL-VIVCp1gBlBGzGMyF67V7RCfDZKHvMla_4k0AuRzw">
+                    </form>
+                </div>
+                <div class="comment-list">
+                    <div class="comments">
+                        <div class="comment news-comment">
+                            <div class="comment-info">
+                                <div class="user-info">
+                                    <div class="avatar">
+                                        <img src="https://megastore.nop-templates.com/images/thumbs/default-avatar_220.jpg" class="avatar-img" alt="avatar">
+                                    </div>
+                                    <div class="name-and-time">
+                                        <span class="username">Moda</span>
+                                        <div class="comment-time">
+                                            <label>Created on:</label>
+                                            <span class="stat-value">4/21/2020 11:39 AM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-content">
+                                <div class="comment-title">
+                                    <strong class="comment-text">Plaj</strong>
+                                </div>
+                                <div class="comment-body">
+                                    <p class="comment-text">Plaj.com.tr</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment news-comment">
+                            <div class="comment-info">
+                                <div class="user-info">
+                                    <div class="avatar">
+                                        <img src="https://megastore.nop-templates.com/images/thumbs/default-avatar_220.jpg" class="avatar-img" alt="avatar">
+                                    </div>
+                                    <div class="name-and-time">
+                                        <span class="username">Moda</span>
+                                        <div class="comment-time">
+                                            <label>Created on:</label>
+                                            <span class="stat-value">5/1/2020 3:04 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-content">
+                                <div class="comment-title">
+                                    <strong class="comment-text">New</strong>
+                                </div>
+                                <div class="comment-body">
+                                    <p class="comment-text">https://megastore.nop-templates.com/</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment news-comment">
+                            <div class="comment-info">
+                                <div class="user-info">
+                                    <div class="avatar">
+                                        <img src="https://megastore.nop-templates.com/images/thumbs/default-avatar_220.jpg" class="avatar-img" alt="avatar">
+                                    </div>
+                                    <div class="name-and-time">
+                                        <span class="username">Guest</span>
+                                        <div class="comment-time">
+                                            <label>Created on:</label>
+                                            <span class="stat-value">5/12/2020 7:54 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-content">
+                                <div class="comment-title">
+                                    <strong class="comment-text">Nop</strong>
+                                </div>
+                                <div class="comment-body">
+                                    <p class="comment-text">#noptemplates</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment news-comment">
+                            <div class="comment-info">
+                                <div class="user-info">
+                                    <div class="avatar">
+                                        <img src="https://megastore.nop-templates.com/images/thumbs/default-avatar_220.jpg" class="avatar-img" alt="avatar">
+                                    </div>
+                                    <div class="name-and-time">
+                                        <span class="username">Guest</span>
+                                        <div class="comment-time">
+                                            <label>Created on:</label>
+                                            <span class="stat-value">6/9/2020 8:29 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-content">
+                                <div class="comment-title">
+                                    <strong class="comment-text">Nop</strong>
+                                </div>
+                                <div class="comment-body">
+                                    <p class="comment-text">https://twitter.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

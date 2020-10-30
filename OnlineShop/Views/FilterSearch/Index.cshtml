@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CategoryDetail.cshtml";
+}
+
+<div class="center-2">
+    <div class="page search-page">
+        <div class="page-title">
+            <h1>Search</h1>
+        </div>
+        <div class="page-body">
+            <div class="search-input">
+                <form method="get" action="/search" novalidate="novalidate">
+                    <div class="fieldset">
+                        <div class="form-fields">
+                            <div class="basic-search">
+                                <div class="inputs">
+                                    <label for="q">Search keyword:</label>
+                                    <input class="search-text" type="text" id="q" name="q" value="">
+                                </div>
+                                <div class="inputs reversed">
+                                    <input type="checkbox" data-val="true" data-val-required="The Advanced search field is required." id="adv" name="adv" value="true">
+                                    <label for="adv">Advanced search</label>
+                                </div>
+                            </div>
+                            <div class="advanced-search" id="advanced-search-block" style="display: none;">
+                                <div class="inputs">
+                                    <label for="cid">Category:</label>
+                                    <select data-val="true" data-val-required="The Category field is required." id="cid" name="cid">
+                                        <option selected="selected" value="0">All</option>
+                                        <option value="4">TV &amp; Electronics</option>
+                                        <option value="5">TV &amp; Electronics &gt;&gt; Televisions, Autdio &amp; Video</option>
+                                        <option value="6">TV &amp; Electronics &gt;&gt; Televisions, Autdio &amp; Video &gt;&gt; Televisions</option>
+                                        <option value="7">TV &amp; Electronics &gt;&gt; Televisions, Autdio &amp; Video &gt;&gt; Audio System</option>
+                                        <option value="8">TV &amp; Electronics &gt;&gt; Televisions, Autdio &amp; Video &gt;&gt; Video Players &amp; Home Cinema</option>
+                                        <option value="9">TV &amp; Electronics &gt;&gt; Computers, Tablets &amp; Phones</option>
+                                        <option value="10">TV &amp; Electronics &gt;&gt; Computers, Tablets &amp; Phones &gt;&gt; Laptop &amp; Desktop Computers</option>
+                                        <option value="11">TV &amp; Electronics &gt;&gt; Computers, Tablets &amp; Phones &gt;&gt; Tablets &amp; E-readers</option>
+                                        <option value="12">TV &amp; Electronics &gt;&gt; Computers, Tablets &amp; Phones &gt;&gt; Mobile Phones &amp; Smart Watches</option>
+                                        <option value="13">TV &amp; Electronics &gt;&gt; Cameras &amp; Drones</option>
+                                        <option value="14">TV &amp; Electronics &gt;&gt; Cameras &amp; Drones &gt;&gt; DSLR &amp; Compact cameras</option>
+                                        <option value="15">TV &amp; Electronics &gt;&gt; Cameras &amp; Drones &gt;&gt; Action Cameras</option>
+                                        <option value="16">TV &amp; Electronics &gt;&gt; Cameras &amp; Drones &gt;&gt; Drones</option>
+                                        <option value="17">Home, Furniture &amp; Appliances</option>
+                                        <option value="18">Home, Furniture &amp; Appliances &gt;&gt; Furniture</option>
+                                        <option value="19">Home, Furniture &amp; Appliances &gt;&gt; Furniture &gt;&gt; Chairs &amp; Couches</option>
+                                        <option value="20">Home, Furniture &amp; Appliances &gt;&gt; Furniture &gt;&gt; Dining &amp; Coffee Tables</option>
+                                        <option value="21">Home, Furniture &amp; Appliances &gt;&gt; Textile &amp; Decor</option>
+                                        <option value="22">Home, Furniture &amp; Appliances &gt;&gt; Textile &amp; Decor &gt;&gt; Rugs &amp; Curtains</option>
+                                        <option value="23">Home, Furniture &amp; Appliances &gt;&gt; Textile &amp; Decor &gt;&gt; Bedding</option>
+                                        <option value="24">Home, Furniture &amp; Appliances &gt;&gt; Textile &amp; Decor &gt;&gt; Home Decor</option>
+                                        <option value="25">Home, Furniture &amp; Appliances &gt;&gt; Kitchen Tools &amp; Appliances</option>
+                                        <option value="26">Home, Furniture &amp; Appliances &gt;&gt; Kitchen Tools &amp; Appliances &gt;&gt; Kitchen Appliances</option>
+                                        <option value="27">Home, Furniture &amp; Appliances &gt;&gt; Kitchen Tools &amp; Appliances &gt;&gt; Cookware &amp; Tools</option>
+                                        <option value="28">Home, Furniture &amp; Appliances &gt;&gt; Kitchen Tools &amp; Appliances &gt;&gt; Dishes, Cups &amp; Storage</option>
+                                        <option value="29">Garden &amp; Patio </option>
+                                        <option value="30">Garden &amp; Patio &gt;&gt; Outdoor Furniture &amp; Lighting</option>
+                                        <option value="31">Garden &amp; Patio &gt;&gt; Plants &amp; Pots</option>
+                                        <option value="32">Garden &amp; Patio &gt;&gt; Swimming &amp; Outdoor Cooking</option>
+                                        <option value="33">Gaming &amp; Smart Technology</option>
+                                        <option value="34">Gaming &amp; Smart Technology &gt;&gt; Video Games &amp; Consoles</option>
+                                        <option value="35">Gaming &amp; Smart Technology &gt;&gt; VR Sets</option>
+                                        <option value="36">Gaming &amp; Smart Technology &gt;&gt; Smart Technology</option>
+                                        <option value="37">Toys, Party &amp; Crafts</option>
+                                        <option value="38">Toys, Party &amp; Crafts &gt;&gt; Toys</option>
+                                        <option value="39">Toys, Party &amp; Crafts &gt;&gt; Party</option>
+                                        <option value="40">Toys, Party &amp; Crafts &gt;&gt; Art &amp; Crafts</option>
+                                        <option value="41">Leisure &amp; Music</option>
+                                        <option value="42">Leisure &amp; Music &gt;&gt; Books</option>
+                                        <option value="43">Leisure &amp; Music &gt;&gt; Board Games &amp; Puzzles</option>
+                                        <option value="44">Leisure &amp; Music &gt;&gt; Musicle Instruments</option>
+                                        <option value="45">Health &amp; Beauty</option>
+                                        <option value="46">Health &amp; Beauty &gt;&gt; Parfumes</option>
+                                        <option value="47">Health &amp; Beauty &gt;&gt; Skincare</option>
+                                        <option value="48">Health &amp; Beauty &gt;&gt; Makeup</option>
+                                        <option value="49">Spots, Fitness &amp; Outdoors</option>
+                                        <option value="50">Spots, Fitness &amp; Outdoors &gt;&gt; Fitness Equipment</option>
+                                        <option value="51">Spots, Fitness &amp; Outdoors &gt;&gt; Fitness Technology &amp; Accessories</option>
+                                        <option value="52">Spots, Fitness &amp; Outdoors &gt;&gt; Cycling &amp; Camping</option>
+                                        <option value="53">Gifts &amp; Gatgets</option>
+                                        <option value="54">Gifts &amp; Gatgets &gt;&gt; Gifts For Her</option>
+                                        <option value="55">Gifts &amp; Gatgets &gt;&gt; Gifts For Him</option>
+                                        <option value="56">Gifts &amp; Gatgets &gt;&gt; Gadgets</option>
+                                        <option value="57">Pet Toys &amp; Accessories</option>
+                                        <option value="58">Pet Toys &amp; Accessories &gt;&gt; Furniture &amp; Beds</option>
+                                        <option value="59">Pet Toys &amp; Accessories &gt;&gt; Toys &amp; Scratching Posts</option>
+                                        <option value="60">Pet Toys &amp; Accessories &gt;&gt; Bowls &amp; Feeders</option>
+                                    </select>
+                                </div>
+                                <div class="inputs reversed">
+                                    <input type="checkbox" data-val="true" data-val-required="The Automatically search sub categories field is required." id="isc" name="isc" value="true">
+                                    <label for="isc">Automatically search sub categories</label>
+                                </div>
+                                <div class="inputs">
+                                    <label for="mid">Manufacturer:</label>
+                                    <select data-val="true" data-val-required="The Manufacturer field is required." id="mid" name="mid">
+                                        <option selected="selected" value="0">All</option>
+                                        <option value="1">LG</option>
+                                        <option value="2">Karup</option>
+                                        <option value="3">GoPro</option>
+                                        <option value="4">Lego</option>
+                                        <option value="5">Amazon</option>
+                                        <option value="6">L'Oreal</option>
+                                        <option value="7">Oculus</option>
+                                        <option value="8">Catit</option>
+                                        <option value="9">Apple</option>
+                                        <option value="10">Kilner</option>
+                                    </select>
+                                </div>
+                                <div class="inputs">
+                                    <label for="price-range">Price range:</label>
+                                    <span id="price-range" class="price-range">
+                                        From
+                                        <input class="price-from" aria-label="From" type="text" id="pf" name="pf" value="">
+                                        to
+                                        <input class="price-to" aria-label="to" type="text" id="pt" name="pt" value="">
+                                    </span>
+                                </div>
+                                <div class="inputs reversed">
+                                    <input type="checkbox" data-val="true" data-val-required="The Search In product descriptions field is required." id="sid" name="sid" value="true">
+                                    <label for="sid">Search In product descriptions</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <input type="submit" class="button-1 search-button" value="Search">
+                    </div>
+                    <input name="adv" type="hidden" value="false"><input name="isc" type="hidden" value="false"><input name="sid" type="hidden" value="false">
+                </form>
+            </div>
+            <div class="search-results">
+            </div>
+        </div>
+    </div>
+</div>
+

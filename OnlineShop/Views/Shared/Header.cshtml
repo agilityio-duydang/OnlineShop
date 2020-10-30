@@ -1,28 +1,5 @@
 ﻿@model List<Models.EF.Category>
 <div class="header">
-    <div class="header-upper">
-        <div class="header-selectors-wrapper">
-            <div class="currency-selector desktop">
-                <select id="customerCurrency" name="customerCurrency" onchange="setLocation(this.value);">
-                    <option selected="selected" value="/changecurrency/1?returnurl=%2F">US Dollar</option>
-                    <option value="/changecurrency/6?returnurl=%2F">Euro</option>
-                </select>
-            </div>
-            <div class="currency-selector mobile mobile-selector">
-                <div class="current-currency-selector selector-title">US Dollar</div>
-                <div class="currency-selector-options mobile-collapse">
-                    <div class="selector-options-item">
-                        <input type="radio" name="currency-selector" id="currency-0" value="/changecurrency/1?returnurl=%2F" onclick="setLocation(this.value);" checked="checked" />
-                        <label for="currency-0">US Dollar</label>
-                    </div>
-                    <div class="selector-options-item">
-                        <input type="radio" name="currency-selector" id="currency-1" value="/changecurrency/6?returnurl=%2F" onclick="setLocation(this.value);" />
-                        <label for="currency-1">Euro</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="header-lower">
         <div class="header-logo">
             <a href="/" class="logo"> <img alt="Your store name" title="Your store name" src="https://localhost:44359/Content/images/thumbs/0000185_logo.png" /></a>
@@ -40,142 +17,36 @@
                 <ul>
                     <li>
                         <a href="/customer/info" class="ico-account opener">My account</a>
-                        <div class="profile-menu-box">
-                            <div class="close-side-menu"> <span class="close-side-menu-text">John</span> <span class="close-side-menu-btn">Close</span> </div> <a href="/customer/info" class="ico-account">My account</a> <a href="/logout" class="ico-logout">Log out</a>
-                        </div>
+                        @{
+                            var sesion = (OnlineShop.Common.UserLogin)Session[OnlineShop.Common.CommonConstants.USER_SESSION];
+                        }
+                        @if (sesion != null)
+                        {
+                            <div class="profile-menu-box">
+                                <div class="close-side-menu"> <span class="close-side-menu-text">@sesion.UserName</span> <span class="close-side-menu-btn">Close</span> </div> <a href="/customer/info" class="ico-account">My account</a> <a href="/user/logout" class="ico-logout">Log out</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="profile-menu-box login-form-in-header">
+                                <div class="close-side-menu">
+                                    <span class="close-side-menu-text">My account</span>
+                                    <span class="close-side-menu-btn">Close</span>
+                                </div>
+                                @{Html.RenderPartial("Home", "HeaderFormHolder"); }
+                            </div>
+                        }
                     </li>
-                    <li><a href="/compareproducts" class="ico-compare">Compare products list</a></li>
+                    <li>
+                        <a href="/compareproducts" class="ico-compare">Compare products list</a>
+                    </li>
                     <li>
                         <a href="/wishlist" class="ico-wishlist"> <span class="wishlist-label">Wishlist</span> <span class="wishlist-qty">(0)</span> </a>
                     </li>
                 </ul>
-                <div class="mobile-flyout-wrapper">
-                    <div class="close-side-menu">
-                        <span class="close-side-menu-text">Shopping cart</span>
-                        <span class="close-side-menu-btn">Close</span>
-                    </div>
-                    <div id="flyout-cart" class="flyout-cart" data-removeitemfromcarturl="/EmporiumTheme/RemoveItemFromCart" data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart">
-                        <div id="topcartlink">
-                            <a href="/cart" class="ico-cart">
-                                <span class="cart-qty">2</span>
-                                <span class="cart-label">
-                                    $51.00
-                                </span>
-                            </a>
-                        </div>
-                        <div class="mini-shopping-cart">
-                            <div class="flyout-cart-scroll-area">
-                                <div class="items ps-container">
-                                    <div class="item first" data-shoppingcartid="2">
-                                        <div class="picture">
-                                            <a href="/pride-and-prejudice" title="Show details for Pride and Prejudice">
-                                                <img alt="Picture of Pride and Prejudice" src="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_95.png" title="Show details for Pride and Prejudice">
-                                            </a>
-                                        </div>
-                                        <div class="product">
-                                            <div class="left">
-                                                <div class="name">
-                                                    <a href="/pride-and-prejudice">Pride and Prejudice</a>
-                                                </div>
-                                            </div>
-                                            <div class="right">
-                                                <div class="price"> <span>$24.00</span></div>
-                                                <div class="quantity">Quantity: <span>1</span></div>
-                                            </div>
-                                            <a class="remove-item" href="javascript:;" title="remove">remove</a>
-                                        </div>
-                                    </div>
-                                    <div class="item" data-shoppingcartid="1">
-                                        <div class="picture">
-                                            <a href="/fahrenheit-451-by-ray-bradbury" title="Show details for Fahrenheit 451 by Ray Bradbury">
-                                                <img alt="Picture of Fahrenheit 451 by Ray Bradbury" src="https://megastore.nop-templates.com/images/thumbs/0000895_catit-senses-feeding-maze_95.png" title="Show details for Fahrenheit 451 by Ray Bradbury">
-                                            </a>
-                                        </div>
-                                        <div class="product">
-                                            <div class="left">
-                                                <div class="name">
-                                                    <a href="/fahrenheit-451-by-ray-bradbury">Fahrenheit 451 by Ray Bradbury</a>
-                                                </div>
-                                            </div>
-                                            <div class="right">
-                                                <div class="price"> <span>$27.00</span></div>
-                                                <div class="quantity">Quantity: <span>1</span></div>
-                                            </div>
-                                            <a class="remove-item" href="javascript:;" title="remove">remove</a>
-                                        </div>
-                                    </div>
-                                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
-                                        <div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div>
-                                    </div>
-                                    <div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;">
-                                        <div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div>
-                                    </div>
-                                </div>
-                                <div class="flyout-lower">
-                                    <div class="count">
-                                        <a href="/cart">2 item(s)</a>
-                                    </div>
-                                    <div class="totals">Sub-Total: <strong>$51.00</strong></div>
-                                    <div class="buttons">
-                                        <input type="button" value="Go to cart" class="button-1 cart-button" onclick="setLocation('/cart')">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @{Html.RenderAction("Home", "MobileFlyoutWrapper"); }
             </div>
         </div>
     </div>
-    <div class="header-menu-parent">
-        <div class="header-menu categories-in-side-panel">
-            <div class="category-navigation-list-wrapper">
-                <span class="category-navigation-title">All Categories</span>
-                <ul class="category-navigation-list sticky-flyout"></ul>
-            </div>
-            <div class="close-menu"> <span class="close-menu-text">Menu</span> <span class="close-menu-btn">Close</span> </div>
-            <input type="hidden" value="false" id="isRtlEnabled" />
-            <ul class="top-menu">
-                <li class="all-categories">
-                    <a href="#">All Categories</a>
-                    <div class="plus-button"></div>
-                    <div class="sublist-wrap">
-                        <ul class="sublist">
-                            <li class="back-button"> <span>Back</span> </li>
-                            @foreach (var item in Model.Where(x => x.ParentCategoryId == 0))
-                            {
-                                var childMenu = Model.Where(x => x.ParentCategoryId == item.Id);
-                                if (childMenu.Count() > 0)
-                                {
-                                    <li class="root-category-items">
-                                        <a class="with-subcategories" href="/category/@item.Name.ToLower().Replace(" ","-")">@item.Name</a>
-                                        <div class="plus-button"></div>
-                                        <div class="sublist-wrap">
-                                            <ul class="sublist">
-                                                @foreach (var itemChild in childMenu)
-                                                {
-                                                    <li class="back-button"> <span>Back</span> </li>
-                                                    <li> <a href="/@itemChild.Name.ToLower().Replace(" ","-")">@itemChild.Name</a> </li>
-                                                }
-                                            </ul>
-                                        </div>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="root-category-items"> <a href="/category/@item.Name.ToLower().Replace(" ","-")">@item.Name</a> </li>
-                                }
-                            }
-                        </ul>
-                    </div>
-                </li>
-                <li><a href="/">Home page</a></li>
-                <li><a href="/newproducts">New products</a></li>
-                <li><a href="/search">Search</a></li>
-                <li><a href="/customer/info">My account</a></li>
-                <li><a href="/contactus">Contact us</a></li>
-            </ul>
-            <div class="mobile-menu-items"></div>
-        </div>
-    </div>
+    @{Html.RenderAction("Home", "HeaderMenuParent"); }
 </div>

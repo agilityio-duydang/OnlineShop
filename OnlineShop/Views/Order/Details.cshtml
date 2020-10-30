@@ -1,0 +1,361 @@
+﻿@model Models.EF.Order
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var billingAddress = new Models.Dao.AddressDao().GetAddressById(Model.BillingAddressId);
+    var shippingAddress = new Models.Dao.AddressDao().GetAddressById(Model.BillingAddressId);
+}
+
+<div class="master-wrapper-content">
+    <div class="ajaxCartInfo" data-getajaxcartbuttonurl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productpageaddtocartbuttonselector=".add-to-cart-button" data-productboxaddtocartbuttonselector=".product-box-add-to-cart-button" data-productboxproductitemelementselector=".product-item" data-usenopnotification="False" data-nopnotificationresource="The product has been added to your <a href=&quot;/cart&quot;>shopping cart</a>" data-enableonproductpage="True" data-enableoncatalogpages="True" data-minishoppingcartquatityformattingresource="{0}" data-miniwishlistquatityformattingresource="{0}" data-addtowishlistbuttonselector=".add-to-wishlist-button">
+    </div>
+    <input id="addProductVariantToCartUrl" name="addProductVariantToCartUrl" type="hidden" value="/AddProductFromProductDetailsPageToCartAjax">
+    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/AddProductToCartAjax">
+    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/MiniShoppingCart">
+    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/NopAjaxCartFlyoutShoppingCart">
+    <input id="checkProductAttributesUrl" name="checkProductAttributesUrl" type="hidden" value="/CheckIfProductOrItsAssociatedProductsHasAttributes">
+    <input id="getMiniProductDetailsViewUrl" name="getMiniProductDetailsViewUrl" type="hidden" value="/GetMiniProductDetailsView">
+    <input id="flyoutShoppingCartPanelSelector" name="flyoutShoppingCartPanelSelector" type="hidden" value="#flyout-cart">
+    <input id="shoppingCartMenuLinkSelector" name="shoppingCartMenuLinkSelector" type="hidden" value=".cart-qty">
+    <input id="wishlistMenuLinkSelector" name="wishlistMenuLinkSelector" type="hidden" value="span.wishlist-qty">
+    <div id="product-ribbon-info" data-productid="0" data-productboxselector=".product-item, .item-holder" data-productboxpicturecontainerselector=".picture, .item-picture" data-productpagepicturesparentcontainerselector=".product-essential" data-productpagebugpicturecontainerselector=".picture" data-retrieveproductribbonsurl="/RetrieveProductRibbons">
+    </div>
+    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content" data-getquickviewbuttonroute="/getquickviewbutton">
+    </div>
+    <input type="hidden" id="theme-active-preset" data-colorpreset="1076c0, eebe00">
+    <div class="master-column-wrapper">
+        <div class="center-1">
+            <div class="page order-details-page">
+                <div class="page-title">
+                    <h1>Order information</h1>
+                    <a href="/orderdetails/print/@Model.CustomOrderNumber" target="_blank" class="button-2 print-order-button">Print</a>
+                    <a href="/orderdetails/pdf/@Model.CustomOrderNumber" class="button-2 pdf-invoice-button">PDF Invoice</a>
+                </div>
+                <div class="page-body">
+                    <div class="order-overview">
+                        <div class="order-number">
+                            <strong>Order #@Model.CustomOrderNumber</strong>
+                        </div>
+                        <ul class="order-overview-content">
+                            <li class="order-date">
+                                Order Date: <strong>@Model.CreatedOnUtc</strong>
+                            </li>
+                            <li class="order-status">
+                                Order Status:
+                                @switch (@Model.OrderStatusId)
+                                {
+                                    case 10:
+                                        <strong>
+                                            @OnlineShop.Common.OrderStatus.Pending.ToString()
+                                        </strong>
+                                        break;
+                                    case 20:
+                                        <strong>
+                                            @OnlineShop.Common.OrderStatus.Processing.ToString()
+                                        </strong>
+                                        break;
+                                    case 30:
+                                        <strong>
+                                            @OnlineShop.Common.OrderStatus.Complete.ToString()
+                                        </strong>
+                                        break;
+                                    case 40:
+                                        <strong>
+                                            @OnlineShop.Common.OrderStatus.Canceled.ToString()
+                                        </strong>
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                            </li>
+                            <li class="order-total">
+                                Order Total: <strong>@Model.OrderTotal</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-details-area">
+                        <div class="billing-info-wrap" style="height: 457px;">
+                            <div class="billing-info">
+                                <div class="title">
+                                    <strong>Billing Address</strong>
+                                </div>
+                                <ul class="info-list">
+                                    <li class="name">
+                                        @billingAddress.FirstName @billingAddress.LastName
+                                    </li>
+                                    <li class="email">
+                                        Email: @billingAddress.Email
+                                    </li>
+                                    <li class="phone">
+                                        Phone: @billingAddress.PhoneNumber
+                                    </li>
+                                    <li class="fax">
+                                        Fax: @billingAddress.FaxNumber
+                                    </li>
+                                    <li class="company">
+                                        @billingAddress.Company
+                                    </li>
+                                    <li class="address1">
+                                        @billingAddress.Address1
+                                    </li>
+                                    <li class="address2">
+                                        @billingAddress.Address2
+                                    </li>
+                                    <li class="city-state-zip">
+                                        @billingAddress.City,@billingAddress.ZipPostalCode
+                                    </li>
+                                    <li class="country">
+                                        @billingAddress.City
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="payment-method-info">
+                                <div class="title">
+                                    <strong>Payment</strong>
+                                </div>
+                                <ul class="info-list">
+                                    <li class="payment-method">
+                                        <span class="label">
+                                            Payment Method:
+                                        </span>
+                                        <span class="value">
+                                            @Model.PaymentMethodSystemName
+                                        </span>
+                                    </li>
+                                    <li class="payment-method-status">
+                                        <span class="label">
+                                            Payment Status:
+                                        </span>
+                                        @switch (@Model.PaymentStatusId)
+                                        {
+                                            case 10:
+                                                <span class="value">
+                                                    @OnlineShop.Common.PaymentStatus.Pending.ToString();
+                                                </span>
+                                                break;
+                                            case 20:
+                                                <span class="value">
+                                                    @OnlineShop.Common.PaymentStatus.Authorized.ToString()
+                                                </span>
+                                                break;
+                                            case 30:
+                                                <span class="value">
+                                                    @OnlineShop.Common.PaymentStatus.Paid.ToString()
+                                                </span>
+                                                break;
+                                            case 35:
+                                                <span class="value">
+                                                    @OnlineShop.Common.PaymentStatus.PartiallyRefunded.ToString()
+                                                </span>
+                                                break;
+                                            case 40:
+                                                <span class="value">
+                                                    @OnlineShop.Common.PaymentStatus.Refunded.ToString()
+                                                </span>
+                                                break;
+                                            case 50:
+                                                <span class="value">
+                                                    @OnlineShop.Common.PaymentStatus.Voided.ToString()
+                                                </span>
+                                                break;
+                                            default:
+                                                break;
+                                        }
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="shipping-info-wrap" style="height: 457px;">
+                            <div class="shipping-info">
+                                <div class="title">
+                                    <strong>Shipping Address</strong>
+                                </div>
+                                <ul class="info-list">
+                                    <li class="name">
+                                        @shippingAddress.FirstName @shippingAddress.LastName
+                                    </li>
+                                    <li class="email">
+                                        Email: @shippingAddress.Email
+                                    </li>
+                                    <li class="phone">
+                                        Phone: @shippingAddress.PhoneNumber
+                                    </li>
+                                    <li class="fax">
+                                        Fax: @shippingAddress.FaxNumber
+                                    </li>
+                                    <li class="company">
+                                        @shippingAddress.Company
+                                    </li>
+                                    <li class="address1">
+                                        @shippingAddress.Address1
+                                    </li>
+                                    <li class="address2">
+                                        @shippingAddress.Address2
+                                    </li>
+                                    <li class="city-state-zip">
+                                        @shippingAddress.City,@shippingAddress.ZipPostalCode
+                                    </li>
+                                    <li class="country">
+                                        @shippingAddress.City
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="shipping-method-info">
+                                <div class="title">
+                                    <strong>Shipping</strong>
+                                </div>
+                                <ul class="info-list">
+                                    <li class="shipping-method">
+                                        <span class="label">
+                                            Shipping Method:
+                                        </span>
+                                        <span class="value">
+                                            @Model.ShippingMethod
+                                        </span>
+                                    </li>
+                                    <li class="shipping-status">
+                                        <span class="label">
+                                            Shipping Status:
+                                        </span>
+                                        @switch (@Model.ShippingStatusId)
+                                        {
+                                            case 10:
+                                                <span class="value">
+                                                    @OnlineShop.Common.ShippingStatus.ShippingNotRequired.ToString()
+                                                </span>
+                                                break;
+                                            case 20:
+                                                <span class="value">
+                                                    @OnlineShop.Common.ShippingStatus.NotYetShipped.ToString()
+
+                                                </span>
+                                                break;
+                                            case 25:
+                                                <span class="value">
+                                                    @OnlineShop.Common.ShippingStatus.PartiallyShipped.ToString()
+
+                                                </span>
+                                                break;
+                                            case 30:
+                                                <span class="value">
+                                                    @OnlineShop.Common.ShippingStatus.Shipped.ToString()
+
+                                                </span>
+                                                break;
+                                            case 40:
+                                                <span class="value">
+                                                    @OnlineShop.Common.ShippingStatus.Delivered.ToString()
+
+                                                </span>
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section products">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <colgroup>
+                                    <col>
+                                    <col width="1">
+                                    <col width="1">
+                                    <col width="1">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th class="name">
+                                            Name
+                                        </th>
+                                        <th class="price" data-hide="w410, w480">
+                                            Price
+                                        </th>
+                                        <th class="quantity" data-hide="w410, w480">
+                                            Qty
+                                        </th>
+                                        <th class="total">
+                                            Total
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.OrderItems)
+                                    {
+                                        <tr>
+                                            <td class="product">
+                                                <em><a href="/product/@item.Product.Name.ToLower().Replace(" ","-")">@item.Product.Name</a></em>
+                                            </td>
+                                            <td class="unit-price">
+                                                <label class="td-title">Price: </label>
+                                                <span class="product-unit-price">@item.Product.Price</span>
+                                            </td>
+                                            <td class="quantity">
+                                                <label class="td-title">Qty: </label>
+                                                <span class="product-quantity">@item.Quantity</span>
+                                            </td>
+                                            <td class="total">
+                                                <label class="td-title">Total: </label>
+                                                <span class="product-subtotal">@item.Quantity * @item.Product.Price</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="section options">
+                    </div>
+                    <div class="section totals">
+                        <div class="total-info">
+                            <table class="cart-total">
+                                <tbody>
+                                    <tr>
+                                        <td class="cart-total-left">
+                                            <label>Sub-Total:</label>
+                                        </td>
+                                        <td class="cart-total-right">
+                                            <span>@Model.OrderTotal</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cart-total-left">
+                                            <label>Shipping:</label>
+                                        </td>
+                                        <td class="cart-total-right">
+                                            <span>@Model.OrderShippingExclTax</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cart-total-left">
+                                            <label>Tax:</label>
+                                        </td>
+                                        <td class="cart-total-right">
+                                            <span>@Model.OrderShippingInclTax</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="order-total">
+                                        <td class="cart-total-left">
+                                            <label>Order Total:</label>
+                                        </td>
+                                        <td class="cart-total-right">
+                                            <span><strong>@Model.OrderTotal</strong></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="actions">
+                            <input type="button" value="Re-order" class="button-1 re-order-button" onclick="setLocation('/reorder/@Model.CustomOrderNumber')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

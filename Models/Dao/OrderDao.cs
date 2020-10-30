@@ -110,6 +110,13 @@ namespace Models.Dao
 
             return dbContext.Orders.Find(orderId);
         }
+        public Order GetOrderByOrderNumber(int orderNumber)
+        {
+            if (orderNumber == 0)
+                return null;
+
+            return dbContext.Orders.Where(x=>x.CustomOrderNumber==orderNumber.ToString()).ToList().FirstOrDefault();
+        }
         public IEnumerable<Order> GetOrdersByCustomerId(long customerId, int page , int pageSize)
         {
             if (customerId == 0)

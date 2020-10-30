@@ -1,0 +1,90 @@
+﻿@model List<OnlineShop.Models.ShoppingCartItem>
+<div class="mobile-flyout-wrapper">
+    <div class="close-side-menu">
+        <span class="close-side-menu-text">Shopping cart</span>
+        <span class="close-side-menu-btn">Close</span>
+    </div>
+    <div id="flyout-cart" class="flyout-cart" data-removeItemFromCartUrl="/EmporiumTheme/RemoveItemFromCart" data-flyoutCartUrl="/EmporiumTheme/FlyoutShoppingCart">
+        <div id="topcartlink">
+            @if (Model.Count() > 0)
+            {
+                <a href="/cart" class="ico-cart">
+                    <span class="cart-qty">@Model.Count</span>
+                    <span class="cart-label">
+                        @Model.Sum(x => x.Product.Price * x.Quantity)
+                    </span>
+                </a>
+            }
+            else
+            {
+                <a href="/cart" class="ico-cart">
+                    <span class="cart-qty">0</span>
+                    <span class="cart-label">
+                        $0.00
+                    </span>
+                </a>
+            }
+        </div>
+        <div class="mini-shopping-cart">
+            @if (Model.Count() > 0)
+            {
+                <div class="flyout-cart-scroll-area">
+                    <div class="items">
+                        @foreach (var item in Model)
+                        {
+                            var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(item.Product.Id, 1);
+                            <div class="item first" data-shoppingcartid="@item.Product.Id">
+                                @if (productPictures.Count() > 0)
+                                {
+                                    var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 95, true, null, Models.Dao.PictureType.Entity);
+                                    <div class="picture">
+                                        <a href="/product/@item.Product.Name.ToString().Replace(" ","-").ToLower()" title="@item.Product.MetaTitle">
+                                            <img alt="@productPictures.SingleOrDefault().AltAttribute" src="@url" title="@productPictures.SingleOrDefault().TitleAttribute">
+                                        </a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(95, Models.Dao.PictureType.Entity, null);
+                                    <div class="picture">
+                                        <a href="/product/@item.Product.Name.ToString().Replace(" ","-").ToLower()" title="@item.Product.MetaTitle">
+                                            <img alt="" src="@url" title="">
+                                        </a>
+                                    </div>
+                                }
+                                <div class="product">
+                                    <div class="left">
+                                        <div class="name">
+                                            <a href="/product/@item.Product.Name.ToString().Replace(" ","-").ToLower()">@item.Product.Name</a>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="price"> <span>@item.Product.Price</span></div>
+                                        <div class="quantity">Quantity: <span>@item.Quantity</span></div>
+                                    </div>
+                                    <a class="remove-item" href="javascript:;" title="remove">remove</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="flyout-lower">
+                        <div class="count">
+                            <a href="/cart">@Model.Count item(s)</a>
+                        </div>
+                        <div class="totals">Total: <strong>@Model.Sum(x => x.Product.Price * x.Quantity)</strong></div>
+                        <div class="buttons">
+                            <input type="button" value="Go to cart" class="button-1 cart-button" onclick="setLocation('/cart')" />
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="flyout-cart-scroll-area">
+                    <p>You have no items in your shopping cart.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

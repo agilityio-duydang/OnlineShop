@@ -1,0 +1,151 @@
+﻿@model Models.EF.Customer
+@{
+    ViewBag.Title = "Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="master-wrapper-content">
+    <div class="ajaxCartInfo" data-getajaxcartbuttonurl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productpageaddtocartbuttonselector=".add-to-cart-button" data-productboxaddtocartbuttonselector=".product-box-add-to-cart-button" data-productboxproductitemelementselector=".product-item" data-usenopnotification="False" data-nopnotificationresource="The product has been added to your <a href=&quot;/cart&quot;>shopping cart</a>" data-enableonproductpage="True" data-enableoncatalogpages="True" data-minishoppingcartquatityformattingresource="{0}" data-miniwishlistquatityformattingresource="{0}" data-addtowishlistbuttonselector=".add-to-wishlist-button">
+    </div>
+    <input id="addProductVariantToCartUrl" name="addProductVariantToCartUrl" type="hidden" value="/AddProductFromProductDetailsPageToCartAjax">
+    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/AddProductToCartAjax">
+    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/MiniShoppingCart">
+    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/NopAjaxCartFlyoutShoppingCart">
+    <input id="checkProductAttributesUrl" name="checkProductAttributesUrl" type="hidden" value="/CheckIfProductOrItsAssociatedProductsHasAttributes">
+    <input id="getMiniProductDetailsViewUrl" name="getMiniProductDetailsViewUrl" type="hidden" value="/GetMiniProductDetailsView">
+    <input id="flyoutShoppingCartPanelSelector" name="flyoutShoppingCartPanelSelector" type="hidden" value="#flyout-cart">
+    <input id="shoppingCartMenuLinkSelector" name="shoppingCartMenuLinkSelector" type="hidden" value=".cart-qty">
+    <input id="wishlistMenuLinkSelector" name="wishlistMenuLinkSelector" type="hidden" value="span.wishlist-qty">
+    <div id="product-ribbon-info" data-productid="0" data-productboxselector=".product-item, .item-holder" data-productboxpicturecontainerselector=".picture, .item-picture" data-productpagepicturesparentcontainerselector=".product-essential" data-productpagebugpicturecontainerselector=".picture" data-retrieveproductribbonsurl="/RetrieveProductRibbons">
+    </div>
+    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content" data-getquickviewbuttonroute="/getquickviewbutton">
+    </div>
+    <input type="hidden" id="theme-active-preset" data-colorpreset="1076c0, eebe00">
+    <div class="master-column-wrapper">
+        <div class="page-title">
+            <h1>My account - Addresses</h1>
+        </div>
+        <div class="side-2">
+            <div class="select-navigation mobile">
+                <select id="select-nav" name="select-nav" onchange="setLocation(this.value);">
+                    <option value="/customer/info">Customer info</option>
+                    <option selected="selected" value="/customer/address">Addresses</option>
+                    <option value="/order/history">Orders</option>
+                    <option value="/customer/downloadableproducts">Downloadable products</option>
+                    <option value="/backinstocksubscriptions/manage">Back in stock subscriptions</option>
+                    <option value="/rewardpoints/history">Reward points</option>
+                    <option value="/customer/changepassword">Change your Password</option>
+                    <option value="/customer/avatar">Avatar</option>
+                    <option value="/customer/productreviews">My product reviews</option>
+                </select>
+            </div>
+            <div class="block block-account-navigation desktop">
+                <div class="title">
+                    <strong>My account</strong>
+                </div>
+                <div class="listbox">
+                    <ul class="list">
+                        <li class="customer-info inactive">
+                            <a href="/customer/info" data-hover="Customer info">Customer info</a>
+                        </li>
+                        <li class="customer-addresses active">
+                            <a href="/customer/address" data-hover="Addresses">Addresses</a>
+                        </li>
+                        <li class="customer-orders inactive">
+                            <a href="/order/history" data-hover="Orders">Orders</a>
+                        </li>
+                        <li class="downloadable-products inactive">
+                            <a href="/customer/downloadableproducts" data-hover="Downloadable products">Downloadable products</a>
+                        </li>
+                        <li class="back-in-stock-subscriptions inactive">
+                            <a href="/backinstocksubscriptions/manage" data-hover="Back in stock subscriptions">Back in stock subscriptions</a>
+                        </li>
+                        <li class="reward-points inactive">
+                            <a href="/rewardpoints/history" data-hover="Reward points">Reward points</a>
+                        </li>
+                        <li class="change-password inactive">
+                            <a href="/customer/changepassword" data-hover="Change your Password">Change your Password</a>
+                        </li>
+                        <li class="customer-avatar inactive">
+                            <a href="/customer/avatar" data-hover="Avatar">Avatar</a>
+                        </li>
+                        <li class="customer-reviews inactive">
+                            <a href="/customer/productreviews" data-hover="My product reviews">My product reviews</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @if (Model.Addresses != null)
+        {
+            <div class="center-2">
+                <div class="page account-page address-list-page" style="min-height: 423px;">
+                    <div class="page-body">
+                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHgNYnVDy_X_GD35Fu3fehPqvCHC8NWLWv699bejhazci6MCbTQTJbT1PP7OsvD64C6lOLE1UKytPdcPWTxY-2CWU06xABQp1mFwufrBj6yWKWy8-lDs050feldWSlxo3S4jQYFJQ0HaZKtx6aYTrXbVzEy27rIu4FHHMu1Bw9JjAA">
+                        <div class="address-list">
+                            @foreach (var item in Model.Addresses)
+                            {
+                                <div class="section address-item" style="height: 323px;">
+                                    <div class="title">
+                                        <strong>@item.FirstName @item.LastName </strong>
+                                    </div>
+                                    <ul class="info">
+                                        <li class="name">
+                                            @item.FirstName @item.LastName
+                                        </li>
+                                        <li class="email">
+                                            <label>Email:</label>
+                                            @item.Email
+                                        </li>
+                                        <li class="phone">
+                                            <label>Phone number:</label>
+                                            @item.PhoneNumber
+                                        </li>
+                                        <li class="fax">
+                                            <label>Fax number:</label>
+                                            @item.FaxNumber
+                                        </li>
+                                        <li class="company">@item.Company</li>
+                                        <li class="address1">
+                                            @item.Address1
+                                        </li>
+                                        <li class="address2">
+                                            @item.Address2
+                                        </li>
+                                        <li class="city-state-zip">
+                                            @item.ZipPostalCode
+                                        </li>
+                                        <li class="country">
+                                            @item.City
+                                        </li>
+                                    </ul>
+                                    <div class="buttons">
+                                        <input type="button" class="button-2 edit-address-button" onclick="location.href = '/customer/addressedit/@item.Id'" value="Edit">
+                                        <input type="button" class="button-2 delete-address-button" onclick="deletecustomeraddress(1822)" value="Delete">
+                                    </div>
+                                </div>
+                            }
+                            <div class="add-button address-item" style="height: 323px;">
+                                <input type="button" class="button-1 add-address-button" onclick="location.href='/customer/addressadd'" value="Add new">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="center-2">
+                <div class="page account-page address-list-page" style="min-height: 423px;">
+                    <div class="page-body">
+                        <input name="__requestverificationtoken" type="hidden" value="cfdj8jxosvqthjbjpfhuxlbkzhjkhimdhywxpnqsclged64gtpvihv4ha62pet9ile9mu-k1rp0auy7nxwmyvwowvjy7z4d1vuyiyhnwjovjdptiqwkht8vsqsbuzaqqmfb-3aqkuumhipjg6agyjqvs_-_fyynedfqst9tb7pyrvubb4h6_8mmheolwtqqr3kcj8w">
+                        <div class="address-list">
+                            <div class="add-button address-item" style="">
+                                <input type="button" class="button-1 add-address-button" onclick="location.href='/customer/addressadd'" value="add new">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -22,6 +22,11 @@ namespace OnlineShop.Controllers
             return View(model);
         }
 
+        public ActionResult RecentlyViewedProducts()
+        {
+            return View();
+        }
+
         public ActionResult QuickViewData(int productId)
         {
             var model = new ProductDao().GetProductById(productId);

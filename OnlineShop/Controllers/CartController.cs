@@ -19,13 +19,31 @@ namespace OnlineShop.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            var shoppingCart = Session[ShoppingCartSession];
-            var listShoppingCart = new List<ShoppingCartItem>();
-            if (shoppingCart != null)
+            if (Session[OnlineShop.Common.CommonConstants.USER_SESSION] != null)
             {
-                listShoppingCart = (List<ShoppingCartItem>)shoppingCart;
+                var customerSession = (OnlineShop.Common.UserLogin)Session[OnlineShop.Common.CommonConstants.USER_SESSION];
+                var customer = new CustomerDao().GetCustomerById(Convert.ToInt32(customerSession.UserId));
+                var listShoppingCart = new List<ShoppingCartItem>();
+
+                foreach (var item in customer.ShoppingCartItems)
+                {
+                    var shoppingCartItem = new ShoppingCartItem();
+                    shoppingCartItem.Product = item.Product;
+                    shoppingCartItem.Quantity = item.Quantity;
+                    listShoppingCart.Add(shoppingCartItem);
+                }
+                return View(listShoppingCart);
             }
-            return View(listShoppingCart);
+            else
+            {
+                var shoppingCart = Session[ShoppingCartSession];
+                var listShoppingCart = new List<ShoppingCartItem>();
+                if (shoppingCart != null)
+                {
+                    listShoppingCart = (List<ShoppingCartItem>)shoppingCart;
+                }
+                return View(listShoppingCart);
+            }
         }
 
         public JsonResult Delete(long Id)

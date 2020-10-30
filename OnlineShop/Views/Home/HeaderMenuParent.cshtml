@@ -1,0 +1,52 @@
+﻿@model List<Models.EF.Category>
+<div class="header-menu-parent">
+    <div class="header-menu categories-in-side-panel">
+        <div class="category-navigation-list-wrapper">
+            <span class="category-navigation-title">All Categories</span>
+            <ul class="category-navigation-list sticky-flyout"></ul>
+        </div>
+        <div class="close-menu"> <span class="close-menu-text">Menu</span> <span class="close-menu-btn">Close</span> </div>
+        <input type="hidden" value="false" id="isRtlEnabled" />
+        <ul class="top-menu">
+            <li class="all-categories">
+                <a href="#">All Categories</a>
+                <div class="plus-button"></div>
+                <div class="sublist-wrap">
+                    <ul class="sublist">
+                        <li class="back-button"> <span>Back</span> </li>
+                        @foreach (var item in Model.Where(x => x.ParentCategoryId == 0))
+                        {
+                            var childMenu = Model.Where(x => x.ParentCategoryId == item.Id);
+                            if (childMenu.Count() > 0)
+                            {
+                                <li class="root-category-items">
+                                    <a class="with-subcategories" href="/category/@item.Name.ToLower().Replace(" ","-")">@item.Name</a>
+                                    <div class="plus-button"></div>
+                                    <div class="sublist-wrap">
+                                        <ul class="sublist">
+                                            @foreach (var itemChild in childMenu)
+                                            {
+                                                <li class="back-button"> <span>Back</span> </li>
+                                                <li> <a href="/@itemChild.Name.ToLower().Replace(" ","-")">@itemChild.Name</a> </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="root-category-items"> <a href="/category/@item.Name.ToLower().Replace(" ","-")">@item.Name</a> </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </li>
+            <li><a href="/">Home page</a></li>
+            <li><a href="/newproducts">New products</a></li>
+            <li><a href="/filterSearch">Search</a></li>
+            <li><a href="/customer/info">My account</a></li>
+            <li><a href="/contactus">Contact us</a></li>
+        </ul>
+        <div class="mobile-menu-items"></div>
+    </div>
+</div>

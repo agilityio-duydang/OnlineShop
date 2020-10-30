@@ -1,0 +1,44 @@
+﻿@model OnlineShop.Areas.Admin.Models.LoginModel
+<div class="header-form-holder">
+    <div class="returning-wrapper fieldset">
+        @using (Html.BeginForm("Login", "User", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="title">
+                <strong>Returning Customer</strong>
+            </div>
+            <div class="form-fields">
+                <div class="inputs">
+                    <label for="Email">Email:</label>
+                    @Html.EditorFor(model => model.UserName)
+                    <span class="inputs-icons">A</span>
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "field-validation-valid" })
+                </div>
+                <div class="inputs">
+                    <label for="Password">Password:</label>
+                    @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new { @type = "password" } })
+                    <span class="inputs-icons">x</span>
+                    @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "field-validation-valid" })
+                </div>
+                <div class="inputs reversed">
+                    <span class="forgot-password">
+                        <a href="/passwordrecovery">Forgot password?</a>
+                    </span>
+                    <input type="checkbox" data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" value="true">
+                    <label for="RememberMe">Remember me?</label>
+                </div>
+            </div>
+            <div class="buttons">
+                <input class="button-1 login-button" type="submit" value="Log in">
+            </div>
+            <div class="in-header-register">
+                <input type="submit" class="button-1 register-button" onclick="location.href='/register'" value="Register">
+            </div>
+        <input name="RememberMe" type="hidden" value="false">
+
+        }
+        <div class="external-authentication">
+        </div>
+    </div>
+</div>

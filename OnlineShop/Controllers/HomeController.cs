@@ -1,9 +1,12 @@
 ﻿using Models.Dao;
+using OnlineShop.Areas.Admin.Models;
+using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace OnlineShop.Controllers
 {
@@ -27,6 +30,26 @@ namespace OnlineShop.Controllers
 
             return View();
         }
+        public ActionResult ShippingReturns()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult PrivacyNotice()
+        {
+            ViewBag.Message = "Privacy notice";
+
+            return View();
+        }
+
+        public ActionResult ConditionsOfUse()
+        {
+            ViewBag.Message = "ConditionsOfUse";
+
+            return View();
+        }
 
         [ChildActionOnly]
         public ActionResult Header()
@@ -35,6 +58,48 @@ namespace OnlineShop.Controllers
             return PartialView(model);
         }
 
+        [HttpGet]
+        public ActionResult HeaderFormHolder(LoginModel loginModel)
+        {
+            return PartialView(loginModel);
+        }
+
+        [HttpGet]
+        public ActionResult MobileFlyoutWrapper()
+        {
+            if (Session[OnlineShop.Common.CommonConstants.USER_SESSION] != null)
+            {
+                var customerSession = (OnlineShop.Common.UserLogin)Session[OnlineShop.Common.CommonConstants.USER_SESSION];
+                var customer = new CustomerDao().GetCustomerById(Convert.ToInt32(customerSession.UserId));
+                var listShoppingCart = new List<ShoppingCartItem>();
+
+                foreach (var item in customer.ShoppingCartItems)
+                {
+                    var shoppingCartItem = new ShoppingCartItem();
+                    shoppingCartItem.Product = item.Product;
+                    shoppingCartItem.Quantity = item.Quantity;
+                    listShoppingCart.Add(shoppingCartItem);
+                }
+                return PartialView(listShoppingCart);
+            }
+            else
+            {
+                var shoppingCart = Session[OnlineShop.Common.CommonConstants.ShoppingCartSession];
+                var listShoppingCart = new List<ShoppingCartItem>();
+                if (shoppingCart != null)
+                {
+                    listShoppingCart = (List<ShoppingCartItem>)shoppingCart;
+                }
+                return PartialView(listShoppingCart);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult HeaderMenuParent()
+        {
+            var model = new CategoryDao().GetCategories();
+            return PartialView(model);
+        }
         [ChildActionOnly]
         public ActionResult NivoSlider()
         {

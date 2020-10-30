@@ -1,0 +1,138 @@
+﻿@model Models.EF.Customer
+@{
+    ViewBag.Title = "ProductReviews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="master-wrapper-content">
+    <div class="ajaxCartInfo" data-getajaxcartbuttonurl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productpageaddtocartbuttonselector=".add-to-cart-button" data-productboxaddtocartbuttonselector=".product-box-add-to-cart-button" data-productboxproductitemelementselector=".product-item" data-usenopnotification="False" data-nopnotificationresource="The product has been added to your <a href=&quot;/cart&quot;>shopping cart</a>" data-enableonproductpage="True" data-enableoncatalogpages="True" data-minishoppingcartquatityformattingresource="{0}" data-miniwishlistquatityformattingresource="{0}" data-addtowishlistbuttonselector=".add-to-wishlist-button">
+    </div>
+    <input id="addProductVariantToCartUrl" name="addProductVariantToCartUrl" type="hidden" value="/AddProductFromProductDetailsPageToCartAjax">
+    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/AddProductToCartAjax">
+    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/MiniShoppingCart">
+    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/NopAjaxCartFlyoutShoppingCart">
+    <input id="checkProductAttributesUrl" name="checkProductAttributesUrl" type="hidden" value="/CheckIfProductOrItsAssociatedProductsHasAttributes">
+    <input id="getMiniProductDetailsViewUrl" name="getMiniProductDetailsViewUrl" type="hidden" value="/GetMiniProductDetailsView">
+    <input id="flyoutShoppingCartPanelSelector" name="flyoutShoppingCartPanelSelector" type="hidden" value="#flyout-cart">
+    <input id="shoppingCartMenuLinkSelector" name="shoppingCartMenuLinkSelector" type="hidden" value=".cart-qty">
+    <input id="wishlistMenuLinkSelector" name="wishlistMenuLinkSelector" type="hidden" value="span.wishlist-qty">
+    <div id="product-ribbon-info" data-productid="0" data-productboxselector=".product-item, .item-holder" data-productboxpicturecontainerselector=".picture, .item-picture" data-productpagepicturesparentcontainerselector=".product-essential" data-productpagebugpicturecontainerselector=".picture" data-retrieveproductribbonsurl="/RetrieveProductRibbons">
+    </div>
+    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content" data-getquickviewbuttonroute="/getquickviewbutton">
+    </div>
+    <input type="hidden" id="theme-active-preset" data-colorpreset="1076c0, eebe00">
+    <div class="master-column-wrapper">
+        <div class="page-title">
+            <h1>My account - My product reviews</h1>
+        </div>
+        <div class="side-2">
+            <div class="select-navigation mobile">
+                <select id="select-nav" name="select-nav" onchange="setLocation(this.value);">
+                    <option value="/customer/info">Customer info</option>
+                    <option value="/customer/address">Addresses</option>
+                    <option value="/order/history">Orders</option>
+                    <option value="/customer/downloadableproducts">Downloadable products</option>
+                    <option value="/backinstocksubscriptions/manage">Back in stock subscriptions</option>
+                    <option value="/rewardpoints/history">Reward points</option>
+                    <option value="/customer/changepassword">Change your Password</option>
+                    <option value="/customer/avatar">Avatar</option>
+                    <option selected="selected" value="/customer/productreviews">My product reviews</option>
+                </select>
+            </div>
+            <div class="block block-account-navigation desktop">
+                <div class="title">
+                    <strong>My account</strong>
+                </div>
+                <div class="listbox">
+                    <ul class="list">
+                        <li class="customer-info inactive">
+                            <a href="/customer/info" data-hover="Customer info">Customer info</a>
+                        </li>
+                        <li class="customer-addresses inactive">
+                            <a href="/customer/address" data-hover="Addresses">Addresses</a>
+                        </li>
+                        <li class="customer-orders inactive">
+                            <a href="/order/history" data-hover="Orders">Orders</a>
+                        </li>
+                        <li class="downloadable-products inactive">
+                            <a href="/customer/downloadableproducts" data-hover="Downloadable products">Downloadable products</a>
+                        </li>
+                        <li class="back-in-stock-subscriptions inactive">
+                            <a href="/backinstocksubscriptions/manage" data-hover="Back in stock subscriptions">Back in stock subscriptions</a>
+                        </li>
+                        <li class="reward-points inactive">
+                            <a href="/rewardpoints/history" data-hover="Reward points">Reward points</a>
+                        </li>
+                        <li class="change-password inactive">
+                            <a href="/customer/changepassword" data-hover="Change your Password">Change your Password</a>
+                        </li>
+                        <li class="customer-avatar inactive">
+                            <a href="/customer/avatar" data-hover="Avatar">Avatar</a>
+                        </li>
+                        <li class="customer-reviews active">
+                            <a href="/customer/productreviews" data-hover="My product reviews">My product reviews</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @if (Model.ProductReviews.Count() > 0)
+        {
+            <div class="center-2">
+                <div class="page account-page my-product-reviews-list-page" style="min-height: 423px;">
+                    <div class="page-body">
+                        <div class="product-review-list">
+                            @foreach (var item in Model.ProductReviews)
+                            {
+                                <div class="product-review-item">
+                                    <div class="review-info">
+                                        <div class="product-review-box">
+                                            <div class="rating">
+                                                <div style="width: 100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span class="user">
+                                            <label>Product review for:</label>
+                                            <a href="/product/@item.Product.Name.ToLower().Replace(" ","-")">@item.Product.Name</a>
+                                        </span>
+                                        <span class="separator">|</span>
+                                        <span class="date">
+                                            <label>Date:</label>
+                                            <span>@item.CreatedOnUtc</span>
+                                        </span>
+                                    </div>
+                                    <div class="review-body">
+                                        <div class="review-item-head">
+                                            <div class="review-title">
+                                                <strong>@item.ReviewText</strong>
+                                            </div>
+                                        </div>
+                                        <div class="review-content">
+                                            <div class="review-text">
+                                                @item.ReplyText
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="center-2">
+                <div class="page account-page my-product-reviews-list-page" style="min-height: 423px;">
+                    <div class="page-body">
+                        <div class="no-data">
+                            You haven't written any reviews yet
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

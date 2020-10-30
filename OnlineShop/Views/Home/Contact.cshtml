@@ -1,17 +1,95 @@
 ﻿@{
     ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMrzqJVJL0Ptx8NittpYXc5bNn-fjD8OE&callback=initMap&libraries=&v=weekly"
+        defer></script>
+<style type="text/css">
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #map {
+        height: 100%;
+    }
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+    /* Optional: Makes the sample page fill the window. */
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<script>
+      let map;
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: -34.397, lng: 150.644 },
+          zoom: 8,
+        });
+      }
+</script>
+<div class="master-wrapper-content">
+    <div class="ajaxCartInfo" data-getajaxcartbuttonurl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productpageaddtocartbuttonselector=".add-to-cart-button" data-productboxaddtocartbuttonselector=".product-box-add-to-cart-button" data-productboxproductitemelementselector=".product-item" data-usenopnotification="False" data-nopnotificationresource="The product has been added to your <a href=&quot;/cart&quot;>shopping cart</a>" data-enableonproductpage="True" data-enableoncatalogpages="True" data-minishoppingcartquatityformattingresource="{0}" data-miniwishlistquatityformattingresource="{0}" data-addtowishlistbuttonselector=".add-to-wishlist-button">
+    </div>
+    <input id="addProductVariantToCartUrl" name="addProductVariantToCartUrl" type="hidden" value="/AddProductFromProductDetailsPageToCartAjax">
+    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/AddProductToCartAjax">
+    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/MiniShoppingCart">
+    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/NopAjaxCartFlyoutShoppingCart">
+    <input id="checkProductAttributesUrl" name="checkProductAttributesUrl" type="hidden" value="/CheckIfProductOrItsAssociatedProductsHasAttributes">
+    <input id="getMiniProductDetailsViewUrl" name="getMiniProductDetailsViewUrl" type="hidden" value="/GetMiniProductDetailsView">
+    <input id="flyoutShoppingCartPanelSelector" name="flyoutShoppingCartPanelSelector" type="hidden" value="#flyout-cart">
+    <input id="shoppingCartMenuLinkSelector" name="shoppingCartMenuLinkSelector" type="hidden" value=".cart-qty">
+    <input id="wishlistMenuLinkSelector" name="wishlistMenuLinkSelector" type="hidden" value="span.wishlist-qty">
+    <div id="product-ribbon-info" data-productid="0" data-productboxselector=".product-item, .item-holder" data-productboxpicturecontainerselector=".picture, .item-picture" data-productpagepicturesparentcontainerselector=".product-essential" data-productpagebugpicturecontainerselector=".picture" data-retrieveproductribbonsurl="/RetrieveProductRibbons">
+    </div>
+    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content" data-getquickviewbuttonroute="/getquickviewbutton">
+    </div>
+    <input type="hidden" id="theme-active-preset" data-colorpreset="1076c0, eebe00">
+    <div id="map"></div>
+    <div class="master-column-wrapper">
+        <div class="center-1">
+            <div class="page contact-page">
+                <div class="page-title">
+                    <h1>Contact Us</h1>
+                </div>
+                <div class="page-body">
+                    <div class="topic-block">
+                        <div class="topic-block-body">
+                            <p>Put your contact information here. You can edit this in the admin site.</p>
+                        </div>
+                    </div>
+                    <form method="post" action="/contactus" novalidate="novalidate">
+                        <div class="fieldset">
+                            <div class="form-fields">
+                                <div class="inputs">
+                                    <label for="FullName">Your name:</label>
+                                    <input placeholder="Enter your name." class="fullname" type="text" data-val="true" data-val-required="Enter your name" id="FullName" name="FullName" value="">
+                                    <span class="required">*</span>
+                                    <span class="field-validation-valid" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
+                                </div>
+                                <div class="inputs">
+                                    <label for="Email">Your email:</label>
+                                    <input placeholder="Enter your email address." class="email" type="email" data-val="true" data-val-email="Wrong email" data-val-required="Enter email" id="Email" name="Email" value="">
+                                    <span class="required">*</span>
+                                    <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                                </div>
+                                <div class="inputs">
+                                    <label for="Enquiry">Enquiry:</label>
+                                    <textarea placeholder="Enter your enquiry." class="enquiry" data-val="true" data-val-required="Enter enquiry" id="Enquiry" name="Enquiry"></textarea>
+                                    <span class="required">*</span>
+                                    <span class="field-validation-valid" data-valmsg-for="Enquiry" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <input type="submit" name="send-email" class="button-1 contact-us-button" value="Submit">
+                        </div>
+                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHgtBsfDC6QmxB2WGhfdlM6H9UNPS0mrgPQmjYAaDRp6KQlC9ytk8mcHR78aFa0dhOf4UI4oar0VgfjT1JUwSiyOV732EQJmtn0ochyCoifDZXwSERGfnjOHVy2Mwi6a19Q">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
