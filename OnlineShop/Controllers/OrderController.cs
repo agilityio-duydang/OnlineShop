@@ -24,7 +24,15 @@ namespace OnlineShop.Controllers
         //My account / Order details page
         public ActionResult Details(int Id)
         {
-            var order = new OrderDao().GetOrderByOrderNumber(Id);
+            var orderDao = new OrderDao();
+            var addressDao = new AddressDao();
+
+            var order = orderDao.GetOrderByOrderNumber(Id);
+
+            order.Address1 = addressDao.GetAddressById(order.BillingAddressId);
+            var shippingAddressId = order.ShippingAddressId.HasValue ? (int)order.ShippingAddressId : 0;
+            order.Address2 = addressDao.GetAddressById(shippingAddressId);
+            
             if (order == null || order.Deleted)
                 return null;
 

@@ -1,4 +1,4 @@
-﻿@model List<OnlineShop.Models.ShoppingCartItem>
+﻿@model List<OnlineShop.Models.ShoppingCartItemModel>
 <div class="mobile-flyout-wrapper">
     <div class="close-side-menu">
         <span class="close-side-menu-text">Shopping cart</span>
@@ -6,12 +6,12 @@
     </div>
     <div id="flyout-cart" class="flyout-cart" data-removeItemFromCartUrl="/EmporiumTheme/RemoveItemFromCart" data-flyoutCartUrl="/EmporiumTheme/FlyoutShoppingCart">
         <div id="topcartlink">
-            @if (Model.Count() > 0)
+            @if (Model.Where(x => x.ShoppingCartTypeId == 1).Count() > 0)
             {
                 <a href="/cart" class="ico-cart">
-                    <span class="cart-qty">@Model.Count</span>
+                    <span class="cart-qty">@Model.Where(x => x.ShoppingCartTypeId == 1).ToList().Count</span>
                     <span class="cart-label">
-                        @Model.Sum(x => x.Product.Price * x.Quantity)
+                        @Model.Where(x => x.ShoppingCartTypeId == 1).Sum(x => x.Product.Price * x.Quantity)
                     </span>
                 </a>
             }
@@ -26,11 +26,11 @@
             }
         </div>
         <div class="mini-shopping-cart">
-            @if (Model.Count() > 0)
+            @if (Model.Where(x=>x.ShoppingCartTypeId==1).ToList().Count() > 0)
             {
                 <div class="flyout-cart-scroll-area">
                     <div class="items">
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Where(x => x.ShoppingCartTypeId == 1))
                         {
                             var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(item.Product.Id, 1);
                             <div class="item first" data-shoppingcartid="@item.Product.Id">
@@ -69,9 +69,9 @@
                     </div>
                     <div class="flyout-lower">
                         <div class="count">
-                            <a href="/cart">@Model.Count item(s)</a>
+                            <a href="/cart">@Model.Where(x => x.ShoppingCartTypeId == 1).ToList().Count item(s)</a>
                         </div>
-                        <div class="totals">Total: <strong>@Model.Sum(x => x.Product.Price * x.Quantity)</strong></div>
+                        <div class="totals">Total: <strong>@Model.Where(x => x.ShoppingCartTypeId == 1).Sum(x => x.Product.Price * x.Quantity)</strong></div>
                         <div class="buttons">
                             <input type="button" value="Go to cart" class="button-1 cart-button" onclick="setLocation('/cart')" />
                         </div>

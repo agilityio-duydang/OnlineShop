@@ -131,8 +131,8 @@
 }
 .date-of-birth .date-picker-wrapper select {
 	padding: 0 35px 0 20px;
-	background: #fff url(../img/select-arrow-dark.svg) no-repeat right 15px center;
-}
+/*	background: #fff url(../img/select-arrow-dark.svg) no-repeat right 15px center;
+*/}
 
 .account-page {
 	padding: 40px 20px;

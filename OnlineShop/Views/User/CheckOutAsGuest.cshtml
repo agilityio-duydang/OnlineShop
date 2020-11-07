@@ -1,9 +1,25 @@
 ﻿@model OnlineShop.Areas.Admin.Models.LoginModel
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "CheckOutAsGuest";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="master-wrapper-content">
+    <div class="ajaxCartInfo" data-getajaxcartbuttonurl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productpageaddtocartbuttonselector=".add-to-cart-button" data-productboxaddtocartbuttonselector=".product-box-add-to-cart-button" data-productboxproductitemelementselector=".product-item" data-usenopnotification="False" data-nopnotificationresource="The product has been added to your <a href=&quot;/cart&quot;>shopping cart</a>" data-enableonproductpage="True" data-enableoncatalogpages="True" data-minishoppingcartquatityformattingresource="{0}" data-miniwishlistquatityformattingresource="{0}" data-addtowishlistbuttonselector=".add-to-wishlist-button">
+    </div>
+    <input id="addProductVariantToCartUrl" name="addProductVariantToCartUrl" type="hidden" value="/AddProductFromProductDetailsPageToCartAjax">
+    <input id="addProductToCartUrl" name="addProductToCartUrl" type="hidden" value="/AddProductToCartAjax">
+    <input id="miniShoppingCartUrl" name="miniShoppingCartUrl" type="hidden" value="/MiniShoppingCart">
+    <input id="flyoutShoppingCartUrl" name="flyoutShoppingCartUrl" type="hidden" value="/NopAjaxCartFlyoutShoppingCart">
+    <input id="checkProductAttributesUrl" name="checkProductAttributesUrl" type="hidden" value="/CheckIfProductOrItsAssociatedProductsHasAttributes">
+    <input id="getMiniProductDetailsViewUrl" name="getMiniProductDetailsViewUrl" type="hidden" value="/GetMiniProductDetailsView">
+    <input id="flyoutShoppingCartPanelSelector" name="flyoutShoppingCartPanelSelector" type="hidden" value="#flyout-cart">
+    <input id="shoppingCartMenuLinkSelector" name="shoppingCartMenuLinkSelector" type="hidden" value=".cart-qty">
+    <input id="wishlistMenuLinkSelector" name="wishlistMenuLinkSelector" type="hidden" value="span.wishlist-qty">
+    <div id="product-ribbon-info" data-productid="0" data-productboxselector=".product-item, .item-holder" data-productboxpicturecontainerselector=".picture, .item-picture" data-productpagepicturesparentcontainerselector=".product-essential" data-productpagebugpicturecontainerselector=".picture" data-retrieveproductribbonsurl="/RetrieveProductRibbons">
+    </div>
+    <div class="quickViewData" data-productselector=".product-item" data-productselectorchild=".btn-wrapper" data-retrievequickviewurl="/quickviewdata" data-quickviewbuttontext="Quick View" data-quickviewbuttontitle="Quick View" data-isquickviewpopupdraggable="True" data-enablequickviewpopupoverlay="True" data-accordionpanelsheightstyle="content" data-getquickviewbuttonroute="/getquickviewbutton">
+    </div>
+    <input type="hidden" id="theme-active-preset" data-colorpreset="1076c0, eebe00">
     <div class="master-column-wrapper">
         <div class="center-1">
             <div class="page login-page">
@@ -12,23 +28,28 @@
                 </div>
                 <div class="page-body">
                     <div class="customer-blocks">
-                        <div class="new-wrapper register-block">
+                        <div class="new-wrapper checkout-as-guest-or-register-block">
                             <div class="title">
-                                <strong>New Customer</strong>
+                                <strong>Checkout as a guest or register</strong>
                             </div>
                             <div class="text">
-                                By creating an account on our website, you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.
+                                <div class="topic-block">
+                                    <div class="topic-block-body">
+                                        <p>By creating an account on our website you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.</p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="buttons">
+                                <input type="button" class="button-1 checkout-as-guest-button" onclick="location.href='/checkout'" value="Checkout as Guest">
                                 <input type="button" class="button-1 register-button" onclick="location.href='/register'" value="Register">
                             </div>
                         </div>
                         <div class="returning-wrapper fieldset">
-                            <div class="title">
-                                <strong>Returning Customer</strong>
-                            </div>
                             @using (Html.BeginForm("Login", "User", FormMethod.Post))
                             {
+                                <div class="title">
+                                    <strong>Returning Customer</strong>
+                                </div>
                                 <div class="form-fields">
                                     @Html.AntiForgeryToken()
                                     @Html.ValidationSummary(true, "", new { @class = "message-error" })
@@ -58,7 +79,6 @@
                                 <div class="in-header-register">
                                     <input type="button" class="button-1 register-button" onclick="location.href='/register'" value="Register">
                                 </div>
-
                                 <input name="RememberMe" type="hidden" value="false">
                             }
                             <div class="external-authentication">

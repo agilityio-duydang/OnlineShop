@@ -28,6 +28,8 @@ namespace OnlineShop.Models
         [Required]
         public string Company { get; set; }
 
+        public bool Newsletter { get; set; }
+
         [Required]
         [StringLength(1000,MinimumLength =6)]
         public string Email { get; set; }

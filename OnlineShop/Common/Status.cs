@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OnlineShop.Common
 {
-    public enum Order
+    public enum Orders
     {
         /// <summary>
         /// 

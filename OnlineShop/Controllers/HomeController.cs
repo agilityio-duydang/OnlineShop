@@ -59,42 +59,49 @@ namespace OnlineShop.Controllers
         }
 
         [HttpGet]
+        public ActionResult HeaderFormHolder()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
         public ActionResult HeaderFormHolder(LoginModel loginModel)
         {
             return PartialView(loginModel);
         }
-
-        [HttpGet]
         public ActionResult MobileFlyoutWrapper()
         {
             if (Session[OnlineShop.Common.CommonConstants.USER_SESSION] != null)
             {
                 var customerSession = (OnlineShop.Common.UserLogin)Session[OnlineShop.Common.CommonConstants.USER_SESSION];
                 var customer = new CustomerDao().GetCustomerById(Convert.ToInt32(customerSession.UserId));
-                var listShoppingCart = new List<ShoppingCartItem>();
+                var listShoppingCart = new List<ShoppingCartItemModel>();
 
                 foreach (var item in customer.ShoppingCartItems)
                 {
-                    var shoppingCartItem = new ShoppingCartItem();
-                    shoppingCartItem.Product = item.Product;
-                    shoppingCartItem.Quantity = item.Quantity;
-                    listShoppingCart.Add(shoppingCartItem);
+                    if (item.ShoppingCartTypeId == 1)
+                    {
+                        var shoppingCartItem = new ShoppingCartItemModel();
+                        shoppingCartItem.Product = item.Product;
+                        shoppingCartItem.Quantity = item.Quantity;
+                        shoppingCartItem.ShoppingCartTypeId = item.ShoppingCartTypeId;
+                        listShoppingCart.Add(shoppingCartItem);
+                    }
                 }
                 return PartialView(listShoppingCart);
             }
             else
             {
                 var shoppingCart = Session[OnlineShop.Common.CommonConstants.ShoppingCartSession];
-                var listShoppingCart = new List<ShoppingCartItem>();
+                var listShoppingCart = new List<ShoppingCartItemModel>();
                 if (shoppingCart != null)
                 {
-                    listShoppingCart = (List<ShoppingCartItem>)shoppingCart;
+                    listShoppingCart = (List<ShoppingCartItemModel>)shoppingCart;
                 }
                 return PartialView(listShoppingCart);
             }
         }
 
-        [HttpGet]
         public ActionResult HeaderMenuParent()
         {
             var model = new CategoryDao().GetCategories();

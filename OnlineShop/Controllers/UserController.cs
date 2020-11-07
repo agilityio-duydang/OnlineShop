@@ -15,7 +15,7 @@ using ShoppingCartItem = Models.EF.ShoppingCartItem;
 
 namespace OnlineShop.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
 
         // GET: User
@@ -27,7 +27,7 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            if (Session[CommonConstants.USER_SESSION] ==null)
+            if (Session[CommonConstants.USER_SESSION] == null)
             {
                 return View();
             }
@@ -38,7 +38,6 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-
         public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
@@ -55,19 +54,19 @@ namespace OnlineShop.Controllers
                         Session.Add(CommonConstants.USER_SESSION, customerSession);
 
                         var shoppingCart = Session[CommonConstants.ShoppingCartSession];
-                        var listSessionCart = new List<Models.ShoppingCartItem>();
-                        var listShoppingCart = new List<ShoppingCartItem>();
+                        var listSessionCart = new List<Models.ShoppingCartItemModel>();
+
                         if (shoppingCart != null)
                         {
-                            listSessionCart = (List<Models.ShoppingCartItem>)shoppingCart;
+                            listSessionCart = (List<Models.ShoppingCartItemModel>)shoppingCart;
 
                             foreach (var item in listSessionCart)
                             {
-                                if (customer.ShoppingCartItems.ToList().Exists(x => x.ProductId == item.Product.Id))
+                                if (customer.ShoppingCartItems.ToList().Exists(x => x.ProductId == item.Product.Id && x.ShoppingCartTypeId == 1))
                                 {
                                     foreach (var ite in customer.ShoppingCartItems)
                                     {
-                                        if (item.Product.Id == ite.ProductId)
+                                        if (item.Product.Id == ite.ProductId && ite.ShoppingCartTypeId == 1)
                                         {
                                             ite.Quantity += item.Quantity;
                                         }
@@ -88,6 +87,44 @@ namespace OnlineShop.Controllers
                                 }
                             }
                             var result = customerDao.UpdateCustomer(customer);
+                            Session[CommonConstants.ShoppingCartSession] = null;
+                        }
+
+                        var wishListCart = Session[CommonConstants.WishListSession];
+                        var listSessionWishList = new List<Models.ShoppingCartItemModel>();
+
+                        if (wishListCart != null)
+                        {
+                            listSessionWishList = (List<Models.ShoppingCartItemModel>)wishListCart;
+
+                            foreach (var item in listSessionWishList)
+                            {
+                                if (customer.ShoppingCartItems.ToList().Exists(x => x.ProductId == item.Product.Id && x.ShoppingCartTypeId == 2))
+                                {
+                                    foreach (var ite in customer.ShoppingCartItems)
+                                    {
+                                        if (item.Product.Id == ite.ProductId && ite.ShoppingCartTypeId == 2)
+                                        {
+                                            ite.Quantity += item.Quantity;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    var shoppingCartItem = new ShoppingCartItem();
+                                    shoppingCartItem.ShoppingCartTypeId = 2;
+                                    shoppingCartItem.CustomerEnteredPrice = item.Product.Price;
+                                    shoppingCartItem.ProductId = item.Product.Id;
+                                    shoppingCartItem.Quantity = item.Quantity;
+                                    shoppingCartItem.CustomerId = customer.Id;
+                                    shoppingCartItem.CreatedOnUtc = DateTime.UtcNow;
+                                    shoppingCartItem.UpdatedOnUtc = DateTime.UtcNow;
+
+                                    customer.ShoppingCartItems.Add(shoppingCartItem);
+                                }
+                            }
+                            var result = customerDao.UpdateCustomer(customer);
+                            Session[CommonConstants.WishListSession] = null;
                         }
                         return RedirectToAction("Index", "Home");
 
@@ -113,15 +150,17 @@ namespace OnlineShop.Controllers
                         break;
                 }
             }
-            return RedirectToAction("Login", "User");
+            return View();
+            //return RedirectToAction("Login", "User");
         }
 
         [HttpGet]
         public ActionResult Register()
         {
-            if (Session[CommonConstants.USER_SESSION] != null)
+            if (Session[CommonConstants.USER_SESSION] == null)
             {
-                return View();
+                RegisterModel model = new RegisterModel();
+                return View(model);
             }
             else
             {
@@ -198,16 +237,21 @@ namespace OnlineShop.Controllers
                         Password = encryptedMd5,
                         CreatedOnUtc = DateTime.UtcNow
                     };
-                    model.CustomerPasswords.Add(customerPassord);
+                    custommer.CustomerPasswords.Add(customerPassord);
                     customerDao.UpdateCustomer(custommer);
-                    return RedirectToAction("Index", "Customer");
+                    SetNotification("Đăng ký người dùng thành công .", "success");
+                    return RedirectToAction("Login", "User");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Thêm mới người dùng không thành công .");
+                    ModelState.AddModelError("", "Đăng ký người dùng không thành công .");
                 }
             }
-            return View();
+            else
+            {
+                return View();
+            }
+            return RedirectToAction("Register", "User");
         }
 
         public ActionResult LogOut()
@@ -218,6 +262,11 @@ namespace OnlineShop.Controllers
 
         [HttpGet]
         public ActionResult PasswordRecovery()
+        {
+            return View();
+        }
+
+        public ActionResult CheckOutAsGuest()
         {
             return View();
         }

@@ -507,7 +507,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
-    <Compile Include="Models\ShoppingCartItem.cs" />
+    <Compile Include="Models\ShoppingCartItemModel.cs" />
+    <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Models\WishListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -12388,6 +12389,8 @@
     <Content Include="Views\Home\HeaderMenuParent.cshtml" />
     <Content Include="Views\Customer\AddressEdit.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Customer\Add.cshtml" />
+    <Content Include="Views\User\CheckOutAsGuest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

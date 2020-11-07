@@ -10,13 +10,15 @@ using System.Web.Mvc;
 
 namespace OnlineShop.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomerController : BaseController
     {
         // GET: Customer
         public ActionResult Index()
         {
             return View();
         }
+
+        [HttpGet]
         public ActionResult Info()
         {
             if (Session[Common.CommonConstants.USER_SESSION] !=null)
@@ -135,11 +137,64 @@ namespace OnlineShop.Controllers
                         var result = customerDao.UpdateCustomer(customer);
                         if (result)
                         {
-
+                            SetNotification("Change password success", "success");
                         }
                     }
                 }
-               return RedirectToAction("ChangePassword", "Customer");
+                return View();
+               //return RedirectToAction("ChangePassword", "Customer");
+            }
+            else
+            {
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(AddressModel addressModel)
+        {
+            if (Session[Common.CommonConstants.USER_SESSION] != null)
+            {
+                var session = (UserLogin)Session[Common.CommonConstants.USER_SESSION];
+                var customerDao = new CustomerDao();
+                var customer = customerDao.GetCustomerById(Convert.ToInt32(session.UserId));
+                if (ModelState.IsValid)
+                {
+                    var address = new Address
+                    {
+                        FirstName = addressModel.FirstName,
+                        LastName = addressModel.LastName,
+                        Email = addressModel.Email,
+                        Company = addressModel.Company,
+                        City = addressModel.City,
+                        Address1 = addressModel.Address1,
+                        Address2 = addressModel.Address2,
+                        ZipPostalCode = addressModel.ZipPostalCode,
+                        PhoneNumber = addressModel.PhoneNumber,
+                        FaxNumber = addressModel.FaxNumber,
+                        CreatedOnUtc = DateTime.UtcNow
+                    };
+                    customer.Address = address;
+                    customer.Addresses.Add(address);
+                    var result = customerDao.UpdateCustomer(customer);
+
+                    if (result)
+                    {
+                        SetNotification("Thêm mới Address thành công .", "success");
+                        return RedirectToAction("Address", "User");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Thêm mới Address không thành công");
+                    }
+                }
+                return View();
             }
             else
             {
@@ -200,10 +255,15 @@ namespace OnlineShop.Controllers
                     var result = model.UpdateAddress(address);
                     if (result)
                     {
-
+                        SetNotification("Cập nhật Address thành công .", "success");
+                        return RedirectToAction("Address", "Customer");
+                    }
+                    else
+                    {
+                        SetNotification("Cập nhật Address không thành công .", "success");
                     }
                 }
-                return RedirectToAction("Address","Customer");
+                return View();
             }
             else
             {
@@ -225,6 +285,34 @@ namespace OnlineShop.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
+        }
+
+        [HttpPost]
+        public ActionResult Info(Customer customerModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var session = (UserLogin)Session[Common.CommonConstants.USER_SESSION];
+                var customerDao = new CustomerDao();
+                var cus = customerDao.GetCustomerById(Convert.ToInt32(session.UserId));
+
+                cus.Email = customerModel.Email;
+                cus.FirstName = customerModel.FirstName;
+                cus.LastName = customerModel.LastName;
+                cus.Gender = customerModel.Gender;
+                cus.DateOfBirth = customerModel.DateOfBirth;
+                cus.Company = customerModel.Company;
+                var result = customerDao.UpdateCustomer(cus);
+                if (result)
+                {
+                    SetNotification("Cập nhật thông tin thành công .", "success");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Cập nhật thông tin không thành công .");
+                }
+            }
+            return View();
         }
     }
 }

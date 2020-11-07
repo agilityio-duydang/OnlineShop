@@ -834,10 +834,10 @@
         handleExpand(".write-review .field-validation-error", ".write-review-collapse", ".write-review > .title");
         handleExpand(".new-comment .field-validation-error", ".new-comment form", ".comment-form-btn");
 
-        if ($('.profile-menu-box').hasClass('login-form-in-header')) {
+        //if ($('.profile-menu-box').hasClass('login-form-in-header')) {
 
-            showLoginFormInHeaderPanel();
-        }
+        //    showLoginFormInHeaderPanel();
+        //}
 
         $(window).on('resize', function () {
 
@@ -957,30 +957,6 @@
 
                 $(opener).addClass("open");
             }
-        }
-
-        function showLoginFormInHeaderPanel() {
-
-            var loginUrl = $('.header-links .ico-account').attr('data-loginUrl');
-
-            $.ajax({
-                url: loginUrl,
-                type: 'GET',
-                data: {
-                    'isHeaderPanel': true
-                }
-            }).done(function (data) {
-                var dataObj = $(data);
-                var loginFields = dataObj.find('.returning-wrapper');
-
-                if (loginFields.length > 0) {
-
-                    $('.profile-menu-box .header-form-holder').html(loginFields);
-                }
-
-            }).fail(function () {
-                window.location.href = loginUrl;
-            });
         }
 
         function handleHomePageFeaturedProductsCarousel() {

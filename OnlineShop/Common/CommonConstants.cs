@@ -9,5 +9,7 @@ namespace OnlineShop.Common
     {
         public static string USER_SESSION = "USER_SESSION";
         public static string ShoppingCartSession = "ShoppingCartSession";
+        public static string WishListSession = "WishListSession";
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿@model Models.EF.Product
-
+@{ 
+    var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(@Model.Id, 1);
+}
 <div class="k-window-titlebar k-header" style="margin-top: 0px;">
     <span class="k-window-title"></span>
     <div class="k-window-actions">
@@ -16,17 +18,28 @@
     </div>
     <div class="productAddedToCartItem">
         <div class="productAddedToCartWindowImage">
-            <a href="/droid-inventor-kit" title="Show details for Droid Inventor Kit">
-                <img alt="Picture of Droid Inventor Kit" src="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_224.png" title="Show details for Droid Inventor Kit">
-            </a>
+            @if (productPictures.Count() > 0)
+            {
+                var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 224, true, null, Models.Dao.PictureType.Entity);
+                <a href="/product/@Model.Name.ToString().Replace(" ","-").ToLower()" title="@Model.MetaTitle">
+                    <img alt="@productPictures.SingleOrDefault().AltAttribute" src="@url" title="@productPictures.SingleOrDefault().TitleAttribute">
+                </a>
+            }
+            else
+            {
+                var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(224, Models.Dao.PictureType.Entity, null);
+                <a href="/product/@Model.Name.ToString().Replace(" ","-").ToLower()" title="@Model.MetaTitle">
+                    <img alt="" src="@url" title="">
+                </a>
+            }
         </div>
         <div class="productAddedToCartWindowDescription">
             <h1>
-                <a href="/droid-inventor-kit">Droid Inventor Kit</a>
+                <a href="/product/@Model.Name.ToString().Replace(" ","-").ToLower()">@Model.Name</a>
             </h1>
-            <strong class="price">$88.00 / per unit</strong>
+            <strong class="price">@Model.Price / per unit</strong>
             <div class="attributeInfo"></div>
-            <span class="quantity">Quantity : 2</span>
+            <span class="quantity">Quantity : @Model.AllowedQuantities</span>
         </div>
     </div>
     <div class="productAddedToCartWindowSummary">

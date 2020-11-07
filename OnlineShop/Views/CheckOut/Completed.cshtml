@@ -1,4 +1,4 @@
-﻿
+﻿@model Models.EF.Order
 @{
     ViewBag.Title = "Completed";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -54,10 +54,10 @@
                         </div>
                         <div class="details">
                             <div class="order-number">
-                                <strong>Order number: 1256</strong>
+                                <strong>Order number: @Model.CustomOrderNumber</strong>
                             </div>
                             <div class="details-link">
-                                <a href="/orderdetails/1256">Click here for order details.</a>
+                                <a href="/orderdetails/@Model.CustomOrderNumber">Click here for order details.</a>
                             </div>
                         </div>
                         <div class="buttons">

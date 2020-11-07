@@ -57,6 +57,12 @@ namespace Models.Dao
             return order.Id;
         }
 
+        public string GetMaxOrderNumber()
+        {
+            int maxOrderNumber = Convert.ToInt32(dbContext.Orders.Max(x => x.CustomOrderNumber).FirstOrDefault().ToString());
+            maxOrderNumber += 1;
+            return maxOrderNumber.ToString();
+        }
         public bool UpdateOrder(Order entity)
         {
             var order = dbContext.Orders.Find(entity.Id);

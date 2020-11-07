@@ -22,10 +22,14 @@
             type: 'POST',
             success: function (res) {
                 if (res.success == true) {
-                    $('.ajaxCart').html(res.html);
-                    $('.mobile-flyout-wrapper').html(res.flyoutShoppingCart);
-                    $('.cart-qty').html(res.headerCart);
-                    $('.ajaxCart').css('display', 'block');
+                    if (isAddToCartButton) {
+                        $('.ajaxCart').html(res.html);
+                        $('.mobile-flyout-wrapper').html(res.flyoutShoppingCart);
+                        $('.cart-qty').html(res.headerCart);
+                        $('.ajaxCart').css('display', 'block');
+                    } else {
+                        window.location.href = "/WishList"
+                    }
                 };
             },
             complete: this.resetLoadWaiting,
@@ -106,7 +110,7 @@
                 type: 'POST',
                 success: function (res) {
                     if (res.Status == true) {
-                        window.location.href = "/cart"
+                        window.location.href = "/Cart"
                     }
                 }
             });
@@ -119,13 +123,13 @@
                 type: 'POST',
                 success: function (res) {
                     if (res.Status == true) {
-                        window.location.href = "/cart"
+                        window.location.href = "/Cart"
                     }
                 }
             });
         });
 
-        $('.btnDelete').off('click').click('click', function (e) {
+        $('.remove-item-button').off('click').click('click', function (e) {
             e.preventDefault()
             $.ajax({
                 url: '/Cart/Delete',
@@ -134,7 +138,73 @@
                 type: 'POST',
                 success: function (res) {
                     if (res.Status == true) {
-                        window.location.href = "/cart"
+                        window.location.href = "/Cart"
+                    }
+                }
+            });
+        });
+
+
+        $('.update-wishlist-button').off('click').click('click', function () {
+            var listProduct = $('.qty-input');
+            var cartList = [];
+            $.each(listProduct, function (i, item) {
+                cartList.push({
+                    Quantity: $(item).val(),
+                    Product: {
+                        Id: $(item).data('id')
+                    }
+                });
+            });
+
+            $.ajax({
+                url: '/WishList/Update',
+                data: { cartModel: JSON.stringify(cartList) },
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.Status == true) {
+                        window.location.href = "/WishList"
+                    }
+                }
+            });
+        });
+
+        $('.wishlist-add-to-cart-button').off('click').click('click', function () {
+            var listProduct = $('.qty-input');
+            var cartList = [];
+            $.each(listProduct, function (i, item) {
+                cartList.push({
+                    Quantity: $(item).val(),
+                    Product: {
+                        Id: $(item).data('id')
+                    }
+                });
+            });
+
+            $.ajax({
+                url: '/WishList/AddToCart',
+                data: { cartModel: JSON.stringify(cartList) },
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.Status == true) {
+                        window.location.href = "/Cart"
+                    }
+                }
+            });
+        });
+
+        $('.remove-item').off('click').click('click', function (e) {
+            e.preventDefault()
+            $.ajax({
+                url: '/WishList/Delete',
+                data: { Id: $(this).data('id') },
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.Status == true) {
+                        window.location.href = "/WishList"
                     }
                 }
             });

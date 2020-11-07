@@ -1,7 +1,22 @@
-﻿
+﻿@model OnlineShop.Models.AddressModel
 @{
     ViewBag.Title = "BillingAddress";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal Total = 0;
+    if (Session[OnlineShop.Common.CommonConstants.USER_SESSION] != null)
+    {
+        var customerSession = (OnlineShop.Common.UserLogin)Session[OnlineShop.Common.CommonConstants.USER_SESSION];
+        var customer = new Models.Dao.CustomerDao().GetCustomerById(Convert.ToInt32(customerSession.UserId));
+    }
+    else
+    {
+        var shoppingCart = Session[OnlineShop.Common.CommonConstants.ShoppingCartSession];
+        var listShoppingCart = new List<OnlineShop.Models.ShoppingCartItemModel>();
+        if (shoppingCart != null)
+        {
+            listShoppingCart = (List<OnlineShop.Models.ShoppingCartItemModel>)shoppingCart;
+        }
+    }
 }
 
 <div class="master-wrapper-content">
@@ -49,7 +64,8 @@
                     <h1>Billing address</h1>
                 </div>
                 <div class="page-body checkout-data">
-                    <form method="post" action="/checkout/billingaddress" novalidate="novalidate">
+                    @using (@Html.BeginForm("BillingAddress", "Checkout", FormMethod.Post))
+                    {
                         <div class="billing-addresses">
                             <div class="section ship-to-same-address">
                                 <div class="selector">
@@ -62,339 +78,229 @@
                                     <strong>Select billing address</strong>
                                 </div>
                                 <div class="address-grid">
-                                    <div class="add-button">
-                                        <div class="btn-holder">
-                                            <label class="button-1 open-address-form"><span>Add new</span></label>
-                                            <label class="button-2 close-address-form"><span>Close</span></label>
-                                        </div>
-                                        <div class="enter-address">
-                                            <input type="hidden" data-val="true" data-val-required="The Id field is required." id="BillingNewAddress_Id" name="BillingNewAddress.Id" value="0">
-                                            <div class="edit-address">
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_FirstName">First name:</label>
-                                                    <input type="text" data-val="true" data-val-required="First name is required." id="BillingNewAddress_FirstName" name="BillingNewAddress.FirstName" value="">
-                                                    <span class="required">*</span>
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.FirstName" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_LastName">Last name:</label>
-                                                    <input type="text" data-val="true" data-val-required="Last name is required." id="BillingNewAddress_LastName" name="BillingNewAddress.LastName" value="">
-                                                    <span class="required">*</span>
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.LastName" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_Email">Email:</label>
-                                                    <input type="email" data-val="true" data-val-email="Wrong email" data-val-required="Email is required." id="BillingNewAddress_Email" name="BillingNewAddress.Email" value="">
-                                                    <span class="required">*</span>
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.Email" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_Company">Company:</label>
-                                                    <input type="text" id="BillingNewAddress_Company" name="BillingNewAddress.Company" value="">
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.Company" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_CountryId">Country:</label>
-                                                    <select data-trigger="country-select" data-url="/country/getstatesbycountryid" data-stateprovince="#BillingNewAddress_StateProvinceId" data-loading="#states-loading-progress" data-val="true" data-val-required="Country is required." id="BillingNewAddress_CountryId" name="BillingNewAddress.CountryId">
-                                                        <option value="0">Select country</option>
-                                                        <option value="1">United States</option>
-                                                        <option value="88">Afghanistan</option>
-                                                        <option value="89">Albania</option>
-                                                        <option value="90">Algeria</option>
-                                                        <option value="91">American Samoa</option>
-                                                        <option value="92">Andorra</option>
-                                                        <option value="93">Angola</option>
-                                                        <option value="94">Anguilla</option>
-                                                        <option value="95">Antarctica</option>
-                                                        <option value="96">Antigua and Barbuda</option>
-                                                        <option value="3">Argentina</option>
-                                                        <option value="4">Armenia</option>
-                                                        <option value="5">Aruba</option>
-                                                        <option value="6">Australia</option>
-                                                        <option value="7">Austria</option>
-                                                        <option value="8">Azerbaijan</option>
-                                                        <option value="9">Bahamas</option>
-                                                        <option value="97">Bahrain</option>
-                                                        <option value="10">Bangladesh</option>
-                                                        <option value="98">Barbados</option>
-                                                        <option value="11">Belarus</option>
-                                                        <option value="12">Belgium</option>
-                                                        <option value="13">Belize</option>
-                                                        <option value="99">Benin</option>
-                                                        <option value="14">Bermuda</option>
-                                                        <option value="100">Bhutan</option>
-                                                        <option value="15">Bolivia</option>
-                                                        <option value="16">Bosnia and Herzegowina</option>
-                                                        <option value="101">Botswana</option>
-                                                        <option value="102">Bouvet Island</option>
-                                                        <option value="17">Brazil</option>
-                                                        <option value="103">British Indian Ocean Territory</option>
-                                                        <option value="104">Brunei Darussalam</option>
-                                                        <option value="18">Bulgaria</option>
-                                                        <option value="105">Burkina Faso</option>
-                                                        <option value="106">Burundi</option>
-                                                        <option value="107">Cambodia</option>
-                                                        <option value="108">Cameroon</option>
-                                                        <option value="2">Canada</option>
-                                                        <option value="109">Cape Verde</option>
-                                                        <option value="19">Cayman Islands</option>
-                                                        <option value="110">Central African Republic</option>
-                                                        <option value="111">Chad</option>
-                                                        <option value="20">Chile</option>
-                                                        <option value="21">China</option>
-                                                        <option value="112">Christmas Island</option>
-                                                        <option value="113">Cocos (Keeling) Islands</option>
-                                                        <option value="22">Colombia</option>
-                                                        <option value="114">Comoros</option>
-                                                        <option value="115">Congo</option>
-                                                        <option value="116">Congo (Democratic Republic of the)</option>
-                                                        <option value="117">Cook Islands</option>
-                                                        <option value="23">Costa Rica</option>
-                                                        <option value="118">Cote D'Ivoire</option>
-                                                        <option value="24">Croatia</option>
-                                                        <option value="25">Cuba</option>
-                                                        <option value="26">Cyprus</option>
-                                                        <option value="27">Czech Republic</option>
-                                                        <option value="28">Denmark</option>
-                                                        <option value="119">Djibouti</option>
-                                                        <option value="120">Dominica</option>
-                                                        <option value="29">Dominican Republic</option>
-                                                        <option value="30">East Timor</option>
-                                                        <option value="31">Ecuador</option>
-                                                        <option value="32">Egypt</option>
-                                                        <option value="121">El Salvador</option>
-                                                        <option value="122">Equatorial Guinea</option>
-                                                        <option value="123">Eritrea</option>
-                                                        <option value="124">Estonia</option>
-                                                        <option value="125">Ethiopia</option>
-                                                        <option value="126">Falkland Islands (Malvinas)</option>
-                                                        <option value="127">Faroe Islands</option>
-                                                        <option value="128">Fiji</option>
-                                                        <option value="33">Finland</option>
-                                                        <option value="34">France</option>
-                                                        <option value="129">French Guiana</option>
-                                                        <option value="130">French Polynesia</option>
-                                                        <option value="131">French Southern Territories</option>
-                                                        <option value="132">Gabon</option>
-                                                        <option value="133">Gambia</option>
-                                                        <option value="35">Georgia</option>
-                                                        <option value="36">Germany</option>
-                                                        <option value="134">Ghana</option>
-                                                        <option value="37">Gibraltar</option>
-                                                        <option value="38">Greece</option>
-                                                        <option value="135">Greenland</option>
-                                                        <option value="136">Grenada</option>
-                                                        <option value="137">Guadeloupe</option>
-                                                        <option value="138">Guam</option>
-                                                        <option value="39">Guatemala</option>
-                                                        <option value="139">Guinea</option>
-                                                        <option value="140">Guinea-bissau</option>
-                                                        <option value="141">Guyana</option>
-                                                        <option value="142">Haiti</option>
-                                                        <option value="143">Heard and Mc Donald Islands</option>
-                                                        <option value="144">Honduras</option>
-                                                        <option value="40">Hong Kong</option>
-                                                        <option value="41">Hungary</option>
-                                                        <option value="145">Iceland</option>
-                                                        <option value="42">India</option>
-                                                        <option value="43">Indonesia</option>
-                                                        <option value="146">Iran (Islamic Republic of)</option>
-                                                        <option value="147">Iraq</option>
-                                                        <option value="44">Ireland</option>
-                                                        <option value="45">Israel</option>
-                                                        <option value="46">Italy</option>
-                                                        <option value="47">Jamaica</option>
-                                                        <option value="48">Japan</option>
-                                                        <option value="49">Jordan</option>
-                                                        <option value="50">Kazakhstan</option>
-                                                        <option value="148">Kenya</option>
-                                                        <option value="149">Kiribati</option>
-                                                        <option value="150">Korea</option>
-                                                        <option value="51">Korea, Democratic People's Republic of</option>
-                                                        <option value="52">Kuwait</option>
-                                                        <option value="151">Kyrgyzstan</option>
-                                                        <option value="152">Lao People's Democratic Republic</option>
-                                                        <option value="153">Latvia</option>
-                                                        <option value="154">Lebanon</option>
-                                                        <option value="155">Lesotho</option>
-                                                        <option value="156">Liberia</option>
-                                                        <option value="157">Libyan Arab Jamahiriya</option>
-                                                        <option value="158">Liechtenstein</option>
-                                                        <option value="159">Lithuania</option>
-                                                        <option value="160">Luxembourg</option>
-                                                        <option value="161">Macau</option>
-                                                        <option value="162">Macedonia</option>
-                                                        <option value="163">Madagascar</option>
-                                                        <option value="164">Malawi</option>
-                                                        <option value="53">Malaysia</option>
-                                                        <option value="165">Maldives</option>
-                                                        <option value="166">Mali</option>
-                                                        <option value="167">Malta</option>
-                                                        <option value="168">Marshall Islands</option>
-                                                        <option value="169">Martinique</option>
-                                                        <option value="170">Mauritania</option>
-                                                        <option value="171">Mauritius</option>
-                                                        <option value="172">Mayotte</option>
-                                                        <option value="54">Mexico</option>
-                                                        <option value="173">Micronesia</option>
-                                                        <option value="174">Moldova</option>
-                                                        <option value="175">Monaco</option>
-                                                        <option value="176">Mongolia</option>
-                                                        <option value="177">Montenegro</option>
-                                                        <option value="178">Montserrat</option>
-                                                        <option value="179">Morocco</option>
-                                                        <option value="180">Mozambique</option>
-                                                        <option value="181">Myanmar</option>
-                                                        <option value="182">Namibia</option>
-                                                        <option value="183">Nauru</option>
-                                                        <option value="184">Nepal</option>
-                                                        <option value="55">Netherlands</option>
-                                                        <option value="185">Netherlands Antilles</option>
-                                                        <option value="186">New Caledonia</option>
-                                                        <option value="56">New Zealand</option>
-                                                        <option value="187">Nicaragua</option>
-                                                        <option value="188">Niger</option>
-                                                        <option value="189">Nigeria</option>
-                                                        <option value="190">Niue</option>
-                                                        <option value="191">Norfolk Island</option>
-                                                        <option value="192">Northern Mariana Islands</option>
-                                                        <option value="57">Norway</option>
-                                                        <option value="193">Oman</option>
-                                                        <option value="58">Pakistan</option>
-                                                        <option value="194">Palau</option>
-                                                        <option value="59">Palestine</option>
-                                                        <option value="195">Panama</option>
-                                                        <option value="196">Papua New Guinea</option>
-                                                        <option value="60">Paraguay</option>
-                                                        <option value="61">Peru</option>
-                                                        <option value="62">Philippines</option>
-                                                        <option value="197">Pitcairn</option>
-                                                        <option value="63">Poland</option>
-                                                        <option value="64">Portugal</option>
-                                                        <option value="65">Puerto Rico</option>
-                                                        <option value="66">Qatar</option>
-                                                        <option value="198">Reunion</option>
-                                                        <option value="67">Romania</option>
-                                                        <option value="68">Russian Federation</option>
-                                                        <option value="199">Rwanda</option>
-                                                        <option value="200">Saint Kitts and Nevis</option>
-                                                        <option value="201">Saint Lucia</option>
-                                                        <option value="202">Saint Vincent and the Grenadines</option>
-                                                        <option value="203">Samoa</option>
-                                                        <option value="204">San Marino</option>
-                                                        <option value="205">Sao Tome and Principe</option>
-                                                        <option value="69">Saudi Arabia</option>
-                                                        <option value="206">Senegal</option>
-                                                        <option value="87">Serbia</option>
-                                                        <option value="207">Seychelles</option>
-                                                        <option value="208">Sierra Leone</option>
-                                                        <option value="70">Singapore</option>
-                                                        <option value="71">Slovakia (Slovak Republic)</option>
-                                                        <option value="72">Slovenia</option>
-                                                        <option value="209">Solomon Islands</option>
-                                                        <option value="210">Somalia</option>
-                                                        <option value="73">South Africa</option>
-                                                        <option value="211">South Georgia &amp; South Sandwich Islands</option>
-                                                        <option value="212">South Sudan</option>
-                                                        <option value="74">Spain</option>
-                                                        <option value="213">Sri Lanka</option>
-                                                        <option value="214">St. Helena</option>
-                                                        <option value="215">St. Pierre and Miquelon</option>
-                                                        <option value="216">Sudan</option>
-                                                        <option value="217">Suriname</option>
-                                                        <option value="218">Svalbard and Jan Mayen Islands</option>
-                                                        <option value="219">Swaziland</option>
-                                                        <option value="75">Sweden</option>
-                                                        <option value="76">Switzerland</option>
-                                                        <option value="220">Syrian Arab Republic</option>
-                                                        <option value="77">Taiwan</option>
-                                                        <option value="221">Tajikistan</option>
-                                                        <option value="222">Tanzania</option>
-                                                        <option value="78">Thailand</option>
-                                                        <option value="223">Togo</option>
-                                                        <option value="224">Tokelau</option>
-                                                        <option value="225">Tonga</option>
-                                                        <option value="226">Trinidad and Tobago</option>
-                                                        <option value="227">Tunisia</option>
-                                                        <option value="79">Turkey</option>
-                                                        <option value="228">Turkmenistan</option>
-                                                        <option value="229">Turks and Caicos Islands</option>
-                                                        <option value="230">Tuvalu</option>
-                                                        <option value="231">Uganda</option>
-                                                        <option value="80">Ukraine</option>
-                                                        <option value="81">United Arab Emirates</option>
-                                                        <option value="82">United Kingdom</option>
-                                                        <option value="83">United States minor outlying islands</option>
-                                                        <option value="84">Uruguay</option>
-                                                        <option value="85">Uzbekistan</option>
-                                                        <option value="232">Vanuatu</option>
-                                                        <option value="233">Vatican City State (Holy See)</option>
-                                                        <option value="86">Venezuela</option>
-                                                        <option value="234">Viet Nam</option>
-                                                        <option value="235">Virgin Islands (British)</option>
-                                                        <option value="236">Virgin Islands (U.S.)</option>
-                                                        <option value="237">Wallis and Futuna Islands</option>
-                                                        <option value="238">Western Sahara</option>
-                                                        <option value="239">Yemen</option>
-                                                        <option value="240">Zambia</option>
-                                                        <option value="241">Zimbabwe</option>
-                                                    </select>
-                                                    <span class="required">*</span>
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.CountryId" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_StateProvinceId">State / province:</label>
-                                                    <select id="BillingNewAddress_StateProvinceId" name="BillingNewAddress.StateProvinceId">
-                                                        <option value="0">Select state</option>
-                                                    </select>
-                                                    <span id="states-loading-progress" style="display: none;" class="please-wait">Wait...</span>
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.StateProvinceId" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_City">City:</label>
-                                                    <input type="text" data-val="true" data-val-required="City is required" id="BillingNewAddress_City" name="BillingNewAddress.City" value="">
-                                                    <span class="required">*</span>
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.City" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_Address1">Address 1:</label>
-                                                    <input type="text" data-val="true" data-val-required="Street address is required" id="BillingNewAddress_Address1" name="BillingNewAddress.Address1" value="">
-                                                    <span class="required">*</span>
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.Address1" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_Address2">Address 2:</label>
-                                                    <input type="text" id="BillingNewAddress_Address2" name="BillingNewAddress.Address2" value="">
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.Address2" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_ZipPostalCode">Zip / postal code:</label>
-                                                    <input type="text" data-val="true" data-val-required="Zip / postal code is required" id="BillingNewAddress_ZipPostalCode" name="BillingNewAddress.ZipPostalCode" value="">
-                                                    <span class="required">*</span>
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.ZipPostalCode" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_PhoneNumber">Phone number:</label>
-                                                    <input type="tel" data-val="true" data-val-required="Phone is required" id="BillingNewAddress_PhoneNumber" name="BillingNewAddress.PhoneNumber" value="">
-                                                    <span class="required">*</span>
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.PhoneNumber" data-valmsg-replace="true"></span>
-                                                </div>
-                                                <div class="inputs">
-                                                    <label for="BillingNewAddress_FaxNumber">Fax number:</label>
-                                                    <input type="text" id="BillingNewAddress_FaxNumber" name="BillingNewAddress.FaxNumber" value="">
-                                                    <span class="field-validation-valid" data-valmsg-for="BillingNewAddress.FaxNumber" data-valmsg-replace="true"></span>
+                                    @if (Session[OnlineShop.Common.CommonConstants.USER_SESSION] != null)
+                                    {
+                                        var customerSession = (OnlineShop.Common.UserLogin)Session[OnlineShop.Common.CommonConstants.USER_SESSION];
+                                        var customer = new Models.Dao.CustomerDao().GetCustomerById(Convert.ToInt32(customerSession.UserId));
+                                        foreach (var item in customer.Addresses)
+                                        {
+                                            <div class="address-item">
+                                                <ul class="address-box">
+                                                    <li class="name">
+                                                        @item.FirstName @item.LastName
+                                                    </li>
+                                                    <li class="email">
+                                                        <label>Email:</label>
+                                                        <span>@item.Email</span>
+                                                    </li>
+                                                    <li class="phone">
+                                                        <label>Phone number:</label>
+                                                        <span>@item.PhoneNumber</span>
+                                                    </li>
+                                                    <li class="fax">
+                                                        <label>Fax number:</label>
+                                                        <span>@item.FaxNumber</span>
+                                                    </li>
+                                                    <li class="company">
+                                                        @item.Company
+                                                    </li>
+                                                    <li class="address1">
+                                                        @item.Address1
+                                                    </li>
+                                                    <li class="address2">
+                                                        @item.Address2
+                                                    </li>
+                                                    <li class="city-state-zip">
+                                                        @item.City,@item.ZipPostalCode
+                                                    </li>
+                                                </ul>
+                                                <div class="select-button">
+                                                    <input type="button" value="Bill to this address" class="button-1 select-billing-address-button valid" onclick="selectBillingAddress@(item.Id)()" aria-invalid="false">
+                                                    <script type="text/javascript" asp-location="Footer">
+function selectBillingAddress@(item.Id)() {
+        $.ajax({
+            cache: false,
+            url: "/CheckOut/SelectBillingAddress",
+            data: {
+                addressId: @item.Id,
+                shipToSameAddress: $('#ShipToSameAddress').is(':checked'),
+            },
+            type: 'POST',
+            success: function (res) {
+                if (res.Status) {
+                    window.location.href = '/CheckOut/ShippingMethod'
+                } else {
+                    window.location.href = '/Cart/Index'
+                }
+            }
+        });
+}
+                                                    </script>
                                                 </div>
                                             </div>
-                                            <div class="buttons">
-                                                <input type="submit" name="nextstep" value="Next" class="button-1 new-address-next-step-button">
+                                        }
+                                        <div class="add-button">
+                                            <div class="btn-holder">
+                                                <label class="button-1 open-address-form"><span>Add new</span></label>
+                                                <label class="button-2 close-address-form"><span>Close</span></label>
                                             </div>
+                                            @using (Html.BeginForm("BillingAddress", "CheckOut", FormMethod.Post))
+                                            {
+                                                <div class="enter-address">
+                                                    <input type="hidden" data-val="true" data-val-required="The Id field is required." id="BillingNewAddress_Id" name="BillingNewAddress.Id" value="0">
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.ValidationSummary(true, "", new { @class = "message-error" })
+                                                    <div class="edit-address">
+                                                        <div class="inputs">
+                                                            <label for="Address_FirstName">First name:</label>
+                                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_LastName">Last name:</label>
+                                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_Email">Email:</label>
+                                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_Company">Company:</label>
+                                                            @Html.EditorFor(model => model.Company, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Company, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_City">City:</label>
+                                                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_Address1">Address 1:</label>
+                                                            @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_Address2">Address 2:</label>
+                                                            @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_ZipPostalCode">Zip / postal code:</label>
+                                                            @Html.EditorFor(model => model.ZipPostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.ZipPostalCode, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_PhoneNumber">Phone number:</label>
+                                                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_FaxNumber">Fax number:</label>
+                                                            @Html.EditorFor(model => model.FaxNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.FaxNumber, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="buttons">
+                                                        <input type="submit" name="nextstep" value="Next" class="button-1 new-address-next-step-button">
+                                                    </div>
+                                                </div>
+                                            }
                                         </div>
-                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="add-button">
+                                            <div class="btn-holder">
+                                                <label class="button-1 open-address-form"><span>Add new</span></label>
+                                                <label class="button-2 close-address-form"><span>Close</span></label>
+                                            </div>
+                                            @using (Html.BeginForm("BillingAddress", "CheckOut", FormMethod.Post))
+                                            {
+                                                <div class="enter-address">
+                                                    <input type="hidden" data-val="true" data-val-required="The Id field is required." id="BillingNewAddress_Id" name="BillingNewAddress.Id" value="0">
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.ValidationSummary(true, "", new { @class = "message-error" })
+                                                    <div class="edit-address">
+                                                        <div class="inputs">
+                                                            <label for="Address_FirstName">First name:</label>
+                                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_LastName">Last name:</label>
+                                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_Email">Email:</label>
+                                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_Company">Company:</label>
+                                                            @Html.EditorFor(model => model.Company, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Company, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_City">City:</label>
+                                                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_Address1">Address 1:</label>
+                                                            @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_Address2">Address 2:</label>
+                                                            @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_ZipPostalCode">Zip / postal code:</label>
+                                                            @Html.EditorFor(model => model.ZipPostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.ZipPostalCode, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_PhoneNumber">Phone number:</label>
+                                                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                            <span class="required">*</span>
+                                                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="inputs">
+                                                            <label for="Address_FaxNumber">Fax number:</label>
+                                                            @Html.EditorFor(model => model.FaxNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.FaxNumber, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="buttons">
+                                                        <input type="submit" name="nextstep" value="Next" class="button-1 new-address-next-step-button">
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
-                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHhbqh6KLqQes3qbDPu9CyghdWu203OxqCAhFxDB9bzTvY7XX6c2OVBzsCflekJLbiasd7_lr2mj8Ph8yROFyF52x9O9mN2nmNy_FiknC_STZTm81LnChvxifX3ej5HYtmg"><input name="ShipToSameAddress" type="hidden" value="false">
-                    </form>
+                        <input name="ShipToSameAddress" type="hidden" value="false">
+                    }
+
                     <div class="section order-summary">
                         <div class="title">
                             <strong>Order summary</strong>
@@ -430,50 +336,104 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="cart-item-row">
-                                                <td class="product-picture">
-                                                    <a href="/droid-inventor-kit">
-                                                        <img src="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_200.png" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_200.png" alt="Picture of Droid Inventor Kit" title="Show details for Droid Inventor Kit" loadedimage="true">
-                                                    </a>
-                                                </td>
-                                                <td class="product">
-                                                    <a href="/droid-inventor-kit" class="product-name">Droid Inventor Kit</a>
-                                                </td>
-                                                <td class="unit-price">
-                                                    <label class="td-title">Price:</label>
-                                                    <span class="product-unit-price">$88.00</span>
-                                                </td>
-                                                <td class="quantity">
-                                                    <label class="td-title" for="itemquantity6982">Qty:</label>
-                                                    <span class="product-quantity">3</span>
-                                                </td>
-                                                <td class="subtotal">
-                                                    <label class="td-title">Total:</label>
-                                                    <span class="product-subtotal">$264.00</span>
-                                                </td>
-                                            </tr>
-                                            <tr class="cart-item-row">
-                                                <td class="product-picture">
-                                                    <a href="/huawei-p10-plus">
-                                                        <img src="https://megastore.nop-templates.com/images/thumbs/0000252_huawei-p10-plus_200.png" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000252_huawei-p10-plus_200.png" alt="Picture of Huawei P10 Plus" title="Show details for Huawei P10 Plus" loadedimage="true">
-                                                    </a>
-                                                </td>
-                                                <td class="product">
-                                                    <a href="/huawei-p10-plus" class="product-name">Huawei P10 Plus</a>
-                                                </td>
-                                                <td class="unit-price">
-                                                    <label class="td-title">Price:</label>
-                                                    <span class="product-unit-price">$290.00</span>
-                                                </td>
-                                                <td class="quantity">
-                                                    <label class="td-title" for="itemquantity6993">Qty:</label>
-                                                    <span class="product-quantity">1</span>
-                                                </td>
-                                                <td class="subtotal">
-                                                    <label class="td-title">Total:</label>
-                                                    <span class="product-subtotal">$290.00</span>
-                                                </td>
-                                            </tr>
+                                            @if (Session[OnlineShop.Common.CommonConstants.USER_SESSION] != null)
+                                            {
+                                                var customerSession = (OnlineShop.Common.UserLogin)Session[OnlineShop.Common.CommonConstants.USER_SESSION];
+                                                var customer = new Models.Dao.CustomerDao().GetCustomerById(Convert.ToInt32(customerSession.UserId));
+
+                                                foreach (var item in customer.ShoppingCartItems.Where(x => x.ShoppingCartTypeId == 1))
+                                                {
+                                                    Total += item.Product.Price * item.Quantity;
+                                                    var price = item.Product.Price * item.Quantity;
+                                                    var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(item.Product.Id, 1);
+                                                    <tr class="cart-item-row">
+                                                        @if (productPictures.Count() > 0)
+                                                        {
+                                                            var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 200, true, null, Models.Dao.PictureType.Entity);
+                                                            <td class="product-picture">
+                                                                <a href="/product/@item.Product.Name.ToLower().Replace(" ","-")">
+                                                                    <img src="@url" data-lazyloadsrc="@url" alt="Picture of Droid Inventor Kit" title="@productPictures.SingleOrDefault().TitleAttribute" loadedimage="true">
+                                                                </a>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(200, Models.Dao.PictureType.Entity, null);
+                                                            <td class="product-picture">
+                                                                <a href="/product/@item.Product.Name.ToLower().Replace(" ","-")">
+                                                                    <img src="@url" data-lazyloadsrc="@url" alt="Picture of Droid Inventor Kit" title="" loadedimage="true">
+                                                                </a>
+                                                            </td>
+                                                        }
+                                                        <td class="product">
+                                                            <a href="/product/@item.Product.Name.ToLower().Replace(" ","-")" class="product-name">@item.Product.Name</a>
+                                                        </td>
+                                                        <td class="unit-price">
+                                                            <label class="td-title">Price:</label>
+                                                            <span class="product-unit-price">@item.Product.Price</span>
+                                                        </td>
+                                                        <td class="quantity">
+                                                            <label class="td-title" for="itemquantity6982">Qty:</label>
+                                                            <span class="product-quantity">@item.Quantity</span>
+                                                        </td>
+                                                        <td class="subtotal">
+                                                            <label class="td-title">Total:</label>
+                                                            <span class="product-subtotal">@price</span>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                var shoppingCart = Session[OnlineShop.Common.CommonConstants.ShoppingCartSession];
+                                                var listShoppingCart = new List<OnlineShop.Models.ShoppingCartItemModel>();
+
+                                                if (shoppingCart != null)
+                                                {
+                                                    listShoppingCart = (List<OnlineShop.Models.ShoppingCartItemModel>)shoppingCart;
+                                                }
+                                                foreach (var item in listShoppingCart.Where(x => x.ShoppingCartTypeId == 1))
+                                                {
+                                                    Total += item.Product.Price * item.Quantity;
+                                                    var price = item.Product.Price * item.Quantity;
+                                                    var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(item.Product.Id, 1);
+                                                    <tr class="cart-item-row">
+                                                        @if (productPictures.Count() > 0)
+                                                        {
+                                                            var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 200, true, null, Models.Dao.PictureType.Entity);
+                                                            <td class="product-picture">
+                                                                <a href="/product/@item.Product.Name.ToLower().Replace(" ","-")">
+                                                                    <img src="@url" data-lazyloadsrc="@url" alt="Picture of Droid Inventor Kit" title="@productPictures.SingleOrDefault().TitleAttribute" loadedimage="true">
+                                                                </a>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(200, Models.Dao.PictureType.Entity, null);
+                                                            <td class="product-picture">
+                                                                <a href="/product/@item.Product.Name.ToLower().Replace(" ","-")">
+                                                                    <img src="@url" data-lazyloadsrc="@url" alt="Picture of Droid Inventor Kit" title="" loadedimage="true">
+                                                                </a>
+                                                            </td>
+                                                        }
+                                                        <td class="product">
+                                                            <a href="/product/@item.Product.Name.ToLower().Replace(" ","-")" class="product-name">@item.Product.Name</a>
+                                                        </td>
+                                                        <td class="unit-price">
+                                                            <label class="td-title">Price:</label>
+                                                            <span class="product-unit-price">@item.Product.Price</span>
+                                                        </td>
+                                                        <td class="quantity">
+                                                            <label class="td-title" for="itemquantity6982">Qty:</label>
+                                                            <span class="product-quantity">@item.Quantity</span>
+                                                        </td>
+                                                        <td class="subtotal">
+                                                            <label class="td-title">Total:</label>
+                                                            <span class="product-subtotal">@price</span>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -489,7 +449,7 @@
                                                             <label>Total:</label>
                                                         </td>
                                                         <td class="cart-total-right">
-                                                            <span class="value-summary">$554.00</span>
+                                                            <span class="value-summary">@Total</span>
                                                         </td>
                                                     </tr>
                                                     <tr class="shipping-cost">
@@ -513,7 +473,7 @@
                                                             <label>Total:</label>
                                                         </td>
                                                         <td class="cart-total-right">
-                                                            <span class="value-summary"><strong>$554.00</strong></span>
+                                                            <span class="value-summary"><strong>@Total</strong></span>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -521,7 +481,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHhbqh6KLqQes3qbDPu9CyghdWu203OxqCAhFxDB9bzTvY7XX6c2OVBzsCflekJLbiasd7_lr2mj8Ph8yROFyF52x9O9mN2nmNy_FiknC_STZTm81LnChvxifX3ej5HYtmg">
                             </form>
                         </div>
                     </div>

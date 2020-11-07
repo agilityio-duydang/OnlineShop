@@ -55,5 +55,22 @@ namespace OnlineShop.Controllers
             return RedirectToAction("AccessDenied", "Security");
         }
         #endregion
+
+        protected void SetNotification(string message, string type)
+        {
+            TempData["NotificationMessage"] = message;
+            if (type == "success")
+            {
+                TempData["NotificationType"] = "alert-success";
+            }
+            else if (type == "warnings")
+            {
+                TempData["NotificationType"] = "alert-warning";
+            }
+            else if (type == "error")
+            {
+                TempData["NotificationType"] = "alert-danger";
+            }
+        }
     }
 }

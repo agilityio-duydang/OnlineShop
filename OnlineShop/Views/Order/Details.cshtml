@@ -82,31 +82,31 @@
                                 </div>
                                 <ul class="info-list">
                                     <li class="name">
-                                        @billingAddress.FirstName @billingAddress.LastName
+                                        @Model.Address1.FirstName @Model.Address1.LastName
                                     </li>
                                     <li class="email">
-                                        Email: @billingAddress.Email
+                                        Email: @Model.Address1.Email
                                     </li>
                                     <li class="phone">
-                                        Phone: @billingAddress.PhoneNumber
+                                        Phone: @Model.Address1.PhoneNumber
                                     </li>
                                     <li class="fax">
-                                        Fax: @billingAddress.FaxNumber
+                                        Fax: @Model.Address1.FaxNumber
                                     </li>
                                     <li class="company">
-                                        @billingAddress.Company
+                                        @Model.Address1.Company
                                     </li>
                                     <li class="address1">
-                                        @billingAddress.Address1
+                                        @Model.Address1.Address1
                                     </li>
                                     <li class="address2">
-                                        @billingAddress.Address2
+                                        @Model.Address1.Address2
                                     </li>
                                     <li class="city-state-zip">
-                                        @billingAddress.City,@billingAddress.ZipPostalCode
+                                        @Model.Address1.City,@Model.Address1.ZipPostalCode
                                     </li>
                                     <li class="country">
-                                        @billingAddress.City
+                                        @Model.Address1.City
                                     </li>
                                 </ul>
                             </div>
@@ -174,31 +174,31 @@
                                 </div>
                                 <ul class="info-list">
                                     <li class="name">
-                                        @shippingAddress.FirstName @shippingAddress.LastName
+                                        @Model.Address2.FirstName @shippingAddress.LastName
                                     </li>
                                     <li class="email">
-                                        Email: @shippingAddress.Email
+                                        Email: @Model.Address2.Email
                                     </li>
                                     <li class="phone">
-                                        Phone: @shippingAddress.PhoneNumber
+                                        Phone: @Model.Address2.PhoneNumber
                                     </li>
                                     <li class="fax">
-                                        Fax: @shippingAddress.FaxNumber
+                                        Fax: @Model.Address2.FaxNumber
                                     </li>
                                     <li class="company">
-                                        @shippingAddress.Company
+                                        @Model.Address2.Company
                                     </li>
                                     <li class="address1">
-                                        @shippingAddress.Address1
+                                        @Model.Address2.Address1
                                     </li>
                                     <li class="address2">
-                                        @shippingAddress.Address2
+                                        @Model.Address2.Address2
                                     </li>
                                     <li class="city-state-zip">
-                                        @shippingAddress.City,@shippingAddress.ZipPostalCode
+                                        @Model.Address2.City,@Model.Address2.ZipPostalCode
                                     </li>
                                     <li class="country">
-                                        @shippingAddress.City
+                                        @Model.Address2.City
                                     </li>
                                 </ul>
                             </div>
@@ -286,6 +286,7 @@
                                 <tbody>
                                     @foreach (var item in Model.OrderItems)
                                     {
+                                        var totalPrice = @item.Quantity * @item.Product.Price;
                                         <tr>
                                             <td class="product">
                                                 <em><a href="/product/@item.Product.Name.ToLower().Replace(" ","-")">@item.Product.Name</a></em>
@@ -300,7 +301,7 @@
                                             </td>
                                             <td class="total">
                                                 <label class="td-title">Total: </label>
-                                                <span class="product-subtotal">@item.Quantity * @item.Product.Price</span>
+                                                <span class="product-subtotal">@totalPrice</span>
                                             </td>
                                         </tr>
                                     }

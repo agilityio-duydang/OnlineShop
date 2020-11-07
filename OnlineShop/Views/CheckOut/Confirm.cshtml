@@ -1,7 +1,12 @@
-﻿
+﻿@model Models.EF.Customer
 @{
     ViewBag.Title = "Confirm";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal Total = 0;
+
+    var shippingAddress = Model.Addresses.Where(x => x.Id == Model.Orders.Where(a => a.Id == 0).FirstOrDefault().ShippingAddressId);
+    var billingAddress = Model.Addresses.Where(x => x.Id == Model.Orders.Where(a => a.Id == 0).FirstOrDefault().BillingAddressId);
+    TempData["Customer"] = Model;
 }
 <div class="master-wrapper-content">
     <div class="ajaxCartInfo" data-getajaxcartbuttonurl="/NopAjaxCart/GetAjaxCartButtonsAjax" data-productpageaddtocartbuttonselector=".add-to-cart-button" data-productboxaddtocartbuttonselector=".product-box-add-to-cart-button" data-productboxproductitemelementselector=".product-item" data-usenopnotification="False" data-nopnotificationresource="The product has been added to your <a href=&quot;/cart&quot;>shopping cart</a>" data-enableonproductpage="True" data-enableoncatalogpages="True" data-minishoppingcartquatityformattingresource="{0}" data-miniwishlistquatityformattingresource="{0}" data-addtowishlistbuttonselector=".add-to-wishlist-button">
@@ -50,12 +55,12 @@
                 </div>
                 <div class="page-body checkout-data">
                     <div class="section confirm-order">
-                        <form method="post" id="confirm-order-form" action="/checkout/confirm">
+                        @using (Html.BeginForm("Confirm", "CheckOut", FormMethod.Post))
+                        {
                             <div class="buttons">
                                 <input type="submit" name="nextstep" value="Confirm" class="button-1 confirm-order-next-step-button">
                             </div>
-                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHiPrbzH-fQN0WUVIh6A7y8kLxfX1PktFYwfP_Wbvrapz_-KjpGVEjxQHbjjpDUaSqN3EsqtNYSkftoQKAVPNUhe0bsqq4F2gWsV_NJZCr6S-y8yz_TgEdCEq-TNgZT2TO8">
-                        </form>
+                        }
                     </div>
                     <div class="section order-summary">
                         <div class="order-summary-content">
@@ -67,28 +72,25 @@
                                         </div>
                                         <ul class="info-list">
                                             <li class="name">
-                                                ĐẶNG DUY
+                                                @billingAddress.FirstOrDefault().FirstName
                                             </li>
                                             <li class="email">
-                                                Email: dangphuocduy@gmail.com
+                                                Email: @billingAddress.FirstOrDefault().Email
                                             </li>
                                             <li class="phone">
-                                                Phone: 0966196757
+                                                Phone: @billingAddress.FirstOrDefault().PhoneNumber
                                             </li>
                                             <li class="fax">
-                                                Fax:
+                                                Fax: @billingAddress.FirstOrDefault().FaxNumber
                                             </li>
                                             <li class="address1">
-                                                Address
+                                                @billingAddress.FirstOrDefault().Address1
                                             </li>
                                             <li class="address2">
-                                                Address
+                                                @billingAddress.FirstOrDefault().Address2
                                             </li>
                                             <li class="city-state-zip">
-                                                Da Nang,55000
-                                            </li>
-                                            <li class="country">
-                                                Viet Nam
+                                                @billingAddress.FirstOrDefault().ZipPostalCode,@billingAddress.FirstOrDefault().City
                                             </li>
                                         </ul>
                                     </div>
@@ -102,7 +104,7 @@
                                                     Payment Method:
                                                 </span>
                                                 <span class="value">
-                                                    Check / Money Order
+                                                    @Model.Orders.Where(x => x.Id == 0).FirstOrDefault().PaymentMethodSystemName
                                                 </span>
                                             </li>
                                         </ul>
@@ -115,28 +117,25 @@
                                         </div>
                                         <ul class="info-list">
                                             <li class="name">
-                                                ĐẶNG DUY
+                                                @shippingAddress.FirstOrDefault().FirstName
                                             </li>
                                             <li class="email">
-                                                Email: dangphuocduy@gmail.com
+                                                Email: @shippingAddress.FirstOrDefault().Email
                                             </li>
                                             <li class="phone">
-                                                Phone: 0966196757
+                                                Phone: @shippingAddress.FirstOrDefault().PhoneNumber
                                             </li>
                                             <li class="fax">
-                                                Fax:
+                                                Fax: @shippingAddress.FirstOrDefault().FaxNumber
                                             </li>
                                             <li class="address1">
-                                                Address
+                                                @shippingAddress.FirstOrDefault().Address1
                                             </li>
                                             <li class="address2">
-                                                Address
+                                                @shippingAddress.FirstOrDefault().Address2
                                             </li>
                                             <li class="city-state-zip">
-                                                Da Nang,55000
-                                            </li>
-                                            <li class="country">
-                                                Viet Nam
+                                                @shippingAddress.FirstOrDefault().ZipPostalCode,@shippingAddress.FirstOrDefault().City
                                             </li>
                                         </ul>
                                     </div>
@@ -150,7 +149,7 @@
                                                     Shipping Method:
                                                 </span>
                                                 <span class="value">
-                                                    Ground
+                                                    @Model.Orders.Where(x => x.Id == 0).FirstOrDefault().ShippingMethod
                                                 </span>
                                             </li>
                                         </ul>
@@ -187,50 +186,47 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="cart-item-row">
-                                                <td class="product-picture">
-                                                    <a href="/droid-inventor-kit">
-                                                        <img src="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_200.png" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_200.png" alt="Picture of Droid Inventor Kit" title="Show details for Droid Inventor Kit" loadedimage="true">
-                                                    </a>
-                                                </td>
-                                                <td class="product">
-                                                    <a href="/droid-inventor-kit" class="product-name">Droid Inventor Kit</a>
-                                                </td>
-                                                <td class="unit-price">
-                                                    <label class="td-title">Price:</label>
-                                                    <span class="product-unit-price">$88.00</span>
-                                                </td>
-                                                <td class="quantity">
-                                                    <label class="td-title" for="itemquantity6982">Qty:</label>
-                                                    <span class="product-quantity">3</span>
-                                                </td>
-                                                <td class="subtotal">
-                                                    <label class="td-title">Total:</label>
-                                                    <span class="product-subtotal">$264.00</span>
-                                                </td>
-                                            </tr>
-                                            <tr class="cart-item-row">
-                                                <td class="product-picture">
-                                                    <a href="/huawei-p10-plus">
-                                                        <img src="https://megastore.nop-templates.com/images/thumbs/0000252_huawei-p10-plus_200.png" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000252_huawei-p10-plus_200.png" alt="Picture of Huawei P10 Plus" title="Show details for Huawei P10 Plus" loadedimage="true">
-                                                    </a>
-                                                </td>
-                                                <td class="product">
-                                                    <a href="/huawei-p10-plus" class="product-name">Huawei P10 Plus</a>
-                                                </td>
-                                                <td class="unit-price">
-                                                    <label class="td-title">Price:</label>
-                                                    <span class="product-unit-price">$290.00</span>
-                                                </td>
-                                                <td class="quantity">
-                                                    <label class="td-title" for="itemquantity6993">Qty:</label>
-                                                    <span class="product-quantity">1</span>
-                                                </td>
-                                                <td class="subtotal">
-                                                    <label class="td-title">Total:</label>
-                                                    <span class="product-subtotal">$290.00</span>
-                                                </td>
-                                            </tr>
+                                            @foreach (var item in Model.ShoppingCartItems.Where(x => x.ShoppingCartTypeId == 1))
+                                            {
+                                                Total += item.Product.Price * item.Quantity;
+                                                var price = item.Product.Price * item.Quantity;
+                                                var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(item.Product.Id, 1);
+                                                <tr class="cart-item-row">
+                                                    @if (productPictures.Count() > 0)
+                                                    {
+                                                        var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 200, true, null, Models.Dao.PictureType.Entity);
+                                                        <td class="product-picture">
+                                                            <a href="/product/@item.Product.Name.ToLower().Replace(" ","-")">
+                                                                <img src="@url" data-lazyloadsrc="@url" alt="Picture of Droid Inventor Kit" title="@productPictures.SingleOrDefault().TitleAttribute" loadedimage="true">
+                                                            </a>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(200, Models.Dao.PictureType.Entity, null);
+                                                        <td class="product-picture">
+                                                            <a href="/product/@item.Product.Name.ToLower().Replace(" ","-")">
+                                                                <img src="@url" data-lazyloadsrc="@url" alt="Picture of Droid Inventor Kit" title="" loadedimage="true">
+                                                            </a>
+                                                        </td>
+                                                    }
+                                                    <td class="product">
+                                                        <a href="/product/@item.Product.Name.ToLower().Replace(" ","-")" class="product-name">@item.Product.Name</a>
+                                                    </td>
+                                                    <td class="unit-price">
+                                                        <label class="td-title">Price:</label>
+                                                        <span class="product-unit-price">@item.Product.Price</span>
+                                                    </td>
+                                                    <td class="quantity">
+                                                        <label class="td-title" for="itemquantity6982">Qty:</label>
+                                                        <span class="product-quantity">@item.Quantity</span>
+                                                    </td>
+                                                    <td class="subtotal">
+                                                        <label class="td-title">Total:</label>
+                                                        <span class="product-subtotal">@price</span>
+                                                    </td>
+                                                </tr>
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -246,13 +242,12 @@
                                                             <label>Total:</label>
                                                         </td>
                                                         <td class="cart-total-right">
-                                                            <span class="value-summary">$554.00</span>
+                                                            <span class="value-summary">@Total</span>
                                                         </td>
                                                     </tr>
                                                     <tr class="shipping-cost">
                                                         <td class="cart-total-left">
                                                             <label>Shipping:</label>
-                                                            <span class="selected-shipping-method">(Ground)</span>
                                                         </td>
                                                         <td class="cart-total-right">
                                                             <span class="value-summary">$0.00</span>
@@ -271,7 +266,7 @@
                                                             <label>Total:</label>
                                                         </td>
                                                         <td class="cart-total-right">
-                                                            <span class="value-summary"><strong>$554.00</strong></span>
+                                                            <span class="value-summary"><strong>@Total</strong></span>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -279,7 +274,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JXOsvqthjBJpFHuxLbkzHiPrbzH-fQN0WUVIh6A7y8kLxfX1PktFYwfP_Wbvrapz_-KjpGVEjxQHbjjpDUaSqN3EsqtNYSkftoQKAVPNUhe0bsqq4F2gWsV_NJZCr6S-y8yz_TgEdCEq-TNgZT2TO8">
                             </form>
                         </div>
                     </div>

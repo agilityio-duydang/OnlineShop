@@ -1,4 +1,4 @@
-﻿@model List<OnlineShop.Models.WishListItem>
+﻿@model List<OnlineShop.Models.ShoppingCartItemModel>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -32,7 +32,7 @@
                     </div>
                     <div class="page-body">
                         <div class="wishlist-content">
-                            <form method="post" action="/wishlist">
+                            <form method="post" enctype="multipart/form-data" action="" novalidate="novalidate">
                                 <div class="table-wrapper">
                                     <table class="cart">
                                         <colgroup>
@@ -75,12 +75,14 @@
                                                 var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(item.Product.Id, 1);
                                                 <tr class="cart-item-row">
                                                     <td class="remove-from-cart">
-                                                        <input type="checkbox" id="removeFromWishlistCheckbox" name="removefromcart" value="@item.Product.Id" aria-label="Remove">
-                                                        <label class="td-title" for="removeFromWishlistCheckbox">Remove</label>
+                                                        <a class="remove-item" data-id="@item.Product.Id"  title="Remove">Remove</a>
+                                                        @*<input type="checkbox" id="@("removeFromWishlistCheckbox"+item.Product.Id)" name="removefromcart" value="@item.Product.Id" aria-label="Remove">
+                                                        <label class="td-title" for="@("removeFromWishlistCheckbox"+item.Product.Id)">Remove</label>*@
                                                     </td>
                                                     <td class="add-to-cart">
-                                                        <input type="checkbox" id="addToCartFromWishlistCheckbox" name="addtocart" value="@item.Product.Id" aria-label="Add to cart">
-                                                        <label class="td-title" for="addToCartFromWishlistCheckbox">Add to cart</label>
+                                                        <a class="add-item" data-id="@item.Product.Id" onclick="AjaxShoppingCart.addproductocart('@item.Product.Id','@item.Quantity',false)" title="Add to cart">Add to cart</a>
+                                                        @*<input type="checkbox" id="@("addToCartFromWishlistCheckbox"+item.Product.Id)" name="addtocart" value="@item.Product.Id" aria-label="Add to cart">
+                                                        <label class="td-title" for="@("addToCartFromWishlistCheckbox"+item.Product.Id)">Add to cart</label>*@
                                                     </td>
                                                     @if (productPictures.Count() > 0)
                                                     {
@@ -105,7 +107,7 @@
                                                     </td>
                                                     <td class="quantity">
                                                         <label class="td-title">Qty: </label>
-                                                        <input name="itemquantity7030" type="text" value="1" class="qty-input" aria-label="Qty">
+                                                        <input name="@("itemquantity"+item.Product.Id)" type="text" data-id="@item.Product.Id" value="@item.Quantity" class="qty-input" aria-label="Qty">
                                                     </td>
                                                     <td class="subtotal">
                                                         <label class="td-title">Total: </label>
@@ -126,7 +128,7 @@
                         </div>
                         <div class="share-info">
                             <span class="share-label">Your wishlist URL for sharing:</span>
-                            <a href="/wishlist/@Guid.NewGuid().ToString()" class="share-link">http://megastore.nop-templates.com/wishlist/@Guid.NewGuid().ToString()</a>
+                            <a href="/wishlist/@Guid.NewGuid().ToString()" class="share-link">/wishlist/@Guid.NewGuid().ToString()</a>
                         </div>
                     </div>
                 </div>
@@ -153,4 +155,5 @@
         </div>
     }
 </div>
+<script src="~/Content/js/controller/cartController.js"></script>
 
