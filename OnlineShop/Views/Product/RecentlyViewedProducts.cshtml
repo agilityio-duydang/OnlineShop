@@ -1,38 +1,55 @@
-﻿
+﻿@model List<OnlineShop.Models.RecentlyViewedProducts>
 @{
     ViewBag.Title = "RecentlyViewedProducts";
-    Layout = "~/Views/Shared/_ProductDetail.cshtml";
+    Layout = "~/Views/Shared/_CategoryDetail.cshtml";
 }
-<div class="center-2">
-    <div class="page recently-viewed-products-page">
-        <div class="page-title">
-            <h1>Recently viewed</h1>
-        </div>
-        <div class="page-body">
-            <div class="product-grid">
-                <div class="item-grid">
-                    <div class="item-box">
-                        <div class="product-item sevenspikes-ajaxcart" data-productid="122">
-                            <div class="ribbon-wrapper">
-                                <div class="picture">
-                                    <a href="/droid-inventor-kit" title="Show details for Droid Inventor Kit">
-                                        <img src="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_360.png" data-lazyloadsrc="https://megastore.nop-templates.com/images/thumbs/0000617_droid-inventor-kit_360.png" alt="Picture of Droid Inventor Kit" title="Show details for Droid Inventor Kit" class="picture-img" loadedimage="true">
-                                    </a>
-                                    <div class="btn-wrapper">
-                                        <div class="quick-view-button">
-                                            <a title="Quick View">Quick View</a>
+@if (Model.Count() > 0)
+{
+    <div class="center-2">
+        <div class="page recently-viewed-products-page">
+            <div class="page-title">
+                <h1>Recently viewed</h1>
+            </div>
+            <div class="page-body">
+                <div class="product-grid">
+                    <div class="item-grid">
+                        @foreach (var item in Model)
+                        {
+                            var productPictures = new Models.Dao.PictureDao().GetPicturesByProductId(item.Product.Id, 1);
+                            <div class="item-box">
+                                <div class="product-item sevenspikes-ajaxcart" data-productid="122">
+                                    <div class="ribbon-wrapper">
+                                        <div class="picture">
+                                            @if (productPictures.Count() > 0)
+                                            {
+                                                var url = new Models.Dao.PictureDao().GetPictureUrl(productPictures.SingleOrDefault().Id, 360, true, null, Models.Dao.PictureType.Entity);
+                                                <a href="/product/@item.Product.Name.Replace(" ","-").ToLower()" title="@item.Product.MetaTitle">
+                                                    <img src="@url" data-lazyloadsrc="@url" alt="@productPictures.SingleOrDefault().AltAttribute" title="@productPictures.SingleOrDefault().TitleAttribute" class="picture-img" loadedimage="true">
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(360, Models.Dao.PictureType.Entity, null);
+                                                <a href="/product/@item.Product.Name.Replace(" ","-").ToLower()" title="@item.Product.MetaTitle">
+                                                    <img src="@url" data-lazyloadsrc="@url" alt="" title="" class="picture-img" loadedimage="true">
+                                                </a>
+                                            }
+
+                                            <div class="btn-wrapper">
+                                                <div class="quick-view-button">
+                                                    <a title="Quick View">Quick View</a>
+                                                </div>
+                                                <button type="button" title="Compare" class="button-2 add-to-compare-list-button" onclick="AjaxShoppingCart.addproductocompare('@item.Product.Id')">Compare</button>
+                                                <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxShoppingCart.addproductowishlist('@item.Product.Id','2','1')">Add to wishlist</button>
+                                            </div>
                                         </div>
-                                        <button type="button" title="Compare" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/122');return false;">Compare</button>
-                                        <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/122/2/1');return false;">Add to wishlist</button>
-                                    </div>
-                                </div>
-                                <a href="/droid-inventor-kit" class="ribbon-position top-right" data-productribbonid="1" data-productid="122">
-                                    <div class="product-ribbon sale-ribbon" style="background-color: #1076c0;
+                                        <a href="/product/@item.Product.Name.Replace(" ","-").ToLower()" class="ribbon-position top-right" data-productribbonid="1" data-productid="122">
+                                            <div class="product-ribbon sale-ribbon" style="background-color: #1076c0;
 border-radius: 50%;
 width: 50px;
 height: 50px;
 text-align: center;">
-                                        <label class="ribbon-text" style="display: block;
+                                                <label class="ribbon-text" style="display: block;
 font-size: 13px;
 color: #fff;
 font-weight: 700;
@@ -41,15 +58,15 @@ overflow: hidden;
 text-overflow: ellipsis;
 white-space: nowrap;
 text-transform: uppercase;">-23%</label>
-                                    </div>
-                                </a>
-                                <a href="/droid-inventor-kit" class="ribbon-position top-right" data-productribbonid="2" data-productid="122">
-                                    <div class="product-ribbon new-ribbon" style="background-color: #444;
+                                            </div>
+                                        </a>
+                                        <a href="/product/@item.Product.Name.Replace(" ","-").ToLower()" class="ribbon-position top-right" data-productribbonid="2" data-productid="@item.Product.Id">
+                                            <div class="product-ribbon new-ribbon" style="background-color: #444;
 border-radius: 50%;
 width: 50px;
 height: 50px;
 text-align: center;">
-                                        <label class="ribbon-text" style="display: block;
+                                                <label class="ribbon-text" style="display: block;
 font-size: 13px;
 color: #fff;
 font-weight: 700;
@@ -58,43 +75,57 @@ overflow: hidden;
 text-overflow: ellipsis;
 white-space: nowrap;
 text-transform: uppercase;">New</label>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="details">
-                                <h2 class="product-title">
-                                    <a href="/droid-inventor-kit">Droid Inventor Kit</a>
-                                </h2>
-                                <div class="product-rating-box" title="1 review(s)">
-                                    <div class="rating">
-                                        <div style="width: 100%">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="description">
-                                    Lorem ipsum suspendisse et ante vitae curabitur nisl curabitur ultrices et torquent magna, etiam justo morbi dui feugiat tortor nisi lorem sodales turpis augue, metus per diam faucibus nullam commodo quis tellus convallis mauris eget risus nostra euismod tempor.
-                                </div>
-                                <div class="add-info">
-                                    <div class="prices">
-                                        <span class="price old-price">$115.00</span>
-                                        <span class="price actual-price">$88.00</span>
-                                    </div>
-                                    <div class="buttons">
-                                        <div class="ajax-cart-button-wrapper" data-productid="122" data-isproductpage="false">
-                                            <div class="add-to-cart-qty-wrapper">
-                                                <input data-quantityproductid="122" type="text" class="productQuantityTextBox" value="1">
-                                                <span class="plus">i</span>
-                                                <span class="minus">h</span>
                                             </div>
-                                            <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button nopAjaxCartProductListAddToCartButton" data-productid="122">
+                                        </a>
+                                    </div>
+                                    <div class="details">
+                                        <h2 class="product-title">
+                                            <a href="/product/@item.Product.Name.Replace(" ","-").ToLower()">@item.Product.Name</a>
+                                        </h2>
+                                        <div class="product-rating-box" title="1 review(s)">
+                                            <div class="rating">
+                                                <div style="width: 100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            @item.Product.ShortDescription
+                                        </div>
+                                        <div class="add-info">
+                                            <div class="prices">
+                                                <span class="price old-price">@item.Product.OldPrice</span>
+                                                <span class="price actual-price">@item.Product.Price</span>
+                                            </div>
+                                            <div class="buttons">
+                                                <div class="ajax-cart-button-wrapper" data-productid="@item.Product.Id" data-isproductpage="false">
+                                                    <div class="add-to-cart-qty-wrapper">
+                                                        <input data-quantityproductid="@item.Product.Id" type="text" class="productQuantityTextBox" value="1">
+                                                        <span class="plus">i</span>
+                                                        <span class="minus">h</span>
+                                                    </div>
+                                                    <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button nopAjaxCartProductListAddToCartButton" data-productid="@item.Product.Id">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="center-2">
+        <div class="page recently-viewed-products-page">
+            <div class="page-title">
+                <h1>Recently viewed</h1>
+            </div>
+            <div class="page-body">
+            </div>
+        </div>
+    </div>
+}

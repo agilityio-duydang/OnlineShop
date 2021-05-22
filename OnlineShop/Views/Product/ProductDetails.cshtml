@@ -105,7 +105,7 @@
                                         </div>
                                     </div>
                                     <div class="product-review-links">
-                                        <a href="/productreviews/4">
+                                        <a href="/productreviews/@Model.Id">
                                             1
                                             review(s)
                                         </a> <span class="separator">|</span> <a href="/productreviews/@Model.Id">Add your review</a>
@@ -178,7 +178,7 @@
                                     <div class="availability">
                                         <div class="stock">
                                             <span class="label">Availability:</span>
-                                            <span class="value" id="stock-availability-value-4">In stock</span>
+                                            <span class="value" id="stock-availability-value-@Model.Id.ToString()">In stock</span>
                                         </div>
                                     </div>
                                     <!--price & add to cart-->
@@ -193,19 +193,19 @@
                                     <div class="min-qty-notification">This product has a minimum quantity of 2</div>
                                     <div class="add-to-cart">
                                         <div class="add-to-cart-panel">
-                                            <label class="qty-label" for="addtocart_@Model.Price.ToString()_EnteredQuantity">Qty:</label>
+                                            <label class="qty-label" for="addtocart_@Model.Id.ToString()_EnteredQuantity">Qty:</label>
                                             <div class="add-to-cart-qty-wrapper">
-                                                <input class="qty-input" type="text" data-val="true" data-val-required="The Qty field is required." id="addtocart_4_EnteredQuantity" name="addtocart_4.EnteredQuantity" value="2" />
+                                                <input class="qty-input" type="text" data-val="true" data-val-required="The Qty field is required." id="addtocart_@Model.Id.ToString()_EnteredQuantity" name="addtocart_@Model.Id.ToString()EnteredQuantity" value="2" />
                                                 <span class="plus">&#x69;</span>
                                                 <span class="minus">&#x68;</span>
                                             </div>
-                                            <input type="button" id="add-to-cart-button-@Model.Price.ToString()" class="button-1 add-to-cart-button" value="Add to cart" data-productid="@Model.Id" onclick="AjaxCart.addproducttocart_details('/addproducttocart/details/4/1', '#product-details-form');return false;" />
+                                            <input type="button" id="add-to-cart-button-@Model.Id.ToString()" class="button-1 add-to-cart-button" value="Add to cart" data-productid="@Model.Id" onclick="AjaxShoppingCart.addproductocart('@Model.Id','1',true)" />
                                         </div>
                                     </div>
                                     <!--sample download-->
                                     <!--add to wishlist-->
                                     <div class="add-to-wishlist">
-                                        <button type="button" id="add-to-wishlist-button-4" class="button-2 add-to-wishlist-button" value="Add to wishlist" data-productid="@Model.Id" onclick="AjaxCart.addproducttocart_details('/addproducttocart/details/4/2', '#product-details-form');return false;"><span>Add to wishlist</span></button>
+                                        <button type="button" id="add-to-wishlist-button-@Model.Id.ToString()" class="button-2 add-to-wishlist-button" value="Add to wishlist" data-productid="@Model.Id" onclick="AjaxShoppingCart.addproductowishlist('@Model.Id','2','1')"><span>Add to wishlist</span></button>
                                     </div>
                                 </div>
                                 <!--delivery-->
@@ -215,7 +215,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="quickTabs" class="productTabs " data-ajaxEnabled="false" data-productReviewsAddNewUrl="/ProductTab/ProductReviewsTabAddNew/4" data-productContactUsUrl="/ProductTab/ProductContactUsTabAddNew/4" data-couldNotLoadTabErrorMessage="Couldn&#x27;t load this tab.">
+                    <div id="quickTabs" class="productTabs " data-ajaxEnabled="false" data-productReviewsAddNewUrl="/ProductTab/ProductReviewsTabAddNew/@Model.Id.ToString()" data-productContactUsUrl="/ProductTab/ProductContactUsTabAddNew/@Model.Id.ToString()" data-couldNotLoadTabErrorMessage="Couldn&#x27;t load this tab.">
                         <div class="productTabs-header">
                             <ul>
                                 <li>
@@ -283,7 +283,7 @@
                                 <div id="updateTargetId" class="product-reviews-page">
                                     <div class="write-review" id="review-form">
                                         <div class="product-review-links">
-                                            1
+                                            @Model.ProductReviews.Count().ToString()
                                             review(s)
                                         </div>
                                         <span itemprop="ratingValue" style="display: none;">4.0</span>
@@ -323,15 +323,15 @@
                                                     <ul>
                                                         <li class="label first">Bad</li>
                                                         <li class="rating-options">
-                                                            <input value="1" value="1" type="radio" type="radio" id="addproductrating_1" data-val="true" data-val-required="The Rating field is required." name="AddProductReview.Rating" />
+                                                            <input value="1" type="radio" id="addproductrating_1" data-val="true" data-val-required="The Rating field is required." name="AddProductReview.Rating" />
                                                             <label for="addproductrating_1">1</label>
-                                                            <input value="2" value="2" type="radio" type="radio" id="addproductrating_2" name="AddProductReview.Rating" />
+                                                            <input value="2" type="radio" id="addproductrating_2" name="AddProductReview.Rating" />
                                                             <label for="addproductrating_2">2</label>
-                                                            <input value="3" value="3" type="radio" type="radio" id="addproductrating_3" name="AddProductReview.Rating" />
+                                                            <input value="3" type="radio" id="addproductrating_3" name="AddProductReview.Rating" />
                                                             <label for="addproductrating_3">3</label>
-                                                            <input value="4" value="4" type="radio" type="radio" id="addproductrating_4" name="AddProductReview.Rating" />
+                                                            <input value="4" type="radio" id="addproductrating_4" name="AddProductReview.Rating" />
                                                             <label for="addproductrating_4">4</label>
-                                                            <input value="5" value="5" type="radio" type="radio" id="addproductrating_5" checked="checked" name="AddProductReview.Rating" />
+                                                            <input value="5" type="radio" id="addproductrating_5" checked="checked" name="AddProductReview.Rating" />
                                                             <label for="addproductrating_5">5</label>
                                                         </li>
                                                         <li class="label last">Excellent</li>
@@ -344,46 +344,49 @@
                                         </div>
                                     </div>
                                     <div class="product-review-list">
-                                        <div class="product-review-item">
-                                            <div class="review-info">
-                                                <div class="product-review-box">
-                                                    <div class="rating">
-                                                        <div style="width: 80%">
+                                        @foreach (var item in Model.ProductReviews)
+                                        {
+                                            <div class="product-review-item">
+                                                <div class="review-info">
+                                                    <div class="product-review-box">
+                                                        <div class="rating">
+                                                            <div style="width: 80%">
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <span class="user">
+                                                        <label>From:</label>
+                                                        @item.Customer.FirstName
+                                                    </span>
+                                                    <span class="separator">|</span>
+                                                    <span class="date">
+                                                        <label>Date:</label>
+                                                        <span>@item.CreatedOnUtc</span>
+                                                    </span>
                                                 </div>
-                                                <span class="user">
-                                                    <label>From:</label>
-                                                    John
-                                                </span>
-                                                <span class="separator">|</span>
-                                                <span class="date">
-                                                    <label>Date:</label>
-                                                    <span>08/20/20 10:49 PM</span>
-                                                </span>
-                                            </div>
-                                            <div class="review-body">
-                                                <div class="review-item-head">
-                                                    <div class="review-title">
-                                                        <strong>Some sample review</strong>
+                                                <div class="review-body">
+                                                    <div class="review-item-head">
+                                                        <div class="review-title">
+                                                            <strong>@item.Title</strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="review-text">
+                                                        @item.ReviewText
                                                     </div>
                                                 </div>
-                                                <div class="review-text">
-                                                    This sample review is for the Apple MacBook Pro 13-inch. I&#39;ve been waiting for this product to be available. It is priced just right.
+                                                <div class="product-review-helpfulness" data-productReviewId="3" data-productReviewVoteUrl="/setproductreviewhelpfulness">
+                                                    <span class="question">Was this review helpful?</span>
+                                                    <span>
+                                                        <span id="vote-yes-3" class="vote vote-yes">Yes</span>
+                                                        <span id="vote-no-3" class="vote vote-no">No</span>
+                                                    </span>
+                                                    <span>
+                                                        (<span id="helpfulness-vote-yes-3">0</span>/<span id="helpfulness-vote-no-3">0</span>)
+                                                    </span>
+                                                    <span id="helpfulness-vote-result-3" class="result"></span>
                                                 </div>
                                             </div>
-                                            <div class="product-review-helpfulness" data-productReviewId="3" data-productReviewVoteUrl="/setproductreviewhelpfulness">
-                                                <span class="question">Was this review helpful?</span>
-                                                <span>
-                                                    <span id="vote-yes-3" class="vote vote-yes">Yes</span>
-                                                    <span id="vote-no-3" class="vote vote-no">No</span>
-                                                </span>
-                                                <span>
-                                                    (<span id="helpfulness-vote-yes-3">0</span>/<span id="helpfulness-vote-no-3">0</span>)
-                                                </span>
-                                                <span id="helpfulness-vote-result-3" class="result"></span>
-                                            </div>
-                                        </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -503,26 +506,26 @@
                                             <div class="picture">
                                                 @if (pictures.Count > 0)
                                                 {
-                                                    var url = new Models.Dao.PictureDao().GetPictureUrl(pictures.SingleOrDefault().Id, 264, true, null, Models.Dao.PictureType.Entity);
+                                                    var url = new Models.Dao.PictureDao().GetPictureUrl(pictures.SingleOrDefault().Id, 360, true, null, Models.Dao.PictureType.Entity);
                                                     <a href="/product/@item.Name.ToLower().Replace(" ","-")" title="@item.MetaTitle">
                                                         <img class="picture-img" src="@url" alt="@pictures.SingleOrDefault().AltAttribute" title="@pictures.SingleOrDefault().TitleAttribute" />
                                                     </a>
                                                 }
                                                 else
                                                 {
-                                                    var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(264, Models.Dao.PictureType.Entity, null);
+                                                    var url = new Models.Dao.PictureDao().GetDefaultPictureUrl(360, Models.Dao.PictureType.Entity, null);
                                                     <a href="/product/@item.Name.ToLower().Replace(" ","-")" title="@item.MetaTitle">
                                                         <img class="picture-img" src="@url">
                                                     </a>
                                                 }
                                                 <div class="btn-wrapper">
-                                                    <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxCart.addproducttocomparelist('/compareproducts/add/9');return false;">Add to compare list</button>
-                                                    <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/9/2/1');return false;">Add to wishlist</button>
+                                                    <button type="button" title="Add to compare list" class="button-2 add-to-compare-list-button" onclick="AjaxShoppingCart.addproductocompare('@item.Id')">Add to compare list</button>
+                                                    <button type="button" title="Add to wishlist" class="button-2 add-to-wishlist-button" onclick="AjaxShoppingCart.addproductowishlist('@item.Id','2','1')">Add to wishlist</button>
                                                 </div>
                                             </div>
                                             <div class="details">
                                                 <h2 class="product-title">
-                                                    <a href="/lenovo-thinkpad-x1-carbon-laptop">@item.MetaTitle</a>
+                                                    <a href="/product/@item.Name.ToLower().Replace(" ","-")">@item.MetaTitle</a>
                                                 </h2>
                                                 <div class="product-rating-box" title="1 review(s)">
                                                     <div class="rating">
@@ -531,14 +534,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="description">
-                                                    @item.FullDescription
+                                                    @item.ShortDescription
                                                 </div>
                                                 <div class="add-info">
                                                     <div class="prices">
                                                         <span class="price actual-price">@item.Price</span>
                                                     </div>
                                                     <div class="buttons">
-                                                        <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('/addproducttocart/catalog/9/1/1');return false;" />
+                                                        <input type="button" value="Add to cart" class="button-2 product-box-add-to-cart-button" onclick="AjaxShoppingCart.addproductocart('@item.Id','1',true)" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -552,7 +555,6 @@
                     <div class="carousel-wrapper">
                     </div>
                 </div>
-                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8NoSlLGdev9JqDSOPy0RVgtoxIfvTKlWyO4_3Fij3p6e8M5OZsWI1HuaIoAPqDEp-BLjF3Yet890GseqaDUPfcyeujGiOuV2D5rYWJ_OfO2lurt76uXJo3Ok_vIJdlntqzpRrn-3imhiRc5oUlb5Va4" />
             </form>
         </div>
     </div>

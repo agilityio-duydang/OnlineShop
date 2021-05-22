@@ -1,4 +1,5 @@
 ﻿using Models.Dao;
+using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,33 @@ namespace OnlineShop.Controllers
             productName = productName.Replace("-", " ");
             var model = new ProductDao().GetProductByName(productName);            
             ViewBag.ProductsRelated = new ProductDao().GetProductsRelated(model.Id);
+
+            var recentlyVievedProducts = Session[OnlineShop.Common.CommonConstants.RecentlyVievedSession];
+            var listrecentlyVievedProduct = new List<RecentlyViewedProducts>();
+            if (recentlyVievedProducts != null)
+            {
+                listrecentlyVievedProduct = (List<RecentlyViewedProducts>)recentlyVievedProducts;
+                if (!listrecentlyVievedProduct.Exists(x=>x.Product.Id == model.Id))
+                {
+                    var recentlyViewedProducts = new RecentlyViewedProducts();
+                    recentlyViewedProducts.Product = model;
+
+                    listrecentlyVievedProduct.Add(recentlyViewedProducts);
+                }
+                Session[OnlineShop.Common.CommonConstants.RecentlyVievedSession] = listrecentlyVievedProduct;
+            }
             return View(model);
         }
 
         public ActionResult RecentlyViewedProducts()
         {
-            return View();
+            var recentlyVievedProducts = Session[OnlineShop.Common.CommonConstants.RecentlyVievedSession];
+            var listrecentlyVievedProduct = new List<RecentlyViewedProducts>();
+            if (recentlyVievedProducts != null)
+            {
+                listrecentlyVievedProduct = (List<RecentlyViewedProducts>)recentlyVievedProducts;
+            }
+            return View(listrecentlyVievedProduct);
         }
 
         public ActionResult QuickViewData(int productId)
